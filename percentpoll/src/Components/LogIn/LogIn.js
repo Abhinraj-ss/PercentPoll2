@@ -1,10 +1,10 @@
 import React from 'react'
 
-function CreatePoll() {
+function LogIn() {
   return (
     <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title h4" id="contained-modal-title-vcenter">CREATE POLL
+        <div class="modal-header">
+        <div class="modal-title h4" id="contained-modal-title-vcenter">LOG IN
         </div>
         <button class="btn-close">
         </button>
@@ -27,4 +27,4 @@ function CreatePoll() {
   )
 }
 
-export default CreatePoll
+export default LogIn
