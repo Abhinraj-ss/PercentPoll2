@@ -1,4 +1,5 @@
 import React,{ useState, useEffect} from 'react'
+import CreatePoll from './Components/CreatePoll/CreatePoll'
 
 function App() {
   const[ data, setData] = useState([{}])
@@ -22,6 +23,7 @@ function App() {
           <p key={i}> {member}</p>
         ))
       )}
+      <CreatePoll/>
     </div>
   )
 }
