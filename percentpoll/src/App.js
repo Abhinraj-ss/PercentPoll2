@@ -28,23 +28,24 @@ function App() {
         data.members.map((member, i) => (
           <p key={i}> {member}</p>
         ))
-      )}
+        )}
       <Container >
         <div className="d-grid gap-2 col-6 mx-auto">
           <Button id="create">CreatePoll</Button>
         </div>
          <hr/>
+         <CreatePoll/>
         <Row>
           <Col md>
             <LogIn/>
           </Col>
           <Col md>
-            <Card mt-3>
+            <Card>
               <Register/>
             </Card>
           </Col>
           <Col md>
-            <Card mt-3>
+            <Card >
               <LogIn/>
             </Card>
           </Col>
