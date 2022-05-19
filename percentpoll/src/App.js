@@ -1,4 +1,5 @@
 import React,{ useState, useEffect} from 'react'
+import ResponsiveAppBar from './Components/AppBar/AppBar'
 import CreatePoll from './Components/CreatePoll/CreatePoll'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   )
   return (
     <div>
+      <ResponsiveAppBar/>
       {(typeof data.members === 'undefined')?(
         <p> Loading....</p>
       ): (
