@@ -1,10 +1,18 @@
 import React,{ useState, useEffect} from 'react'
 import ResponsiveAppBar from './Components/AppBar/AppBar'
-import CreatePoll from './Components/CreatePoll/CreatePoll'
 import { Button, Row, Col, Container,Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+
 import LogIn from './Components/LogIn/LogIn';
+import CreatePoll from './Components/CreatePoll/CreatePoll'
 import Register from './Components/Register/Register';
+import Upcoming from './Components/Upcoming/Upcoming';
+import Live from './Components/Live/Live';
+import Closed from './Components/Closed/Closed';
+import Carousal from './Components/Carousal/Carousal';
+import './App.css';
+
 
 function App() {
   const[ data, setData] = useState([{}])
@@ -22,6 +30,7 @@ function App() {
   return (
     <div>
       <ResponsiveAppBar/>
+      <Carousal/>
       {(typeof data.members === 'undefined')?(
         <p> Loading....</p>
       ): (
@@ -34,19 +43,24 @@ function App() {
           <Button id="create">CreatePoll</Button>
         </div>
          <hr/>
-         <CreatePoll/>
+         {/*<CreatePoll/>*/}
         <Row>
           <Col md>
-            <LogIn/>
-          </Col>
-          <Col md>
+          <h2>Upcoming Polls</h2>
             <Card>
-              <Register/>
+              <Upcoming/>
             </Card>
           </Col>
           <Col md>
+          <h2>Live Polls</h2>
+            <Card>
+              <Live/>
+            </Card>
+          </Col>
+          <Col md>
+          <h2>Closed Polls</h2>
             <Card >
-              <LogIn/>
+              <Closed/>
             </Card>
           </Col>
         </Row>
