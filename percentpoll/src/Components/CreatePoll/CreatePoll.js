@@ -34,7 +34,8 @@ function CreatePoll() {
   }
 
   return (
-    <div class="modal-dialog modal-fullscreen">
+    <div class="modal-dialog modal-fullscreen-sm-down">
+      <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title h4" id="contained-modal-title-vcenter">CREATE POLL
         </div>
@@ -50,7 +51,7 @@ function CreatePoll() {
           {pollOptionList.map((singlePollOption,index) => (
             <div key={index} className = "pollOptions">
               <div class="mb-3 form-group">
-                <label class="form-label">Poll Option</label>
+                <label className="form-label">Poll Option</label>
                 <input required="" placeholder="Poll Option" name = "pollOption" type="text" class="form-control" value={singlePollOption.pollOption} onChange={(e) =>{handlePollOptionChange(e,index)}} />
               </div>
               <Row>
@@ -83,6 +84,7 @@ function CreatePoll() {
       </div>
       <div className="d-grid gap-2 col-6 mx-auto">
         <button type="button" class="btn btn-primary">Create</button>
+      </div>
       </div>
     </div>
   )

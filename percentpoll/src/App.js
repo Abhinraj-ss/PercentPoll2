@@ -18,7 +18,8 @@ import ViewPoll from './Components/Upcoming/ViewPoll/ViewPoll';
 
 
 function App() {
-  const[ data, setData] = useState([{}])
+  const [isOpen, setIsOpen] = useState(false);
+  /*const[ data, setData] = useState([{}])
   useEffect (() => {
       fetch("/members").then(
         res => res.json()
@@ -29,21 +30,27 @@ function App() {
         }
       )
     },[]
-  )
+  )*/
+
+  const handleClick = () =>{
+    console.log("button clicked");
+  }
+
   return (
     <div>
       <ResponsiveAppBar/>
       <Carousal/>
-      {(typeof data.members === 'undefined')?(
+
+      {/*{(typeof data.members === 'undefined')?(
         <p> Loading....</p>
       ): (
         data.members.map((member, i) => (
           <p key={i}> {member}</p>
         ))
-        )}
+        )}*/}
       <Container fluid >
         <div className="d-grid gap-2 col-4 mx-auto">
-          <Button id="create">Create A Poll</Button>
+          <Button id="create" name='create' onClick={()=>{setIsOpen(true)}}>Create A Poll</Button>
         </div>
          <hr/>
         <Row >
@@ -66,6 +73,9 @@ function App() {
             <Closed/>
           </div>
         </Row>
+        <Register/>
+        <LogIn/>
+      <CreatePoll/>
       </Container>
     </div>
   )

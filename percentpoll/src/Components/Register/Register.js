@@ -3,6 +3,8 @@ import React from 'react'
 function Register() {
   return (
     <div class="modal-dialog modal-dialog-centered">
+        <div className='modal-content'>
+
         <div class="modal-header">
         <div class="modal-title h4" id="contained-modal-title-vcenter">REGISTER
         </div>
@@ -26,6 +28,7 @@ function Register() {
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Register</button>
       </div>
+    </div>
     </div>
   )
 }
