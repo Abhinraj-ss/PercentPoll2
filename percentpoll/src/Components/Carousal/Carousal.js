@@ -10,7 +10,7 @@ function Carousal() {
         </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="..." class="d-block w-100" alt="..."/>
+            <img src="404.png" class="d-block w-100" alt='404'/>
             <div class="carousel-caption d-none d-md-block">
             <h5>First slide label</h5>
             <p>Some representative placeholder content for the first slide.</p>

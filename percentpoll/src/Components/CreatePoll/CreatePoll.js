@@ -34,7 +34,7 @@ function CreatePoll() {
   }
 
   return (
-    <div class="modal-content">
+    <div class="modal-dialog modal-fullscreen">
       <div class="modal-header">
         <div class="modal-title h4" id="contained-modal-title-vcenter">CREATE POLL
         </div>

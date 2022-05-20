@@ -2,7 +2,7 @@ import React from 'react'
 
 function LogIn() {
   return (
-    <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-header">
         <div class="modal-title h4" id="contained-modal-title-vcenter">LOG IN
         </div>

@@ -11,7 +11,10 @@ import Upcoming from './Components/Upcoming/Upcoming';
 import Live from './Components/Live/Live';
 import Closed from './Components/Closed/Closed';
 import Carousal from './Components/Carousal/Carousal';
+import LiveReport from './Components/Live/LiveReport/LiveReport';
+import ClosedReport from './Components/Closed/ClosedReport/ClosedReport';
 import './App.css';
+import ViewPoll from './Components/Upcoming/ViewPoll/ViewPoll';
 
 
 function App() {
@@ -38,34 +41,32 @@ function App() {
           <p key={i}> {member}</p>
         ))
         )}
-      <Container >
-        <div className="d-grid gap-2 col-6 mx-auto">
-          <Button id="create">CreatePoll</Button>
+      <Container fluid >
+        <div className="d-grid gap-2 col-4 mx-auto">
+          <Button id="create">Create A Poll</Button>
         </div>
          <hr/>
-         {/*<CreatePoll/>*/}
-        <Row>
-          <Col md>
-          <h2>Upcoming Polls</h2>
-            <Card>
-              <Upcoming/>
-            </Card>
-          </Col>
-          <Col md>
-          <h2>Live Polls</h2>
-            <Card>
-              <Live/>
-            </Card>
-          </Col>
-          <Col md>
-          <h2>Closed Polls</h2>
-            <Card >
-              <Closed/>
-            </Card>
-          </Col>
+        <Row >
+          <div class="col-md-3 text-center">
+            <h2>Upcoming Polls</h2>
+            <Upcoming/>
+          </div>
+
+          {/*<div class="vr"></div>*/}
+
+          <div class="col-md-6 text-center">
+            <h2>Live Polls</h2>
+            <Live/>
+          </div>
+
+          {/*<div class="vr"></div>*/}
+
+          <div class="col-md-3 text-center">
+            <h2>Closed Polls</h2>
+            <Closed/>
+          </div>
         </Row>
       </Container>
-      
     </div>
   )
 }
