@@ -1,13 +1,19 @@
 import {React, useState} from 'react'
-import DateTimePicker from 'react-datetime-picker'
-import { Row, Col} from 'react-bootstrap';
+import { Modal,Button,Row, Col, FormControl} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import './CreatePoll.css'
 
 function CreatePoll({closeCreatePoll}) {
   const [opening, setOpening] = useState(new Date());
   const [closing, setClosing] = useState(new Date());
   const [pollOptionList, setPollOptionList] = useState([{pollOption:""},{pollOption:""}]);
   const [title, setTitle] = useState("")
+
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   console.log(pollOptionList);
 
@@ -34,15 +40,21 @@ function CreatePoll({closeCreatePoll}) {
   }
 
   return (
-    <div class="modal-dialog modal-fullscreen-sm-down">
-      <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title h4" id="contained-modal-title-vcenter">CREATE POLL
-        </div>
-        <button class="btn-close" onClick={()=>{closeCreatePoll(false)}}>
-        </button>
-      </div>
-      <div class="modal-body">
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Launch static backdrop modal
+  </Button>
+
+      <Modal
+        show={show}
+        onHide={setShow}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title h4>CREATE POLL</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
         <form class="">
           <div class="mb-4 form-group">
             <label class="form-label">Title Text</label>
@@ -50,44 +62,46 @@ function CreatePoll({closeCreatePoll}) {
           </div>
           {pollOptionList.map((singlePollOption,index) => (
             <div key={index} className = "pollOptions">
-              <div class="mb-4 form-group">
+              <div className="mb-4 row form-group">
+               
                 <label className="form-label">Poll Option</label>
-                <input required="" placeholder="Poll Option" name = "pollOption" type="text" class="form-control" value={singlePollOption.pollOption} onChange={(e) =>{handlePollOptionChange(e,index)}} />
+                  <div className="col-md-9">
+                  <input required="" placeholder="Poll Option" name = "pollOption" type="text" class="form-control" value={singlePollOption.pollOption} onChange={(e) =>{handlePollOptionChange(e,index)}} />
+
+                  </div>
+                <Col col-auto>
+                    {pollOptionList.length  >= 2 && (
+                      <button type="button" class="btn btn-primary btn-danger" onClick={()=>{handleClickRemove(index)}}>Remove</button>
+                    
+                  )}
+                </Col>
               </div>
-              <Row mb-8>
                 <Col>
                   {pollOptionList.length - 1 === index && (
-                    <div className='.col-auto .me-auto'>
+                    <div className='.col-auto mb-4  .me-auto'>
                       <button type="button" class="btn btn-primary" onClick={handleClickAdd}>Add Poll Option</button>
                     </div>
                   )}
                 </Col>
-                <Col>
-                  {pollOptionList.length  >= 2 && (
-                    <div className='.col-auto'>
-                      <button type="button" class="btn btn-primary" onClick={()=>{handleClickRemove(index)}}>Remove Poll Option</button>
-                    </div>
-                  )}
-                </Col>
-              </Row>
               </div>
           ))}
-          <div className='mt-4 text-center'>
             <div class="mb-4  form-group"><label class="form-label me-3">Opens on </label>
-              <DateTimePicker required="" placeholder="Opening time" type="datetime" class="form-control " onChange={setOpening} value={opening}/>
+            <FormControl  required="" type ='date'className="date" placeholder="Opening time" />
+            <FormControl type='time'/>
             </div>
             <div class="mb-4 form-group"><label class="form-label me-3">Closes on  </label>
-              <DateTimePicker required="" placeholder="Closing time" type="datetime" class="form-control" onChange={setClosing} value={closing}/>
+            <FormControl  required="" type ='date'className="date" placeholder="Closing time" />
+            <FormControl type='time'/>            
             </div>
-          </div>
         </form>
-      </div>
-      <div className="d-grid gap-2 col-6 mx-auto mb-4">
-        <button type="button" class="btn btn-primary" onClick={()=>{closeCreatePoll(false)}}>Create</button>
-      </div>
-      </div>
-    </div>
-  )
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="d-grid gap-2 col-10 mx-auto mb-4">
+            <button type="button" class="btn btn-primary btn-lg" onClick={()=>{closeCreatePoll(false)}}>Create</button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+    </>)
 }
 
 export default CreatePoll

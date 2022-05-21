@@ -1,4 +1,4 @@
-.btn.btn-primary {
+/*.btn.btn-primary {
     color: #fff !important;
     background-color: #9c27b0 !important;
     border-color: #9c27b0;
@@ -8,4 +8,14 @@
 
 .btn.btn-primary:hover {
     box-shadow: 0 14px 100px -12px rgba(156, 39, 176, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(156, 39, 176, 0.2);
+}*/
+
+.modalBackground{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(200, 200, 200);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

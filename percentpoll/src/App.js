@@ -41,7 +41,13 @@ function App() {
   return (
     <div>
       <ResponsiveAppBar/>
-      <Carousal/>
+      {isOpen&&
+        <CreatePoll closeCreatePoll={setIsOpen}/>}
+      {isOpenLogin&&
+      <LogIn closeLogin={setIsOpenLogin}/>}
+      {isOpenRegister&&
+      <Register closeRegister={setIsOpenRegister}/>}
+      {/*<Carousal/>*/}
 
       {/*{(typeof data.members === 'undefined')?(
         <p> Loading....</p>
@@ -86,18 +92,13 @@ function App() {
         Open Login
         </button>
         
-
         {/*<Register/>
         <LogIn/>
       <CreatePoll/>*/}
       </Container>
-      {isOpen&&
-        <CreatePoll closeCreatePoll={setIsOpen}/>}
-      {isOpenLogin&&
-      <LogIn closeLogin={setIsOpenLogin}/>}
-      {isOpenRegister&&
-      <Register closeRegister={setIsOpenRegister}/>}
+      
     </div>
+
   )
 }
 
