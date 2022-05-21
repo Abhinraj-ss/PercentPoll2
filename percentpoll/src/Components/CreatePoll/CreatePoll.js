@@ -1,9 +1,9 @@
 import {React, useState} from 'react'
 import DateTimePicker from 'react-datetime-picker'
-import { Button, Row, Col, Container,Card } from 'react-bootstrap';
+import { Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function CreatePoll() {
+function CreatePoll({closeCreatePoll}) {
   const [opening, setOpening] = useState(new Date());
   const [closing, setClosing] = useState(new Date());
   const [pollOptionList, setPollOptionList] = useState([{pollOption:""},{pollOption:""}]);
@@ -39,25 +39,25 @@ function CreatePoll() {
       <div class="modal-header">
         <div class="modal-title h4" id="contained-modal-title-vcenter">CREATE POLL
         </div>
-        <button class="btn-close">
+        <button class="btn-close" onClick={()=>{closeCreatePoll(false)}}>
         </button>
       </div>
       <div class="modal-body">
         <form class="">
-          <div class="mb-3 form-group">
+          <div class="mb-4 form-group">
             <label class="form-label">Title Text</label>
             <input required="" placeholder="Enter title text" type="text" class="form-control" value={title} onChange={(e)=>{handleTitleChange(e)}}/>
           </div>
           {pollOptionList.map((singlePollOption,index) => (
             <div key={index} className = "pollOptions">
-              <div class="mb-3 form-group">
+              <div class="mb-4 form-group">
                 <label className="form-label">Poll Option</label>
                 <input required="" placeholder="Poll Option" name = "pollOption" type="text" class="form-control" value={singlePollOption.pollOption} onChange={(e) =>{handlePollOptionChange(e,index)}} />
               </div>
-              <Row>
+              <Row mb-8>
                 <Col>
                   {pollOptionList.length - 1 === index && (
-                    <div className='.col-auto .me-auto '>
+                    <div className='.col-auto .me-auto'>
                       <button type="button" class="btn btn-primary" onClick={handleClickAdd}>Add Poll Option</button>
                     </div>
                   )}
@@ -72,18 +72,18 @@ function CreatePoll() {
               </Row>
               </div>
           ))}
-          <div className='mb-6'>
-            <div class="mb-3 form-group"><label class="form-label">Opens on  </label>
-              <DateTimePicker required="" placeholder="Opening time" type="datetime" class="form-control" onChange={setOpening} value={opening}/>
+          <div className='mt-4 text-center'>
+            <div class="mb-4  form-group"><label class="form-label me-3">Opens on </label>
+              <DateTimePicker required="" placeholder="Opening time" type="datetime" class="form-control " onChange={setOpening} value={opening}/>
             </div>
-            <div class="mb-3 form-group"><label class="form-label">Closes on  </label>
+            <div class="mb-4 form-group"><label class="form-label me-3">Closes on  </label>
               <DateTimePicker required="" placeholder="Closing time" type="datetime" class="form-control" onChange={setClosing} value={closing}/>
             </div>
           </div>
         </form>
       </div>
-      <div className="d-grid gap-2 col-6 mx-auto">
-        <button type="button" class="btn btn-primary">Create</button>
+      <div className="d-grid gap-2 col-6 mx-auto mb-4">
+        <button type="button" class="btn btn-primary" onClick={()=>{closeCreatePoll(false)}}>Create</button>
       </div>
       </div>
     </div>

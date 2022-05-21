@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Register() {
+function Register({closeRegister}) {
   return (
     <div class="modal-dialog modal-dialog-centered">
         <div className='modal-content'>
@@ -8,7 +8,7 @@ function Register() {
         <div class="modal-header">
         <div class="modal-title h4" id="contained-modal-title-vcenter">REGISTER
         </div>
-        <button class="btn-close">
+        <button class="btn-close" onClick={()=>closeRegister(false)}>
         </button>
       </div>
       <div class="modal-body">
@@ -26,7 +26,7 @@ function Register() {
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Register</button>
+        <button type="button-submit" class="btn btn-primary" onClick={()=>closeRegister(false)}>Register</button>
       </div>
     </div>
     </div>

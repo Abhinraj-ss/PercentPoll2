@@ -1,13 +1,13 @@
 import React from 'react'
 
-function LogIn() {
+function LogIn({closeLogin}) {
   return (
     <div class="modal-dialog modal-dialog-centered">
       <div className='modal-content'>
         <div class="modal-header">
         <div class="modal-title h4" id="contained-modal-title-vcenter">LOG IN
         </div>
-        <button class="btn-close">
+        <button class="btn-close" onClick={()=>closeLogin(false)}>
         </button>
       </div>
       <div class="modal-body">
@@ -22,7 +22,7 @@ function LogIn() {
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Log In</button>
+        <button type="button-submit" class="btn btn-primary" onClick={()=>closeLogin(false)}>Log In</button>
       </div>
     </div>
     </div>

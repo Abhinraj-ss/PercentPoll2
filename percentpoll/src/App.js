@@ -1,6 +1,6 @@
 import React,{ useState, useEffect} from 'react'
 import ResponsiveAppBar from './Components/AppBar/AppBar'
-import { Button, Row, Col, Container,Card } from 'react-bootstrap';
+import { Button, Row,Col, Container,Card ,Modal, ModalDialog, ModalHeader, ModalBody, ModalFooter} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -19,6 +19,8 @@ import ViewPoll from './Components/Upcoming/ViewPoll/ViewPoll';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenRegister, setIsOpenRegister] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
   /*const[ data, setData] = useState([{}])
   useEffect (() => {
       fetch("/members").then(
@@ -33,7 +35,7 @@ function App() {
   )*/
 
   const handleClick = () =>{
-    console.log("button clicked");
+    setIsOpen(true)
   }
 
   return (
@@ -50,7 +52,7 @@ function App() {
         )}*/}
       <Container fluid >
         <div className="d-grid gap-2 col-4 mx-auto">
-          <Button id="create" name='create' onClick={()=>{setIsOpen(true)}}>Create A Poll</Button>
+          <Button id="create" name='create' onClick={handleClick}>Create A Poll</Button>
         </div>
          <hr/>
         <Row >
@@ -73,10 +75,28 @@ function App() {
             <Closed/>
           </div>
         </Row>
-        <Register/>
+
+        <button type="button" class="btn btn-primary" onClick={handleClick}>
+        Open modal
+        </button>
+        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenRegister(true)}>
+        Open register
+        </button>
+        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenLogin(true)}>
+        Open Login
+        </button>
+        
+
+        {/*<Register/>
         <LogIn/>
-      <CreatePoll/>
+      <CreatePoll/>*/}
       </Container>
+      {isOpen&&
+        <CreatePoll closeCreatePoll={setIsOpen}/>}
+      {isOpenLogin&&
+      <LogIn closeLogin={setIsOpenLogin}/>}
+      {isOpenRegister&&
+      <Register closeRegister={setIsOpenRegister}/>}
     </div>
   )
 }
