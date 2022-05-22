@@ -1,19 +1,19 @@
 import {React, useState} from 'react'
-import { Modal,Button,Row, Col, FormControl} from 'react-bootstrap';
+import { Modal,Button,Row, Col, FormControl, CloseButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './CreatePoll.css'
 
 function CreatePoll({closeCreatePoll}) {
-  const [opening, setOpening] = useState(new Date());
-  const [closing, setClosing] = useState(new Date());
   const [pollOptionList, setPollOptionList] = useState([{pollOption:""},{pollOption:""}]);
   const [title, setTitle] = useState("")
 
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [show, setShow] = useState(true);
+  const handleClose = () => {
+    setShow(false)
+    closeCreatePoll(false)
+  };
 
   console.log(pollOptionList);
 
@@ -41,18 +41,10 @@ function CreatePoll({closeCreatePoll}) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-  </Button>
-
-      <Modal
-        show={show}
-        onHide={setShow}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
+      <Modal show={show} onHide={setShow} backdrop="static" keyboard={false}>
+        <Modal.Header >
           <Modal.Title h4>CREATE POLL</Modal.Title>
+          <CloseButton onClick={handleClose}/>
         </Modal.Header>
         <Modal.Body>
         <form class="">

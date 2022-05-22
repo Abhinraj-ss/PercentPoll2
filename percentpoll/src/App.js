@@ -1,6 +1,6 @@
 import React,{ useState, useEffect} from 'react'
 import ResponsiveAppBar from './Components/AppBar/AppBar'
-import { Button, Row,Col, Container,Card ,Modal, ModalDialog, ModalHeader, ModalBody, ModalFooter} from 'react-bootstrap';
+import { Button, Row,Col, Container,Card , Image} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -36,18 +36,22 @@ function App() {
 
   const handleClick = () =>{
     setIsOpen(true)
+
   }
 
   return (
     <div>
+      <div className="mainContainer">
       <ResponsiveAppBar/>
       {isOpen&&
         <CreatePoll closeCreatePoll={setIsOpen}/>}
       {isOpenLogin&&
-      <LogIn closeLogin={setIsOpenLogin}/>}
+      <LogIn closeLogin={()=>setIsOpenLogin(false)}/>}
       {isOpenRegister&&
-      <Register closeRegister={setIsOpenRegister}/>}
-      {/*<Carousal/>*/}
+      <Register closeRegister={()=>setIsOpenRegister(false)}/>}
+      <div className="carousal mb-4">
+        <Carousal/>
+      </div>
 
       {/*{(typeof data.members === 'undefined')?(
         <p> Loading....</p>
@@ -56,33 +60,31 @@ function App() {
           <p key={i}> {member}</p>
         ))
         )}*/}
-      <Container fluid >
-        <div className="d-grid gap-2 col-4 mx-auto">
+      <Container>
+        <div className="d-grid gap-2 col-6 mx-auto">
           <Button id="create" name='create' onClick={handleClick}>Create A Poll</Button>
         </div>
          <hr/>
         <Row >
-          <div class="col-md-3 text-center">
+          <div class="col-md-4 mb-4 text-center">
             <h2>Upcoming Polls</h2>
             <Upcoming/>
           </div>
 
-          {/*<div class="vr"></div>*/}
 
-          <div class="col-md-6 text-center">
+          <div class="col-md-4 mb-4 text-center">
             <h2>Live Polls</h2>
             <Live/>
           </div>
 
-          {/*<div class="vr"></div>*/}
 
-          <div class="col-md-3 text-center">
+          <div class="col-md-4 mb-4 text-center">
             <h2>Closed Polls</h2>
             <Closed/>
           </div>
         </Row>
 
-        <button type="button" class="btn btn-primary" onClick={handleClick}>
+        {/*<button type="button" class="btn btn-primary" onClick={handleClick}>
         Open modal
         </button>
         <button type="button" class="btn btn-primary" onClick={()=>setIsOpenRegister(true)}>
@@ -92,11 +94,12 @@ function App() {
         Open Login
         </button>
         
-        {/*<Register/>
+        <Register/>
         <LogIn/>
       <CreatePoll/>*/}
       </Container>
       
+    </div>
     </div>
 
   )

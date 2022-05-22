@@ -1,16 +1,23 @@
-import React from 'react'
+import {React, useState} from 'react'
+import { Modal,Button,Row, Col, FormControl, CloseButton} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 function LogIn({closeLogin}) {
+  const [show, setShow] = useState(true);
+  const handleClose = () => {
+    setShow(false)
+    closeLogin(false)
+  };
   return (
-    <div class="modal-dialog modal-dialog-centered">
-      <div className='modal-content'>
-        <div class="modal-header">
-        <div class="modal-title h4" id="contained-modal-title-vcenter">LOG IN
-        </div>
-        <button class="btn-close" onClick={()=>closeLogin(false)}>
-        </button>
-      </div>
-      <div class="modal-body">
+
+    <>
+      <Modal show={show} onHide={setShow} backdrop="static" keyboard={false}>
+        <Modal.Header >
+          <Modal.Title h4>LOG IN</Modal.Title>
+          <CloseButton onClick={handleClose}/>
+        </Modal.Header>
+        <Modal.Body>
         <form class="">
           <div class="mb-3 form-group">
             <label class="form-label">Email address</label>
@@ -20,13 +27,14 @@ function LogIn({closeLogin}) {
             <input required="" placeholder="Password" type="password" class="form-control" value=""/>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button-submit" class="btn btn-primary" onClick={()=>closeLogin(false)}>Log In</button>
-      </div>
-    </div>
-    </div>
-  )
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="d-grid gap-2 col-10 mx-auto mb-4">
+            <button type="button" class="btn btn-primary btn-lg" onClick={()=>{closeLogin(false)}}>Create</button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+    </>)
 }
 
 export default LogIn
