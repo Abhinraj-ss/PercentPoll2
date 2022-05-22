@@ -21,7 +21,9 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
-  /*const[ data, setData] = useState([{}])
+
+
+  const[ data, setData] = useState([{}])
   useEffect (() => {
       fetch("/members").then(
         res => res.json()
@@ -32,7 +34,8 @@ function App() {
         }
       )
     },[]
-  )*/
+  )
+
 
   const handleClick = () =>{
     setIsOpen(true)
@@ -53,13 +56,15 @@ function App() {
         <Carousal/>
       </div>
 
-      {/*{(typeof data.members === 'undefined')?(
+      
+      {(typeof data.members === 'undefined')?(
         <p> Loading....</p>
       ): (
         data.members.map((member, i) => (
           <p key={i}> {member}</p>
         ))
-        )}*/}
+        )}
+
       <Container>
         <div className="d-grid gap-2 col-6 mx-auto">
           <Button id="create" name='create' onClick={handleClick}>Create A Poll</Button>
