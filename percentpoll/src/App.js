@@ -49,12 +49,13 @@ function App() {
       {isOpen&&
         <CreatePoll closeCreatePoll={setIsOpen}/>}
       {isOpenLogin&&
-      <LogIn closeLogin={()=>setIsOpenLogin(false)}/>}
+      <LogIn closeLogin={()=>setIsOpenLogin(false)} loginData = {(hello)=>console.log(hello)}/>}
       {isOpenRegister&&
       <Register closeRegister={()=>setIsOpenRegister(false)}/>}
-      <div className="carousal mb-4">
+
+      {/*<div className="carousal mb-4">
         <Carousal/>
-      </div>
+      </div>*/}
 
       
       {(typeof data.members === 'undefined')?(
@@ -88,6 +89,12 @@ function App() {
             <Closed/>
           </div>
         </Row>
+        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenRegister(true)}>
+        Open register
+        </button>
+        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenLogin(true)}>
+        Open Login
+        </button>
 
         {/*<button type="button" class="btn btn-primary" onClick={handleClick}>
         Open modal

@@ -4,6 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Register({closeRegister}) {
     const [show, setShow] = useState(true);
+    const[email,setEmail]= useState("");
+    const[password, setPassword] = useState("");
+    const[cPassword, setCPassword] = useState("");
+
+
     const handleClose = () => {
       setShow(false)
       closeRegister(false)
@@ -21,13 +26,13 @@ function Register({closeRegister}) {
         <form class="">
           <div class="mb-3 form-group">
             <label class="form-label">Email address</label>
-            <input required="" placeholder="Enter email" type="email" class="form-control" value=""/>
+            <input required="" placeholder="Enter email" type="email" class="form-control" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
           </div>
           <div class="mb-3 form-group"><label class="form-label">Password</label>
-            <input required="" placeholder="Password" type="password" class="form-control" value=""/>
+            <input required="" placeholder="Password" type="password" class="form-control" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
           </div>
           <div class="mb-3 form-group"><label class="form-label">Confirm Password</label>
-            <input required="" placeholder="Password" type="password" class="form-control" value=""/>
+            <input required="" placeholder="Password" type="password" class="form-control" value={cPassword} onChange={(e)=>{setCPassword(e.target.value)}}/>
           </div>
         </form>
         </Modal.Body>
