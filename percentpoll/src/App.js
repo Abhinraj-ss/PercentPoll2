@@ -51,7 +51,7 @@ function App() {
       {isOpenLogin&&
       <LogIn closeLogin={()=>setIsOpenLogin(false)} loginData = {(hello)=>console.log(hello)}/>}
       {isOpenRegister&&
-      <Register closeRegister={()=>setIsOpenRegister(false)}/>}
+      <Register closeRegister={()=>setIsOpenRegister(false)} registerData={(hi)=>console.log(hi)}/>}
 
       {/*<div className="carousal mb-4">
         <Carousal/>

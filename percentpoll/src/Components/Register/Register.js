@@ -2,12 +2,13 @@ import {React, useState} from 'react'
 import { Modal,Button,Row, Col, FormControl, CloseButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function Register({closeRegister}) {
+function Register({closeRegister, registerData}) {
     const [show, setShow] = useState(true);
     const[email,setEmail]= useState("");
     const[password, setPassword] = useState("");
     const[cPassword, setCPassword] = useState("");
 
+    const data = ({email: email, password: password, cPassword:cPassword })
 
     const handleClose = () => {
       setShow(false)
@@ -38,7 +39,9 @@ function Register({closeRegister}) {
         </Modal.Body>
         <Modal.Footer>
           <div className="d-grid gap-2 col-10 mx-auto mb-4">
-            <button type="button" class="btn btn-primary btn-lg" onClick={()=>{closeRegister(false)}}>Create</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick={()=>{
+              registerData(data) 
+              closeRegister(false)}}>Create</button>
           </div>
         </Modal.Footer>
       </Modal>
