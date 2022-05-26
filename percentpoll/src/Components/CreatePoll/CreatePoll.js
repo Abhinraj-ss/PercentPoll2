@@ -4,9 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './CreatePoll.css'
 
-function CreatePoll({closeCreatePoll}) {
+function CreatePoll({closeCreatePoll , newPollData}) {
   const [pollOptionList, setPollOptionList] = useState([{pollOption:""},{pollOption:""}]);
   const [title, setTitle] = useState("")
+  const [openingDate,setOpeningDate] = useState("")
+  const [closingDate,setClosingDate] = useState("")
+  const [openingTime,setOpeningTime] = useState("")
+  const [closingTime,setClosingTime] = useState("")
 
 
   const [show, setShow] = useState(true);
@@ -39,6 +43,34 @@ function CreatePoll({closeCreatePoll}) {
     setPollOptionList(list);
   }
 
+  const addNewPoll = async()=>{
+    /*newPollData({
+      "Title":title,
+      "pollOptions": pollOptionList,
+      "openingDate": openingDate,
+      "openingTime": openingTime,
+      "closingDate": closingDate,
+      "closingTime": closingTime
+    })*/
+    const pollData = {
+      "Title":title,
+      "pollOptions": pollOptionList,
+      "openingDate": openingDate,
+      "openingTime": openingTime,
+      "closingDate": closingDate,
+      "closingTime": closingTime
+    }
+    const res = await fetch("/newpoll", {
+      method : "POST",
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify(pollData)
+    })
+    if (res.ok){
+      console.log("response worked")
+    }
+    closeCreatePoll(false)}
   return (
     <>
       <Modal show={show} onHide={setShow} backdrop="static" keyboard={false}>
@@ -78,18 +110,18 @@ function CreatePoll({closeCreatePoll}) {
               </div>
           ))}
             <div class="mb-4  form-group"><label class="form-label me-3">Opens on </label>
-            <FormControl  required="" type ='date'className="date" placeholder="Opening time" />
-            <FormControl type='time'/>
+            <FormControl  required="" type ='date'className="date" placeholder="Opening time" onChange={(e)=>setOpeningDate(e.target.value)} />
+            <FormControl type='time'onChange={(e)=>setOpeningTime(e.target.value)}/>
             </div>
             <div class="mb-4 form-group"><label class="form-label me-3">Closes on  </label>
-            <FormControl  required="" type ='date'className="date" placeholder="Closing time" />
-            <FormControl type='time'/>            
+            <FormControl  required="" type ='date'className="date" placeholder="Closing time" onChange={(e)=>setClosingDate(e.target.value)} />
+            <FormControl type='time' onChange={(e)=>setClosingTime(e.target.value)}/>            
             </div>
         </form>
         </Modal.Body>
         <Modal.Footer>
           <div className="d-grid gap-2 col-10 mx-auto mb-4">
-            <button type="button" class="btn btn-primary btn-lg" onClick={()=>{closeCreatePoll(false)}}>Create</button>
+            <button type="submit" class="btn btn-primary btn-lg" onClick={addNewPoll}>Create</button>
           </div>
         </Modal.Footer>
       </Modal>

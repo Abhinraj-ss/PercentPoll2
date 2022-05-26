@@ -39,7 +39,6 @@ function App() {
 
   const handleClick = () =>{
     setIsOpen(true)
-
   }
 
   return (
@@ -47,11 +46,13 @@ function App() {
       <div className="mainContainer">
       <ResponsiveAppBar/>
       {isOpen&&
-        <CreatePoll closeCreatePoll={setIsOpen}/>}
+        <CreatePoll closeCreatePoll={setIsOpen} newPollData={(data)=> console.log(data)}/> }
       {isOpenLogin&&
-      <LogIn closeLogin={()=>setIsOpenLogin(false)} loginData = {(hello)=>console.log(hello)}/>}
+      <LogIn closeLogin={()=>setIsOpenLogin(false)} loginData = {(hello)=>console.log(hello)
+      }/>}
       {isOpenRegister&&
       <Register closeRegister={()=>setIsOpenRegister(false)} registerData={(hi)=>console.log(hi)}/>}
+      
 
       {/*<div className="carousal mb-4">
         <Carousal/>
