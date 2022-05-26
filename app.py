@@ -22,14 +22,16 @@ def server():
 @app.route("/newpoll", methods=["POST"])
 def newPoll():
     pollData = request.get_json()
-    insertQuery = '''INSERT INTO poll_info(title ,poll_id,open_date,openTime ,close_date , close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
-    data = (pollData['Title'],1,pollData['openingDate'],pollData['openingTime'],pollData['closingDate'],pollData['closingTime'])
-    print(pollData)
-    cur.execute(insertQuery,data)
-    #cur.execute('''SELECT * from poll_info;''' )
-    for x in cur:
-        print(x)
-
+    insertQueryPollsInfo = '''INSERT INTO polls_info(user_id,title ,open_date,openTime,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
+    dataPollsInfo = (1,pollData['Title'],pollData['openingDate'],pollData['openingTime'],pollData['closingDate'],pollData['closingTime'])
+    cur.execute(insertQueryPollsInfo,dataPollsInfo)
+    #cur.execute('''SELECT LAST_INSERT_ID();''')
+    poll_id = cur.lastrowid
+    insertQueryPollOptions = '''INSERT INTO poll_options(poll_id, poll_option) VALUES(%s,%s);'''
+    for pollOption in pollData['pollOptions']:
+        dataPollOptions = (poll_id,pollOption['pollOption'])
+        cur.execute(insertQueryPollOptions,dataPollOptions)
+    
     connection.commit()
     return "Done",201
 
