@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import  React,{useState} from 'react'
 import { Modal, CloseButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
