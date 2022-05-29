@@ -28,7 +28,7 @@ function Register({closeRegister, registerData}) {
         <form class="">
         <div class="mb-3 form-group">
             <label class="form-label">Name</label>
-            <input required="" placeholder="Enter name" type="text" class="form-control" value={name} onChange={(e)=>{setName(e.target.value)}}/>
+            <input required="" placeholder="Enter name" type="text" class="form-control" value={name} onChange={(e)=>{setName(e.target.value)}} autoFocus/>
           </div>
           <div class="mb-3 form-group">
             <label class="form-label">Email address</label>

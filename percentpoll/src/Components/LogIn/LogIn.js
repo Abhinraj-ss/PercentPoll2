@@ -28,7 +28,7 @@ function LogIn({closeLogin,loginData}) {
         <form class="">
           <div class="mb-3 form-group">
             <label class="form-label">Email address</label>
-            <input required="" placeholder="Enter email" type="email" class="form-control" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
+            <input required="" placeholder="Enter email" type="email" class="form-control" value={email} onChange={(e)=>{setEmail(e.target.value)}} autoFocus/>
           </div>
           <div class="mb-3 form-group"><label class="form-label">Password</label>
             <input required="" placeholder="Password" type="password" class="form-control" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>

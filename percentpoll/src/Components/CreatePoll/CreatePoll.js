@@ -82,7 +82,7 @@ function CreatePoll({closeCreatePoll , newPollData}) {
         <form class="">
           <div class="mb-4 form-group">
             <label class="form-label">Title Text</label>
-            <input required="" placeholder="Enter title text" type="text" class="form-control" value={title} onChange={(e)=>{handleTitleChange(e)}}/>
+            <input required="" placeholder="Enter title text" type="text" class="form-control " value={title} onChange={(e)=>{handleTitleChange(e)}} autoFocus/>
           </div>
           {pollOptionList.map((singlePollOption,index) => (
             <div key={index} className = "pollOptions">
