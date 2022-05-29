@@ -45,49 +45,50 @@ function App() {
 
       <div className="mainContainer">
 
-      <Container>
-      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+      <Tab.Container id="left-tabs-example" defaultActiveKey="home">
         <Row>
-          <Col sm={2}>
-            <Nav variant="pills" className="flex-column">
+          <Col sm={2} className='left-content'>
+            <Nav variant="pills" className="flex-column gap-2">
               <Nav.Item>
-                <Nav.Link eventKey="first">Home</Nav.Link>
+                <Nav.Link eventKey="home">Home</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="second">Upcoming Polls</Nav.Link>
+                <Nav.Link eventKey="upcoming">Upcoming Polls</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="third">Live Polls</Nav.Link>
+                <Nav.Link eventKey="live">Live Polls</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="fourth">Closed Polls</Nav.Link>
+                <Nav.Link eventKey="closed">Closed Polls</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
-          <div className="vr"/>
-          <Col sm={9}>
+          <Col sm={8} className='right-content'>
             <Tab.Content>
-              <Tab.Pane eventKey="first">
+              <Tab.Pane eventKey="home">
                 <Home />
               </Tab.Pane>
-              <Tab.Pane eventKey="second">
+              <Tab.Pane eventKey="upcoming">
                 <div className="d-grid gap-2 col-10 mx-auto">
                   <Upcoming />
                 </div>
               </Tab.Pane>
-              <Tab.Pane eventKey="third">
+              <Tab.Pane eventKey="live">
+                <Live />
+                <Live />
+                <Live />
+                <Live />
+                <Live />
                 <Live />
               </Tab.Pane>
-              <Tab.Pane eventKey="fourth">
+              <Tab.Pane eventKey="closed">
                 <Closed />
               </Tab.Pane>
-
             </Tab.Content>
           </Col>
         </Row>
       </Tab.Container>
 
-      </Container>
       
       {isOpenLogin&&
       <LogIn closeLogin={()=>setIsOpenLogin(false)} loginData = {(hello)=>console.log(hello)
@@ -96,14 +97,20 @@ function App() {
       <Register closeRegister={()=>setIsOpenRegister(false)} registerData={(hi)=>console.log(hi)}/>}
       
       
-      {(typeof data.members === 'undefined')?(
+      {/*(typeof data.members === 'undefined')?(
         <p> Loading....</p>
       ): (
         data.members.map((member, i) => (
           <p key={i}> {member}</p>
         ))
-        )}
+        )*/}
+     
     </div>
+    {/*<div class="footer">
+      <p>Created by 
+        <a href='https://github.com/Abhinraj-ss'>@Abhinraj-ss</a>
+      </p>
+      </div>*/}
     </div>
 
   )

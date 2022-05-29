@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Closed() {
   return (
-    <Card className="text-end">
+    <Card className="text-end text-white bg-dark">
         <Card.Body>
         <div className="row align-items-center">
             <div className="col-4 "> 

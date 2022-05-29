@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './Live.css'
 
 function Live() {
   return (
-    <Card className="text-center">
+    <Card className="text-center text-white bg-dark" id="card">
         <Card.Body>
           <Card.Title>
             <h5 >Title of the Poll</h5>

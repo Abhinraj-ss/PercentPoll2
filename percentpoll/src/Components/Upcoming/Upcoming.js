@@ -11,7 +11,7 @@ import './Upcoming.css'
 function Upcoming() {
   return (
 
-    <Card className="text-start">
+    <Card className="text-start text-white bg-dark">
         <Card.Body>
           <Card.Title>
             <h5 >Title of the Poll</h5>

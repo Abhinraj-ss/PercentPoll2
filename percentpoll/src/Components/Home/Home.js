@@ -1,8 +1,9 @@
-import React,{ useState, useEffect} from 'react'
-import { Button, Row,Col, Container,Nav ,Sonnet, Tab} from 'react-bootstrap';
+import React,{ useState} from 'react'
+import { Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import CreatePoll from '../CreatePoll/CreatePoll';
+import './Home.css'
 
 function Home() {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,11 +11,15 @@ function Home() {
         setIsOpen(true)
       }
   return (
-    <div className="Home">
+    <div className="Home" >
         {isOpen&&
         <CreatePoll closeCreatePoll={setIsOpen} newPollData={(data)=> console.log(data)}/> }
-        <div className="d-grid gap-2 col-6 mx-auto">
-          <Button id="create" name='create' onClick={handleClick}>Create A Poll</Button>
+        <p className='text-white' id='quote'>
+        Life is 10 percent what you make it, and 90 percent how you take it.
+        </p>
+        
+        <div className=" justify-center">
+          <Button  id="create" name='create' onClick={handleClick} size="lg">Create A Poll</Button>
         </div>
     </div>
   )
