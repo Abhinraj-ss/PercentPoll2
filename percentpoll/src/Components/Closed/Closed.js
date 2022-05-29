@@ -1,9 +1,11 @@
 import React from 'react';
+import { Button, Card} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Closed() {
   return (
-    <div className="card text-end">
-        <div className="card-body">
+    <Card className="text-end">
+        <Card.Body>
         <div className="row align-items-center">
             <div className="col-4 "> 
                 <h1>90%</h1>
@@ -15,14 +17,15 @@ function Closed() {
                 <h5 className="card-title">Title of the Poll</h5>
                 <hr/>
                 <h4 className="card-text">Poll Option which opted more.</h4>
-                <a href="#" className="btn btn-primary">See full report</a>
             </div>
         </div> 
-        </div>
-        <div className="card-footer text-muted">
+            <Button class="btn btn-primary">See full report</Button>
+        </Card.Body>
+        <Card.Footer className="text-muted">
         Closed 2 days ago
-        </div>
-    </div>
+        </Card.Footer>
+    </Card>
+   
   )
 }
 

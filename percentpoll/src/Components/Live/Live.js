@@ -1,12 +1,15 @@
 import React from 'react'
+import { Button, Card} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Live() {
   return (
-    <div className="card text-center">
-        <div className="card-body">
-            <h5 className="card-title">Title of the Poll</h5>
-            <hr/>
-        {/*<div class="progress">
+    <Card className="text-center">
+        <Card.Body>
+          <Card.Title>
+            <h5 >Title of the Poll</h5>
+          </Card.Title>
+          {/*<div class="progress">
             <div class="progress-bar bg-success" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div class="progress">
@@ -18,13 +21,17 @@ function Live() {
             <div class="progress">
             <div class="progress-bar bg-danger" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
             </div>*/}
-            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" className="btn btn-primary">See live report</a>
-        </div>
-        <div className= "card-footer text-muted">
-            Deadline: --/--/-- at --:-- OR a timer can be implimented.
-        </div>
-    </div>
+            <hr/>
+            <Card.Text>
+              <h6>With supporting text below as a natural lead-in to additional content.</h6>
+
+            </Card.Text>
+            <Button class="btn btn-primary">See live report</Button>
+        </Card.Body>
+        <Card.Footer className="text-muted">
+        Deadline: --/--/-- at --:-- OR a timer can be implimented.
+        </Card.Footer>
+    </Card>
     
   )
 }

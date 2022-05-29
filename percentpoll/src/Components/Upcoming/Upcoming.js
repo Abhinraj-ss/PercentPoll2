@@ -1,19 +1,32 @@
 import React from 'react'
+import { Button, Card} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+
+
+
+import './Upcoming.css'
+
 
 function Upcoming() {
   return (
 
-    <div class="card text-start">
-        <div class="card-body">
-            <h5 class="card-title">Title of the Poll</h5>
+    <Card className="text-start">
+        <Card.Body>
+          <Card.Title>
+            <h5 >Title of the Poll</h5>
+          </Card.Title>
             <hr/>
-            <h6 class="card-text">This poll is scheduled to start on --/--/---</h6>
-            <a href="#" class="btn btn-primary">View poll</a>
-        </div>
-        <div class="card-footer text-muted">
-        Deadline: --/--/-- at --:--
-        </div>
-    </div>
+            <Card.Text>
+              <h6>This poll is scheduled to start on --/--/---</h6>
+
+            </Card.Text>
+            <Button class="btn btn-primary">View poll</Button>
+        </Card.Body>
+        <Card.Footer className="text-muted">
+          Deadline: --/--/-- at --:--
+        </Card.Footer>
+    </Card>
     
   )
 }

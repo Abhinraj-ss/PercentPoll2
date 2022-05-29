@@ -1,7 +1,7 @@
 import React,{ useState, useEffect} from 'react'
-import ResponsiveAppBar from './Components/AppBar/AppBar'
-import { Button, Row,Col, Container,Card , Image} from 'react-bootstrap';
+import { Button, Row,Col, Container,Nav ,Sonnet, Tab} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 
 
 import LogIn from './Components/LogIn/LogIn';
@@ -10,15 +10,15 @@ import Register from './Components/Register/Register';
 import Upcoming from './Components/Upcoming/Upcoming';
 import Live from './Components/Live/Live';
 import Closed from './Components/Closed/Closed';
-import Carousal from './Components/Carousal/Carousal';
 import LiveReport from './Components/Live/LiveReport/LiveReport';
 import ClosedReport from './Components/Closed/ClosedReport/ClosedReport';
 import './App.css';
 import ViewPoll from './Components/Upcoming/ViewPoll/ViewPoll';
+import NavBar from './Components/Navbar/Navbar';
+import Home from './Components/Home/Home';
 
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
 
@@ -37,27 +37,64 @@ function App() {
   )
 
 
-  const handleClick = () =>{
-    setIsOpen(true)
-  }
+ 
 
   return (
-    <div>
+    <div className='App'>
+      <NavBar/>
+
       <div className="mainContainer">
-      <ResponsiveAppBar/>
-      {isOpen&&
-        <CreatePoll closeCreatePoll={setIsOpen} newPollData={(data)=> console.log(data)}/> }
+
+      <Container>
+      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+        <Row>
+          <Col sm={2}>
+            <Nav variant="pills" className="flex-column">
+              <Nav.Item>
+                <Nav.Link eventKey="first">Home</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="second">Upcoming Polls</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="third">Live Polls</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="fourth">Closed Polls</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Col>
+          <div className="vr"/>
+          <Col sm={9}>
+            <Tab.Content>
+              <Tab.Pane eventKey="first">
+                <Home />
+              </Tab.Pane>
+              <Tab.Pane eventKey="second">
+                <div className="d-grid gap-2 col-10 mx-auto">
+                  <Upcoming />
+                </div>
+              </Tab.Pane>
+              <Tab.Pane eventKey="third">
+                <Live />
+              </Tab.Pane>
+              <Tab.Pane eventKey="fourth">
+                <Closed />
+              </Tab.Pane>
+
+            </Tab.Content>
+          </Col>
+        </Row>
+      </Tab.Container>
+
+      </Container>
+      
       {isOpenLogin&&
       <LogIn closeLogin={()=>setIsOpenLogin(false)} loginData = {(hello)=>console.log(hello)
       }/>}
       {isOpenRegister&&
       <Register closeRegister={()=>setIsOpenRegister(false)} registerData={(hi)=>console.log(hi)}/>}
       
-
-      {/*<div className="carousal mb-4">
-        <Carousal/>
-      </div>*/}
-
       
       {(typeof data.members === 'undefined')?(
         <p> Loading....</p>
@@ -66,52 +103,6 @@ function App() {
           <p key={i}> {member}</p>
         ))
         )}
-
-      <Container>
-        <div className="d-grid gap-2 col-6 mx-auto">
-          <Button id="create" name='create' onClick={handleClick}>Create A Poll</Button>
-        </div>
-         <hr/>
-        <Row >
-          <div class="col-md-4 mb-4 text-center">
-            <h2>Upcoming Polls</h2>
-            <Upcoming/>
-          </div>
-
-
-          <div class="col-md-4 mb-4 text-center">
-            <h2>Live Polls</h2>
-            <Live/>
-          </div>
-
-
-          <div class="col-md-4 mb-4 text-center">
-            <h2>Closed Polls</h2>
-            <Closed/>
-          </div>
-        </Row>
-        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenRegister(true)}>
-        Open register
-        </button>
-        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenLogin(true)}>
-        Open Login
-        </button>
-
-        {/*<button type="button" class="btn btn-primary" onClick={handleClick}>
-        Open modal
-        </button>
-        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenRegister(true)}>
-        Open register
-        </button>
-        <button type="button" class="btn btn-primary" onClick={()=>setIsOpenLogin(true)}>
-        Open Login
-        </button>
-        
-        <Register/>
-        <LogIn/>
-      <CreatePoll/>*/}
-      </Container>
-      
     </div>
     </div>
 
