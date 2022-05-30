@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
 .App {
-  min-height: 95vh;
+  min-height: 90vh;
   text-align: center;
+  width: 100%;
   margin: 0;
 }
 
@@ -16,12 +23,20 @@
   padding-top:2%;
 }
 
+.mainContainer{
+  margin-top: 3%;
+}
+
 .right-content{
   padding-top:2%;
+  margin-left: 20%;
+  margin-right: 1%;
   
 }
 
 .left-content{
+  margin-left: 2%;
+  position: fixed;
   padding-top: 2%;
 }
 .footer {

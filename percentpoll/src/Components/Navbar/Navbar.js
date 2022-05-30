@@ -7,7 +7,7 @@ import logoutLogo from './logout_wyt.png'
 
 function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" fixed="top" bg="dark" variant="dark" >
     <Container>
     <Navbar.Brand href="/" >
         <img
@@ -37,7 +37,7 @@ function NavBar() {
             src={logoutLogo}
             width="25"
             height="25"
-            className="d-inline-block align-top"
+            
           />
         </Nav.Link>
        

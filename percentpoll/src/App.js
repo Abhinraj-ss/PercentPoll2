@@ -69,9 +69,7 @@ function App() {
                 <Home />
               </Tab.Pane>
               <Tab.Pane eventKey="upcoming">
-                <div className="d-grid gap-2 col-10 mx-auto">
                   <Upcoming />
-                </div>
               </Tab.Pane>
               <Tab.Pane eventKey="live">
                 <Live />
