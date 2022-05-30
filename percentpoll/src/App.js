@@ -104,11 +104,6 @@ function App() {
         )*/}
      
     </div>
-    {/*<div class="footer">
-      <p>Created by 
-        <a href='https://github.com/Abhinraj-ss'>@Abhinraj-ss</a>
-      </p>
-      </div>*/}
     </div>
 
   )

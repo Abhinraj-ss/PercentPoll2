@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   BrowserRouter,
@@ -11,6 +11,8 @@ import Upcoming from './Components/Upcoming/Upcoming';
 import Live from './Components/Live/Live';
 import Closed from './Components/Closed/Closed';
 import reportWebVitals from './reportWebVitals';
+import LogIn from './Components/LogIn/LogIn';
+import Register from './Components/Register/Register';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

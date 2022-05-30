@@ -1,13 +1,54 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Container,Nav,Navbar} from 'react-bootstrap';
-import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import navbarLogo from './navbar.png'
 import logoutLogo from './logout_wyt.png'
+import LogIn from '../LogIn/LogIn';
+import Register from '../Register/Register';
 
-function NavBar() {
-  return (
-    <Navbar collapseOnSelect expand="lg" fixed="top" bg="dark" variant="dark" >
+
+
+
+class NavBar extends Component {
+  state = {
+    logInModal:false,
+    registerModal:false
+ }
+ /*handleModalOpen = (e) => {
+  this.setState((prevState) => {
+  let Name=e.target.name
+  console.log(Name,prevState)
+  if(Name ===('register'||"closeRegister")){
+    return{
+      registerModal:!prevState.registerModal
+    }}
+  else if(Name === ('login'||"closeLogin")){
+     return{
+        logInModal :!prevState.logInModal
+     }}
+  })
+}*/
+handleLoginModalOpen = () =>{
+  this.setState((prevState)=>{
+    return {
+      logInModal : !prevState.logInModal
+    }
+  })
+}
+
+handleRegisterModalOpen =()=>{
+  this.setState((prevState)=>{
+    return {
+      registerModal : !prevState.registerModal
+    }
+  })
+}
+  render() {
+    
+ 
+    return (
+      <div>
+      <Navbar collapseOnSelect expand="lg" fixed="top" bg="dark" variant="dark" >
     <Container>
     <Navbar.Brand href="/" >
         <img
@@ -27,11 +68,9 @@ function NavBar() {
         <Nav.Link href='/closed'>Closed Polls</Nav.Link>
   </Nav>*/}
       <Nav className='ms-auto'>
-        <Nav.Link href="#deets">LogIn</Nav.Link>
-        <Nav.Link eventKey={2} href="/Register">
-          Register
-        </Nav.Link>
-        <Nav.Link eventKey={3} href="#memes">
+        <Nav.Link  onClick={this.handleLoginModalOpen} name="login" >LogIn</Nav.Link>
+        <Nav.Link onClick={this.handleRegisterModalOpen} name="register">Register</Nav.Link>
+        <Nav.Link eventKey={2} href="/">
           <img
             alt=""
             src={logoutLogo}
@@ -45,7 +84,18 @@ function NavBar() {
     </Navbar.Collapse>
     </Container>
   </Navbar>
-  )
+  <LogIn
+  modalOpen={this.state.logInModal}
+  handleModalOpen={this.handleLoginModalOpen}
+/>
+<Register
+  modalOpen={this.state.registerModal}
+  handleModalOpen={this.handleRegisterModalOpen}
+/>
+  
+</div>
+    )
+  }
 }
 
 export default NavBar

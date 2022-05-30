@@ -2,27 +2,26 @@ import React,{ useState} from 'react'
 import { Modal, CloseButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function Register({closeRegister, registerData}) {
+function Register(props) {
     const [show, setShow] = useState(true);
     const [name, setName] = useState("")
     const[email,setEmail]= useState("");
     const[password, setPassword] = useState("");
     const[cPassword, setCPassword] = useState("");
 
-    const data = ({email: email, password: password, cPassword:cPassword })
+    //const data = ({email: email, password: password, cPassword:cPassword })
 
     const handleClose = () => {
       setShow(false)
-      closeRegister(false)
     };
 
   return (
 
     <>
-      <Modal show={show} onHide={setShow} backdrop="static" keyboard={false}>
+      <Modal show={props.modalOpen} onHide={props.handleModalOpen} backdrop="static" keyboard={false}>
         <Modal.Header >
           <Modal.Title h4>REGISTER</Modal.Title>
-          <CloseButton onClick={handleClose}/>
+          <CloseButton name="closeRegister" onClick={props.handleModalOpen}/>
         </Modal.Header>
         <Modal.Body>
         <form class="">
@@ -44,9 +43,7 @@ function Register({closeRegister, registerData}) {
         </Modal.Body>
         <Modal.Footer>
           <div className="d-grid gap-2 col-10 mx-auto mb-4">
-            <button type="button" class="btn btn-primary btn-lg" onClick={()=>{
-              registerData(data) 
-              closeRegister(false)}}>Create</button>
+            <button type="button" class="btn btn-primary btn-lg" onClick={props.handleModalOpen}>Create</button>
           </div>
         </Modal.Footer>
       </Modal>

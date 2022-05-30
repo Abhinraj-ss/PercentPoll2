@@ -2,27 +2,25 @@ import  React,{useState} from 'react'
 import { Modal, CloseButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-
-function LogIn({closeLogin,loginData}) {
+function LogIn(props) {
   const [show, setShow] = useState(true);
   const [email,setEmail] = useState("");
   const [password, setPassword] =  useState("");
 
-  const data = ({email: email, password: password})
+  //const data = ({email: email, password: password})
  
   console.log(email,password);
 
   const handleClose = () => {
     setShow(false)
-    closeLogin(false)
   };
   return (
 
     <>
-      <Modal show={show} onHide={setShow} backdrop="static" keyboard={false}>
+      <Modal show={props.modalOpen} onHide={props.handleModalOpen} backdrop="static" keyboard={false}>
         <Modal.Header >
           <Modal.Title h4>LOG IN</Modal.Title>
-          <CloseButton onClick={handleClose}/>
+          <CloseButton onClick={props.handleModalOpen} name="closeLogin"/>
         </Modal.Header>
         <Modal.Body>
         <form class="">
@@ -37,9 +35,7 @@ function LogIn({closeLogin,loginData}) {
         </Modal.Body>
         <Modal.Footer>
           <div className="d-grid gap-2 col-10 mx-auto mb-4">
-            <button type="submit" class="btn btn-primary btn-lg" onClick={()=>{
-              loginData(data)
-              closeLogin(false)}}>Create</button>
+            <button type="submit" class="btn btn-primary btn-lg" onClick={props.handleModalOpen}>Create</button>
           </div>
         </Modal.Footer>
       </Modal>
