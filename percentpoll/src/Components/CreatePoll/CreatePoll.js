@@ -76,7 +76,7 @@ function CreatePoll({closeCreatePoll , newPollData}) {
       <Modal show={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header >
           <Modal.Title h4>CREATE POLL</Modal.Title>
-          <CloseButton onClick={handleClose}/>
+          <CloseButton onClick={handleClose} className='btn-close-white'/>
         </Modal.Header>
         <Modal.Body>
         <form class="">
@@ -121,7 +121,7 @@ function CreatePoll({closeCreatePoll , newPollData}) {
         </Modal.Body>
         <Modal.Footer>
           <div className="d-grid gap-2 col-10 mx-auto mb-4">
-            <button type="submit" class="btn btn-primary btn-lg" onClick={addNewPoll}>Create</button>
+            <Button type="submit" variant='success' class="btn btn-primary btn-lg" onClick={addNewPoll}>Create</Button>
           </div>
         </Modal.Footer>
       </Modal>
