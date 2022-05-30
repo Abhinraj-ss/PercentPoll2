@@ -1,5 +1,5 @@
 import React,{ useState, useEffect} from 'react'
-import { Button, Row,Col, Container,Nav ,Sonnet, Tab} from 'react-bootstrap';
+import { Button,Tabs, Row,Col, Container,Nav ,Sonnet, Tab} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
 
@@ -22,6 +22,7 @@ function App() {
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
 
+  const [key, setKey] = useState('home');
 
   const[ data, setData] = useState([{}])
   useEffect (() => {
@@ -44,49 +45,32 @@ function App() {
       <NavBar/>
 
       <div className="mainContainer">
-
-      <Tab.Container id="left-tabs-example" defaultActiveKey="home">
-        <Row>
-          <Col sm={2} className='left-content'>
-            <Nav variant="pills" className="flex-column gap-2">
-              <Nav.Item>
-                <Nav.Link eventKey="home">Home</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="upcoming">Upcoming Polls</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="live">Live Polls</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="closed">Closed Polls</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Col>
-          <Col sm={8} className='right-content'>
-            <Tab.Content>
-              <Tab.Pane eventKey="home">
-                <Home />
-              </Tab.Pane>
-              <Tab.Pane eventKey="upcoming">
-                  <Upcoming />
-              </Tab.Pane>
-              <Tab.Pane eventKey="live">
-                <Live />
-                <Live />
-                <Live />
-                <Live />
-                <Live />
-                <Live />
-              </Tab.Pane>
-              <Tab.Pane eventKey="closed">
-                <Closed />
-              </Tab.Pane>
-            </Tab.Content>
-          </Col>
-        </Row>
-      </Tab.Container>
-
+      <Tabs
+        id="tabContainer"
+        activeKey={key}
+        onSelect={(k) => setKey(k)}
+        className="justify-content-center mb-3 "
+      >
+        <Tab eventKey="home" title="Home" >
+        <Home />
+        </Tab>
+        <Tab eventKey="upcoming" title="Upcoming Polls">
+        <Upcoming />
+        </Tab>
+        <Tab eventKey="live" title="Live Polls" >
+        <Live />
+        <Live />
+        <Live />
+        <Live />
+        <Live />
+        <Live />
+        <Live />
+        <Live />
+        </Tab>
+        <Tab eventKey="closed" title="Closed Polls" >
+        <Closed />
+        </Tab>
+      </Tabs>
       
       {isOpenLogin&&
       <LogIn closeLogin={()=>setIsOpenLogin(false)} loginData = {(hello)=>console.log(hello)

@@ -1,9 +1,9 @@
 import  React,{useState} from 'react'
-import { Modal, CloseButton} from 'react-bootstrap';
+import { Button,Modal, CloseButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './LogIn.css'
 
 function LogIn(props) {
-  const [show, setShow] = useState(true);
   const [email,setEmail] = useState("");
   const [password, setPassword] =  useState("");
 
@@ -11,13 +11,14 @@ function LogIn(props) {
  
   console.log(email,password);
 
-  const handleClose = () => {
-    setShow(false)
-  };
   return (
 
     <>
-      <Modal show={props.modalOpen} onHide={props.handleModalOpen} backdrop="static" keyboard={false}>
+      <Modal show={props.modalOpen} 
+        onHide={props.handleModalOpen} 
+        centered='true' 
+        backdrop="static"  
+        keyboard={false}>
         <Modal.Header >
           <Modal.Title h4>LOG IN</Modal.Title>
           <CloseButton onClick={props.handleModalOpen} name="closeLogin"/>
@@ -32,11 +33,15 @@ function LogIn(props) {
             <input required="" placeholder="Password" type="password" class="form-control" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
           </div>
         </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="d-grid gap-2 col-10 mx-auto mb-4">
-            <button type="submit" class="btn btn-primary btn-lg" onClick={props.handleModalOpen}>Create</button>
+        <div className="d-grid  mb-3 " style={{marginTop:"7%"}}>
+            <Button type="submit" variant="success" onClick={props.handleModalOpen} size="lg">Login</Button>
           </div>
+        </Modal.Body>
+        <Modal.Footer style={{display: "flex",justifyContent: "center",}}>
+          <h6>
+            Don't have an account? 
+            <a href='/register'>Create one</a>
+          </h6>
         </Modal.Footer>
       </Modal>
     </>)

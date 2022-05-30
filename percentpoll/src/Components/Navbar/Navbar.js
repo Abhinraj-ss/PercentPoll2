@@ -14,20 +14,7 @@ class NavBar extends Component {
     logInModal:false,
     registerModal:false
  }
- /*handleModalOpen = (e) => {
-  this.setState((prevState) => {
-  let Name=e.target.name
-  console.log(Name,prevState)
-  if(Name ===('register'||"closeRegister")){
-    return{
-      registerModal:!prevState.registerModal
-    }}
-  else if(Name === ('login'||"closeLogin")){
-     return{
-        logInModal :!prevState.logInModal
-     }}
-  })
-}*/
+
 handleLoginModalOpen = () =>{
   this.setState((prevState)=>{
     return {
@@ -58,7 +45,7 @@ handleRegisterModalOpen =()=>{
           height="35"
           className="d-inline-block align-top"
         />{"        "}
-        Percent Poll
+        Percent Poll 2
       </Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">

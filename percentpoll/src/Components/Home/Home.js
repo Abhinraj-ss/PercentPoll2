@@ -19,7 +19,7 @@ function Home() {
         </p>
         
         <div className=" justify-center">
-          <Button  id="create" name='create' onClick={handleClick} size="lg">Create A Poll</Button>
+          <Button variant="flat" id="create" name='create' onClick={handleClick} size="lg">Create A Poll</Button>
         </div>
     </div>
   )
