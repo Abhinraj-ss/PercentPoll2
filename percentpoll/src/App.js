@@ -46,10 +46,9 @@ function App() {
 
       <div className="mainContainer">
       <Tabs
-        id="tabContainer"
         activeKey={key}
         onSelect={(k) => setKey(k)}
-        className="justify-content-center mb-3 "
+        className="justify-content-center mb-4 "
       >
         <Tab eventKey="home" title="Home" >
         <Home />

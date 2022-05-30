@@ -16,13 +16,16 @@
   padding-right: 5%;
 }
 
-#tabContainer{
-  position: fixed;
-}
 .nav-link{
   color: aquamarine;
+  border-radius: 30%;
+  
 }
 
 .nav-link active{
   background-color: rgb(255, 255, 255);
+}
+
+.nav-link:focus, .nav-link:hover{
+  color: aquamarine;
 }

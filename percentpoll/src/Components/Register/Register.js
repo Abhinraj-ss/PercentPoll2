@@ -17,7 +17,7 @@ function Register(props) {
       <Modal show={props.modalOpen} onHide={props.handleModalOpen} centered='true' backdrop="static" keyboard={false}>
         <Modal.Header >
           <Modal.Title h4>REGISTER</Modal.Title>
-          <CloseButton name="closeRegister" onClick={props.handleModalOpen}/>
+          <CloseButton name="closeRegister" className='btn-close-white' onClick={props.handleModalOpen}/>
         </Modal.Header>
         <Modal.Body>
         <form class="">

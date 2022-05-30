@@ -1,6 +1,7 @@
 .modal-content{
-    background-color: #212529;
+    background-color: rgba(49, 49, 49, 0.826);
     color: rgb(127, 255, 212,0.8);
+    border-color: aquamarine;
 }
 .btn-close{
     color: aquamarine;

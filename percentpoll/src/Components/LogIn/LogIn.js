@@ -21,7 +21,7 @@ function LogIn(props) {
         keyboard={false}>
         <Modal.Header >
           <Modal.Title h4>LOG IN</Modal.Title>
-          <CloseButton onClick={props.handleModalOpen} name="closeLogin"/>
+          <CloseButton onClick={props.handleModalOpen} className='btn-close-white' name="closeLogin"/>
         </Modal.Header>
         <Modal.Body>
         <form class="">
