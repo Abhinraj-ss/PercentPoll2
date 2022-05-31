@@ -10,6 +10,22 @@ function LogIn(props) {
   //const data = ({email: email, password: password})
  
   console.log(email,password);
+  const handleSubmit = async() =>{
+    const userData = {
+      email: email,
+      password: password }
+    const res = await fetch('/login',{
+      method : ['POST'],
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify(userData)
+     
+    });
+    if(res.ok)
+      console.log("Response Worked!");
+    props.handleModalOpen()
+  }
 
   return (
 

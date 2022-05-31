@@ -56,15 +56,8 @@ function CreatePoll({ closeCreatePoll }) {
     setPollOptionList(list);
   };
 
-  const addNewPoll = async () => {
-    /*newPollData({
-      "Title":title,
-      "pollOptions": pollOptionList,
-      "openingDate": openingDate,
-      "openingTime": openingTime,
-      "closingDate": closingDate,
-      "closingTime": closingTime
-    })*/
+  const handleSubmit = async () => {
+   
     const pollData = {
       Title: title,
       pollOptions: pollOptionList,
@@ -78,7 +71,7 @@ function CreatePoll({ closeCreatePoll }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(pollData),
+      body: JSON.stringify(pollData)
     });
     if (res.ok) {
       console.log("response worked");
@@ -200,7 +193,7 @@ function CreatePoll({ closeCreatePoll }) {
               type="submit"
               variant="success"
               class="btn-lg"
-              onClick={addNewPoll}
+              onClick={handleSubmit}
             >
               Create
             </Button>

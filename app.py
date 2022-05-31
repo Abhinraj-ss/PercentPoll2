@@ -22,7 +22,7 @@ def server():
 @app.route("/newpoll", methods=["POST"])
 def newPoll():
     pollData = request.get_json()
-    insertQueryPollsInfo = '''INSERT INTO polls_info(user_id,title ,open_date,openTime,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
+    insertQueryPollsInfo = '''INSERT INTO polls_info(user_id,title ,open_date,open_time,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
     dataPollsInfo = (1,pollData['Title'],pollData['openingDate'],pollData['openingTime'],pollData['closingDate'],pollData['closingTime'])
     cur.execute(insertQueryPollsInfo,dataPollsInfo)
     #cur.execute('''SELECT LAST_INSERT_ID();''')
@@ -33,6 +33,12 @@ def newPoll():
         cur.execute(insertQueryPollOptions,dataPollOptions)
     
     connection.commit()
+    return "Done",201
+
+@app.route("/register", methods=['POST'])
+def register():
+    registerData = request.get_json()
+    print(registerData)
     return "Done",201
 
 if __name__ ==" __main__":

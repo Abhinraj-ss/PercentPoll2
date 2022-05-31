@@ -17,7 +17,24 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
 
-  //const data = ({email: email, password: password, cPassword:cPassword })
+
+  const handleSubmit = async() =>{
+    const userData = {
+      name:name,
+      email: email,
+      password: password }
+    const res = await fetch('/register',{
+      method : ['POST'],
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify(userData)
+     
+    });
+    if(res.ok)
+      console.log("Response Worked!");
+    props.handleModalOpen()
+  }
 
   return (
       <Modal
@@ -84,7 +101,7 @@ function Register(props) {
               type="submit"
               variant="success"
               size="lg"
-              onClick={props.handleModalOpen}
+              onClick={handleSubmit}
             >
               Create
             </Button>
