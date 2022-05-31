@@ -10,22 +10,26 @@
   width: 100%;
   margin: 0;
 }
-.mainContainer{
-  padding-top: 4%;
-  padding-left: 5%;
-  padding-right: 5%;
+.body{
+  padding-inline: 5%;
 }
 
-.nav-link{
-  color: aquamarine;
-  border-radius: 30%;
+.nav-link[button]{
+
+}
+
+@media screen and (max-width:500px) {
+  li.nav-item{
+    font-size: small;
+  }
   
 }
-
+.nav-link{
+  color: aquamarine;
+}
 .nav-link active{
   background-color: rgb(255, 255, 255);
 }
-
 .nav-link:focus, .nav-link:hover{
   color: aquamarine;
 }

@@ -1,8 +1,12 @@
 .modal-content{
-    background-color: rgba(49, 49, 49, 0.826);
-    color: rgb(127, 255, 212,0.8);
+    background-color: rgb(31, 31, 31);
+    color: rgb(88, 187, 154);
     border-color: aquamarine;
 }
 .btn-close{
     color: aquamarine;
 }
+.modal-content{
+    border-radius: 3%;
+}
+

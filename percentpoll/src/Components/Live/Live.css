@@ -4,4 +4,11 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    border-radius: 2%;
+}
+.progressGroup{
+    margin-block: 4%;
+}
+.progress{
+    margin-block: 2%;
 }

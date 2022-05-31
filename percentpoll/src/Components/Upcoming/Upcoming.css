@@ -2,4 +2,8 @@
     color: aquamarine;
   
   }
-  
+  @media screen and (max-width: 901px){
+    div.row#card{
+      display: list-item;
+    }
+  }

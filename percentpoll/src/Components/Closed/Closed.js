@@ -6,7 +6,7 @@ import './Closed.css'
 
 function Closed() {
   return (
-      <div className="row">
+      <div className="row" id='card'>
           <div className="col">
     <Card className=" text-white bg-dark" id='card'>
         <Card.Body>
@@ -23,7 +23,7 @@ function Closed() {
                 <h4 className="card-text">Poll Option which opted more.</h4>
             </div>
         </div> 
-            <Button class="btn btn-primary">See full report</Button>
+            <Button variant="flat">See full report</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
         Closed 2 days ago
@@ -46,7 +46,7 @@ function Closed() {
                 <h4 className="card-text">Poll Option which opted more.</h4>
             </div>
         </div> 
-            <Button class="btn btn-primary">See full report</Button>
+            <Button variant="flat">See full report</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
         Closed 2 days ago

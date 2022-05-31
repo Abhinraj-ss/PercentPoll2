@@ -10,7 +10,7 @@ import './Upcoming.css'
 
 function Upcoming() {
   return (
-    <div className="row">
+    <div className="row" id='card'>
       <div className="col">
     <Card className="text-start text-white bg-dark" id='card'>
         <Card.Body>
@@ -22,7 +22,7 @@ function Upcoming() {
               <h6>This poll is scheduled to start on --/--/---</h6>
 
             </Card.Text>
-            <Button class="btn btn-primary">View poll</Button>
+            <Button variant="flat">View poll</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
           Deadline: --/--/-- at --:--
@@ -40,7 +40,7 @@ function Upcoming() {
               <h6>This poll is scheduled to start on --/--/---</h6>
 
             </Card.Text>
-            <Button class="btn btn-primary">View poll</Button>
+            <Button variant="flat">View poll</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
           Deadline: --/--/-- at --:--

@@ -1,4 +1,7 @@
 #percentVotes{
-    font-size: 4rem;
+    font-size: 3pc;
     vertical-align: middle;
+}
+.btn-flat{
+    background-color: aquamarine;
 }
