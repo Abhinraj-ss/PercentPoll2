@@ -30,12 +30,12 @@ function Register(props) {
       body : JSON.stringify(userData)
      
     });
-    if(res.status == 200){
+    if(res.status === 200){
       console.log("Response Worked! but user exists already!!");
       setShow(true)
     }
       
-    else if(res.status == 201){
+    else if(res.status === 201){
       console.log("Response Worked! and user Added!!");
       props.handleModalOpen()
     }

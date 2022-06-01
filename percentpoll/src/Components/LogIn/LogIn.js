@@ -1,7 +1,8 @@
-import  React,{useState} from 'react'
+import  React,{useState, useContext} from 'react'
 import { Button,Modal, CloseButton, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LogIn.css'
+import {userContext} from '../Contexts/userContext.js'
 
 function LogIn(props) {
   const [email,setEmail] = useState("");
@@ -10,10 +11,12 @@ function LogIn(props) {
 
   //const data = ({email: email, password: password})
   
-
- 
+  const currentUser = useContext(userContext)
+  
   console.log(email,password);
+
   const handleSubmit = async() =>{
+    
     const userData = {
       email: email,
       password:password}
@@ -26,20 +29,23 @@ function LogIn(props) {
      
     });
     console.log(res)
-    if(res.status == 200){
+    if(res.status === 200){
       console.log("Response Worked! but user does not exists!!");
       setShow(true)
     }
       
-    else if(res.status == 201){
+    else if(res.status === 201){
       console.log("Response Worked! and user exists!!");
       props.handleModalOpen()
     }
-      
-
-    
+     return (
+      <currentUser.Provider value={userData}/>
+     )
   }
-
+  
+  
+    
+  
   return (
 
     <>

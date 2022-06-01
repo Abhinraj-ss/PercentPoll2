@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import {
   Tabs,
   Tab,
@@ -13,6 +13,7 @@ import Closed from "./Components/Closed/Closed";
 import "./App.css";
 import NavBar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home/Home";
+import {userContext} from './Components/Contexts/userContext'
 
 function App() {
   const [isOpenRegister, setIsOpenRegister] = useState(false);
