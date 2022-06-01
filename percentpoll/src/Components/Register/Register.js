@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import {
   Modal,
-  FormGroup,
-  Form,
+  Alert,
   CloseButton,
   Button,
   FormControl,
@@ -16,7 +15,7 @@ function Register(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
-
+  const [show, setShow] = useState(false);
 
   const handleSubmit = async() =>{
     const userData = {
@@ -31,9 +30,15 @@ function Register(props) {
       body : JSON.stringify(userData)
      
     });
-    if(res.ok)
-      console.log("Response Worked!");
-    props.handleModalOpen()
+    if(res.status == 200){
+      console.log("Response Worked! but user exists already!!");
+      setShow(true)
+    }
+      
+    else if(res.status == 201){
+      console.log("Response Worked! and user Added!!");
+      props.handleModalOpen()
+    }
   }
 
   return (
@@ -53,6 +58,9 @@ function Register(props) {
           />
         </Modal.Header>
         <Modal.Body>
+        <Alert variant="danger" closeVariant='white' show={show} onClose={() => setShow(false)} dismissible>
+        <h6>Email address already registered!</h6>
+        </Alert>
           <div className="form-group">
             <FormLabel class="form-label">Name</FormLabel>
             <FormControl

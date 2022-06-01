@@ -1,0 +1,12 @@
+.alert{
+    width: 100%;
+    font-size: medium;
+    padding-top: 2%;
+    max-height: 3rem;
+    background-color: rgba(127, 255, 212, 0.459);
+    border-color: red;
+    border-width: 0.1rem;
+}
+.alert-dismissible .btn-close{
+    padding-block: 3%;
+}

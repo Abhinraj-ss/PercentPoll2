@@ -1,19 +1,22 @@
 import  React,{useState} from 'react'
-import { Button,Modal, CloseButton} from 'react-bootstrap';
+import { Button,Modal, CloseButton, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LogIn.css'
 
 function LogIn(props) {
   const [email,setEmail] = useState("");
   const [password, setPassword] =  useState("");
+  const [show, setShow] = useState(false);
 
   //const data = ({email: email, password: password})
+  
+
  
   console.log(email,password);
   const handleSubmit = async() =>{
     const userData = {
       email: email,
-      password: password }
+      password:password}
     const res = await fetch('/login',{
       method : ['POST'],
       headers : {
@@ -22,9 +25,19 @@ function LogIn(props) {
       body : JSON.stringify(userData)
      
     });
-    if(res.ok)
-      console.log("Response Worked!");
-    props.handleModalOpen()
+    console.log(res)
+    if(res.status == 200){
+      console.log("Response Worked! but user does not exists!!");
+      setShow(true)
+    }
+      
+    else if(res.status == 201){
+      console.log("Response Worked! and user exists!!");
+      props.handleModalOpen()
+    }
+      
+
+    
   }
 
   return (
@@ -40,6 +53,9 @@ function LogIn(props) {
           <CloseButton onClick={props.handleModalOpen} className='btn-close-white' name="closeLogin"/>
         </Modal.Header>
         <Modal.Body>
+        <Alert variant="danger" closeVariant='white' show={show} onClose={() => setShow(false)} dismissible>
+        <h6>User does not exists!</h6>
+        </Alert>
         <form class="">
           <div class="mb-3 form-group">
             <label class="form-label">Email address</label>
@@ -50,7 +66,7 @@ function LogIn(props) {
           </div>
         </form>
         <div className="d-grid  mb-3 " style={{marginTop:"7%"}}>
-            <Button type="submit" variant="success" onClick={props.handleModalOpen} size="lg">Login</Button>
+            <Button type="submit" variant="success" onClick={handleSubmit} size="lg">Login</Button>
           </div>
         </Modal.Body>
         <Modal.Footer style={{display: "flex",justifyContent: "center",}}>

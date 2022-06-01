@@ -1,9 +1,5 @@
 .card{
     margin-bottom: 3%;
-    background-image: url('./logo.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
     border-radius: 2%;
 }
 .progressGroup{

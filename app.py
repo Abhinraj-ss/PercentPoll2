@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 connection = mysql.connector.connect(host="localhost",user = "root", passwd ="root", auth_plugin='mysql_native_password')
 
-cur = connection.cursor()
+cur = connection.cursor(buffered=True)
 
 #cur.execute('''CREATE DATABASE percentpoll;''')
 cur.execute('''USE percentpoll;''' )
@@ -38,8 +38,38 @@ def newPoll():
 @app.route("/register", methods=['POST'])
 def register():
     registerData = request.get_json()
-    print(registerData)
-    return "Done",201
+    registerUserQuery = "INSERT INTO users_data(name,email_id,password) VALUES(%s,%s,%s);"
+    searchUserQuery = "SELECT * FROM users_data WHERE email_id = %s;"
+    userInfo = (registerData['name'],registerData['email'],registerData['password'])
+    email = registerData['email']
+    cur.execute(searchUserQuery,(email,))
+    userData = cur.fetchall()
+
+    if (userData == None):
+        cur.execute(registerUserQuery,userInfo)
+        print(registerData)
+        connection.commit()
+        return "user added",201
+    else:
+        return "user exists", 200
+
+@app.route("/login",methods=['POST','GET'])
+def login():
+    loginData = request.get_json()
+    email = loginData['email']
+
+    print(loginData)
+
+    if request.method == 'POST':
+        selectPasswordQuery="SELECT password FROM users_data WHERE email_id = %s;"
+        cur.execute(selectPasswordQuery,(email,))
+        password = cur.fetchone()
+        if (password != None):
+            if(password[0]==loginData["password"]):
+                return "loggingIn",201
+        else :
+            return "userNotPresent",200
+        
 
 if __name__ ==" __main__":
     app.run(debug= True)
