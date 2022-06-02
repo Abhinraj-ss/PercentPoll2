@@ -40,6 +40,10 @@ function Register(props) {
       props.handleModalOpen()
     }
   }
+  const handleClickLogin =()=>{
+    props.handleLoginModalOpen()
+    props.handleModalOpen()
+  }
 
   return (
       <Modal
@@ -58,7 +62,7 @@ function Register(props) {
           />
         </Modal.Header>
         <Modal.Body>
-        <Alert variant="danger" closeVariant='white' show={show} onClose={() => setShow(false)} dismissible>
+        <Alert variant="danger"  show={show} onClose={() => setShow(false)} dismissible>
         <h6>Email address already registered!</h6>
         </Alert>
           <div className="form-group">
@@ -118,7 +122,7 @@ function Register(props) {
         <Modal.Footer style={{ display: "flex", justifyContent: "center" }}>
           <h6>
             Already have an account?
-            <a href="/login">Login</a>
+            <Button variant="link" size="lg" onClick={handleClickLogin}>Login</Button>
           </h6>
         </Modal.Footer>
       </Modal>

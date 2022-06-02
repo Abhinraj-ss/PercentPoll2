@@ -1,11 +1,22 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Button, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Closed.css'
+import ClosedReport from './ClosedReport/ClosedReport';
 
 function Closed() {
+    const [show,setShow] = useState(false)
+
+    const handleClickReport = () =>{
+        console.log(show)
+        setShow(!show)
+        
+    }
+    console.log(show)
   return (
+      <>
+      {show && <ClosedReport show={show} handleModalOpen={handleClickReport}/>}
       <div className="row" id='card'>
           <div className="col">
     <Card className=" text-white bg-dark" id='card'>
@@ -23,7 +34,7 @@ function Closed() {
                 <h4 className="card-text">Poll Option which opted more.</h4>
             </div>
         </div> 
-            <Button variant="flat">See full report</Button>
+            <Button variant="flat" onClick={handleClickReport} >See full report</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
         Closed 2 days ago
@@ -46,7 +57,7 @@ function Closed() {
                 <h4 className="card-text">Poll Option which opted more.</h4>
             </div>
         </div> 
-            <Button variant="flat">See full report</Button>
+            <Button variant="flat" onClick={handleClickReport}>See full report</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
         Closed 2 days ago
@@ -54,7 +65,7 @@ function Closed() {
     </Card>
     </div>
     </div>
-   
+    </>
   )
 }
 

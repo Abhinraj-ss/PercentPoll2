@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useContext} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import {
   Tabs,
   Tab,
@@ -19,19 +19,24 @@ function App() {
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [key, setKey] = useState("home");
-  const [data, setData] = useState([{}]);
-  useEffect(() => {
+  const [data, setData] = useState({isLoggedIn:false,email:"",password:""});
+  
+
+  /*useEffect(() => {
     fetch("/members")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
         console.log(data);
       });
-  }, []);
+  }, []);*/
 
   return (
     <div className="App" >
+      <userContext.Provider value={{data,setData}}>
       <NavBar />
+      
+
       <div className="body">
         <Tabs
           activeKey={key}
@@ -39,7 +44,7 @@ function App() {
           className="justify-content-center mb-4 "
         >
           <Tab eventKey="home" title="Home">
-            <Home />
+            <Home/>
           </Tab>
           <Tab eventKey="upcoming" title="Upcoming Polls">
             <Upcoming />
@@ -56,6 +61,7 @@ function App() {
           </Tab>
           <Tab eventKey="closed" title="Closed Polls">
             <Closed />
+
           </Tab>
         </Tabs>
 
@@ -80,6 +86,7 @@ function App() {
         ))
         )*/}
       </div>
+      </userContext.Provider>
     </div>
   );
 }

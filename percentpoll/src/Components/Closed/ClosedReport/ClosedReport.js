@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { CloseButton, Modal } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function ClosedReport() {
+function ClosedReport(props) {
+  console.log(props.show)
+  const [show,setShow] = useState(props.show)
   return (
-    <div className="modal-dialog modal-fullscreen">
-         <div class="modal-header">
-            <div class="modal-title h4" id="contained-modal-title-vcenter">Final Report
-            </div>
-            <button class="btn-close"/>
-      </div>
-      <div className='modal-body text-center'>
-          <h3>Total number of voters : 100</h3>
+    <>
+    <Modal show={show} fullscreen="true" onHide={()=>{setShow(false)}}>
+        <Modal.Header closeButton>
+          <Modal.Title>Final Report</Modal.Title>
+         
+        </Modal.Header>
+        <Modal.Body>
+        <h3>Total number of voters : 100</h3>
           <h2>Dounut chart can be implimented here</h2>
-      </div>
-    </div>
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }
 

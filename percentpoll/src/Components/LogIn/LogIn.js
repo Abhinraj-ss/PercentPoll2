@@ -1,23 +1,22 @@
-import  React,{useState, useContext} from 'react'
+import  React,{useContext, useState} from 'react'
 import { Button,Modal, CloseButton, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LogIn.css'
-import {userContext} from '../Contexts/userContext.js'
+import { userContext } from '../Contexts/userContext';
 
 function LogIn(props) {
   const [email,setEmail] = useState("");
   const [password, setPassword] =  useState("");
   const [show, setShow] = useState(false);
-
+  var {data,setData} = useContext(userContext)
   //const data = ({email: email, password: password})
   
-  const currentUser = useContext(userContext)
   
   console.log(email,password);
 
   const handleSubmit = async() =>{
     
-    const userData = {
+    var userData = {
       email: email,
       password:password}
     const res = await fetch('/login',{
@@ -28,7 +27,6 @@ function LogIn(props) {
       body : JSON.stringify(userData)
      
     });
-    console.log(res)
     if(res.status === 200){
       console.log("Response Worked! but user does not exists!!");
       setShow(true)
@@ -36,13 +34,18 @@ function LogIn(props) {
       
     else if(res.status === 201){
       console.log("Response Worked! and user exists!!");
+      props.isLoggedIn()
+      setData({isLoggedIn:true,email:email,password:password})
       props.handleModalOpen()
     }
-     return (
-      <currentUser.Provider value={userData}/>
-     )
+    console.log(data)
   }
   
+  const handleClickRegister=()=>{
+    props.handleRegisterModalOpen()
+    props.handleModalOpen()
+    
+  }
   
     
   
@@ -59,7 +62,7 @@ function LogIn(props) {
           <CloseButton onClick={props.handleModalOpen} className='btn-close-white' name="closeLogin"/>
         </Modal.Header>
         <Modal.Body>
-        <Alert variant="danger" closeVariant='white' show={show} onClose={() => setShow(false)} dismissible>
+        <Alert variant="danger"  show={show} onClose={() => setShow(false)} dismissible>
         <h6>User does not exists!</h6>
         </Alert>
         <form class="">
@@ -78,7 +81,7 @@ function LogIn(props) {
         <Modal.Footer style={{display: "flex",justifyContent: "center",}}>
           <h6>
             Don't have an account? 
-            <a href='/register'>Create one</a>
+            <Button variant="link" size='lg' onClick={handleClickRegister}>Create one</Button>
           </h6>
         </Modal.Footer>
       </Modal>

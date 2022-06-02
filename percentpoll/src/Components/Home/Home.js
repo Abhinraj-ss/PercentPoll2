@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import CreatePoll from "../CreatePoll/CreatePoll";
 import "./Home.css";
+import {userContext} from '../Contexts/userContext'
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
-  //Life is 10 percent what you make it, and 90 percent how you take it.
+  const {data}= useContext(userContext)
+
   const handleClick = () => {
+    console.log(data)
     setIsOpen(true);
   };
   return (
     <div className="Home col-10">
+     
       {isOpen && <CreatePoll closeCreatePoll={setIsOpen} />}
       <p className="text-white" id="quote">
         Polls. Untangled.
+        {data["email"]}
       </p>
+     
 
       <div className=" justify-center">
         <Button

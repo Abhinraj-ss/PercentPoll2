@@ -12,6 +12,7 @@ class NavBar extends Component {
   state = {
     logInModal: false,
     registerModal: false,
+    isLoggedIn:false,
   };
 
   handleLoginModalOpen = () => {
@@ -29,6 +30,7 @@ class NavBar extends Component {
       };
     });
   };
+
   render() {
     return (
       <div id="navbar">
@@ -53,35 +55,38 @@ class NavBar extends Component {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              {/*<Nav className="me-auto">
-        <Nav.Link href="/upcoming">Upcoming Polls</Nav.Link>
-        <Nav.Link href="/live">Live Polls</Nav.Link>
-        <Nav.Link href='/closed'>Closed Polls</Nav.Link>
-  </Nav>*/}
+            
               <Nav className="ms-auto">
+              {!this.state.isLoggedIn && 
+              <>
                 <Nav.Link onClick={this.handleLoginModalOpen} name="login">
                   LogIn
                 </Nav.Link>
-                <Nav.Link
-                  onClick={this.handleRegisterModalOpen}
-                  name="register"
-                >
+                <Nav.Link onClick={this.handleRegisterModalOpen} name="register">
                   Register
                 </Nav.Link>
-                <Nav.Link eventKey={2} href="/">
+              </>
+             
+              }
+              {this.state.isLoggedIn &&
+                <Nav.Link eventKey={2} onClick={()=>this.state.isLoggedIn =false} href='/'>
                   <img alt="" src={logoutLogo} width="25" height="25" />
                 </Nav.Link>
+            }    
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
         <LogIn
+          isLoggedIn ={()=>this.state.isLoggedIn=true}
           modalOpen={this.state.logInModal}
           handleModalOpen={this.handleLoginModalOpen}
+          handleRegisterModalOpen ={this.handleRegisterModalOpen}
         />
         <Register
           modalOpen={this.state.registerModal}
           handleModalOpen={this.handleRegisterModalOpen}
+          handleLoginModalOpen ={this.handleLoginModalOpen}
         />
       </div>
     );
