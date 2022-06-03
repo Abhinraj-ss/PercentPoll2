@@ -1,18 +1,20 @@
 import React from 'react'
+import {  Modal } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function LiveReport() {
+function LiveReport(props) {
   return (
-    <div className="modal-dialog modal-fullscreen">
-         <div class="modal-header">
-            <div class="modal-title h4" id="contained-modal-title-vcenter">LiveReport
-            </div>
-            <button class="btn-close"/>
-      </div>
-      <div className='modal-body text-center'>
-          <h3>Total number of voters : 100</h3>
-          <h2>Dounut chart can be implimented here</h2>
-      </div>
-    </div>
+    <>
+    <Modal show={props.show} fullscreen={props.show} onHide={()=>props.handleModalReport()}>
+        <Modal.Header closeVariant="white" closeButton>
+          <Modal.Title>LiveReport</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <h3>Total number of voters : 100</h3>
+          <h2>Donut chart can be implimented here</h2>
+        </Modal.Body>
+      </Modal>
+    </>
 
   )
 }

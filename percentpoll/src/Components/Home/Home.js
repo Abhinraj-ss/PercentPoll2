@@ -9,6 +9,10 @@ import {userContext} from '../Contexts/userContext'
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const {data}= useContext(userContext)
+  const isLoggedIn = localStorage.getItem('isLoggedIn')
+  const user_id = localStorage.getItem('user_id')
+  console.log(isLoggedIn)
+  console.log(user_id)
 
   const handleClick = () => {
     console.log(data)

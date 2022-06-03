@@ -10,9 +10,10 @@ import './Navbar.css'
 
 class NavBar extends Component {
   state = {
+    
     logInModal: false,
     registerModal: false,
-    isLoggedIn:false,
+    isLoggedIn:localStorage.getItem('isLoggedIn'),
   };
 
   handleLoginModalOpen = () => {
@@ -30,7 +31,7 @@ class NavBar extends Component {
       };
     });
   };
-
+  
   render() {
     return (
       <div id="navbar">
@@ -68,8 +69,8 @@ class NavBar extends Component {
               </>
              
               }
-              {this.state.isLoggedIn &&
-                <Nav.Link eventKey={2} onClick={()=>this.state.isLoggedIn =false} href='/'>
+              {this.state.isLoggedIn==='true' &&
+                <Nav.Link eventKey={2} onClick={()=>localStorage.removeItem('isLoggedIn')} href='/' >
                   <img alt="" src={logoutLogo} width="25" height="25" />
                 </Nav.Link>
             }    
@@ -78,7 +79,6 @@ class NavBar extends Component {
           </Container>
         </Navbar>
         <LogIn
-          isLoggedIn ={()=>this.state.isLoggedIn=true}
           modalOpen={this.state.logInModal}
           handleModalOpen={this.handleLoginModalOpen}
           handleRegisterModalOpen ={this.handleRegisterModalOpen}

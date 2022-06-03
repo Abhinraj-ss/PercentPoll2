@@ -1,16 +1,18 @@
 import React from 'react'
-import { Button, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Button,Modal, ListGroup, ListGroupItem } from 'react-bootstrap'
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function ViewPoll() {
+import './ViewPoll.css'
+
+function ViewPoll(props) {
   return (
-    <div className="modal-dialog modal-fullscreen">
-         <div class="modal-header">
-            <div class="modal-title h4" id="contained-modal-title-vcenter">View poll
-            </div>
-            <button class="btn-close"/>
-      </div>
-      <div className='modal-body text-center'>
-          <h2>Poll title</h2>
+    <>
+    <Modal show={props.show} fullscreen={props.show} onHide={()=>props.handleModalView()}>
+        <Modal.Header closeVariant="white" closeButton>
+          <Modal.Title>View poll</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <h2>Poll title</h2>
           <ListGroup>
               <ListGroupItem>
                   * Poll option1
@@ -34,11 +36,12 @@ function ViewPoll() {
               </div>
           </div>
           
-          <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Modify</button>
-          </div>
-      </div>
-    </div>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button type="button" class="btn btn-primary">Modify</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   )
 }
 

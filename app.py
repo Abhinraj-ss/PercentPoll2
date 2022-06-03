@@ -1,6 +1,7 @@
-from crypt import methods
-from flask import Flask, request
+import json
+from flask import Flask, jsonify, request
 import mysql.connector
+import requests
 
 app = Flask(__name__)
 
@@ -38,37 +39,40 @@ def newPoll():
 @app.route("/register", methods=['POST'])
 def register():
     registerData = request.get_json()
+    print(registerData)
     registerUserQuery = "INSERT INTO users_data(name,email_id,password) VALUES(%s,%s,%s);"
     searchUserQuery = "SELECT * FROM users_data WHERE email_id = %s;"
     userInfo = (registerData['name'],registerData['email'],registerData['password'])
     email = registerData['email']
     cur.execute(searchUserQuery,(email,))
-    userData = cur.fetchall()
-
+    userData = cur.fetchone()
     if (userData == None):
         cur.execute(registerUserQuery,userInfo)
-        print(registerData)
         connection.commit()
-        return "user added",201
+        return "user added", 201
     else:
         return "user exists", 200
 
-@app.route("/login",methods=['POST','GET'])
+@app.route("/login",methods=['POST'])
 def login():
     loginData = request.get_json()
     email = loginData['email']
 
     print(loginData)
-
+    
     if request.method == 'POST':
-        selectPasswordQuery="SELECT password FROM users_data WHERE email_id = %s;"
-        cur.execute(selectPasswordQuery,(email,))
-        password = cur.fetchone()
+        selectUserIdPasswordQuery="SELECT user_id,password FROM users_data WHERE email_id = %s;"
+        cur.execute(selectUserIdPasswordQuery,(email,))
+        result = cur.fetchone()
+        user_id= result[0]
+        password = result[1]
+        print(password)
         if (password != None):
-            if(password[0]==loginData["password"]):
-                return "loggingIn",201
+            if(password==loginData["password"]):
+                return jsonify({"user_id":user_id}),201
         else :
             return "userNotPresent",200
+    
         
 
 if __name__ ==" __main__":

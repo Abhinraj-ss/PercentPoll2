@@ -16,7 +16,7 @@ function Closed() {
     console.log(show)
   return (
       <>
-      {show && <ClosedReport show={show} handleModalOpen={handleClickReport}/>}
+      {show && <ClosedReport show={show} handleModalReport={handleClickReport}/>}
       <div className="row" id='card'>
           <div className="col">
     <Card className=" text-white bg-dark" id='card'>

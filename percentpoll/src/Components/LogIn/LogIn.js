@@ -1,4 +1,4 @@
-import  React,{useContext, useState} from 'react'
+import  React,{useContext, useState,useEffect} from 'react'
 import { Button,Modal, CloseButton, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LogIn.css'
@@ -9,7 +9,6 @@ function LogIn(props) {
   const [password, setPassword] =  useState("");
   const [show, setShow] = useState(false);
   var {data,setData} = useContext(userContext)
-  //const data = ({email: email, password: password})
   
   
   console.log(email,password);
@@ -19,31 +18,38 @@ function LogIn(props) {
     var userData = {
       email: email,
       password:password}
-    const res = await fetch('/login',{
+    let res = await fetch('/login',{
       method : ['POST'],
       headers : {
-        "Content-Type" : "application/json"
+        "Content-Type" : "application/json",
+        "Accept":"application/json"
       },
       body : JSON.stringify(userData)
      
     });
     if(res.status === 200){
+      console.log(res.json())
       console.log("Response Worked! but user does not exists!!");
       setShow(true)
     }
-      
+       
     else if(res.status === 201){
+      res = await res.json()
+      console.log(res)
       console.log("Response Worked! and user exists!!");
-      props.isLoggedIn()
+      localStorage.setItem('isLoggedIn','true')
+      localStorage.setItem('user_id',JSON.stringify(res['user_id']))
       setData({isLoggedIn:true,email:email,password:password})
       props.handleModalOpen()
     }
     console.log(data)
+    
   }
   
   const handleClickRegister=()=>{
     props.handleRegisterModalOpen()
     props.handleModalOpen()
+    
     
   }
   
@@ -67,8 +73,8 @@ function LogIn(props) {
         </Alert>
         <form class="">
           <div class="mb-3 form-group">
-            <label class="form-label">Email address</label>
-            <input required="" placeholder="Enter email" type="email" class="form-control" value={email} onChange={(e)=>{setEmail(e.target.value)}} autoFocus/>
+            <label className="form-label">Email address</label>
+            <input required="" placeholder="Enter email" type="email" className="form-control" value={email} onChange={(e)=>{setEmail(e.target.value)}} autoFocus/>
           </div>
           <div class="mb-3 form-group"><label class="form-label">Password</label>
             <input required="" placeholder="Password" type="password" class="form-control" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>

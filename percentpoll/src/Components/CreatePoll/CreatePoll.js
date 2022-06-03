@@ -81,7 +81,7 @@ function CreatePoll({ closeCreatePoll }) {
   };
   return (
     <>
-      <Modal show={show} onHide={setShow} backdrop="static" keyboard={false}>
+      <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header>
           <Modal.Title h4>CREATE POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
@@ -101,15 +101,16 @@ function CreatePoll({ closeCreatePoll }) {
                 />
               </FloatingLabel>
             </div>
-
-            <FormLabel className="form-label">Poll Options</FormLabel>
+            <div className="row">
+              <div className="col">
+              <FormLabel className="form-label">Poll Options</FormLabel>
             {pollOptionList.map((singlePollOption, index) => (
               <div key={index} className="pollOptions">
                 <div className="mb-4 row">
                   <div className="col-md-9">
                     <FloatingLabel
                       controlId="floatingInputGrid"
-                      label="Poll Option"
+                      label={index+1}
                     >
                       <FormControl
                         required=""
@@ -124,23 +125,22 @@ function CreatePoll({ closeCreatePoll }) {
                       />
                     </FloatingLabel>
                   </div>
-                  <Col col-auto>
+                  <Col col-auto id="removeBtn" >
                     {pollOptionList.length >= 2 && (
-                      <Button
-                        type="button"
+                      <Button        
                         variant="danger"
                         onClick={() => {
                           handleClickRemove(index);
                         }}
                       >
-                        Remove
+                        X
                       </Button>
                     )}
                   </Col>
                 </div>
                 <Col>
                   {pollOptionList.length - 1 === index && (
-                    <div className=".col-auto mb-4  .me-auto">
+                    <div className=".col-auto mb-4  .me-auto" >
                       <Button
                         type="button"
                         class="btn btn-primary"
@@ -153,7 +153,9 @@ function CreatePoll({ closeCreatePoll }) {
                 </Col>
               </div>
             ))}
-            <div className="form-group">
+              </div>
+              <div className="col">
+              <div className="form-group">
               <FormLabel class="form-label me-3">Opens On </FormLabel>
               <FloatingLabel controlId="floatingInputGrid" label="Opening Date">
                 <FormControl
@@ -171,7 +173,7 @@ function CreatePoll({ closeCreatePoll }) {
               </FloatingLabel>
             </div>
             <div class="mb-3">
-              <FormLabel class="form-label me-3">Closes On </FormLabel>
+              <FormLabel className="form-label me-3">Closes On </FormLabel>
               <FloatingLabel controlId="floatingInputGrid" label="Closing Time">
                 <FormControl
                   required=""
@@ -188,7 +190,12 @@ function CreatePoll({ closeCreatePoll }) {
               </FloatingLabel>
             </div>
           </div>
-          <div className="d-grid mb-4">
+              </div>
+            </div>
+        </Modal.Body>
+        <Modal.Footer>
+        <div className="d-grid col-3 mb-1" 
+              id="createBtn">
             <Button
               type="submit"
               variant="success"
@@ -197,8 +204,9 @@ function CreatePoll({ closeCreatePoll }) {
             >
               Create
             </Button>
+            
           </div>
-        </Modal.Body>
+        </Modal.Footer>
       </Modal>
     </>
   );

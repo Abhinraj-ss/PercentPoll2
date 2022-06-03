@@ -10,5 +10,13 @@
 }
 
 .form-group{
-    margin-bottom: 10%;
+    margin-bottom: 3%;
 }
+ #createBtn{
+     min-height: 10%;
+     margin-inline: 38%;
+     margin-bottom: 0%;
+ }
+ #removeBtn{
+    padding-top: 10px;
+ }

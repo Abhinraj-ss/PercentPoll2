@@ -30,6 +30,7 @@ function Register(props) {
       body : JSON.stringify(userData)
      
     });
+    console.log(res)
     if(res.status === 200){
       console.log("Response Worked! but user exists already!!");
       setShow(true)
