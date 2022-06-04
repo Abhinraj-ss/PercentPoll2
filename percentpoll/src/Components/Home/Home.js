@@ -26,8 +26,6 @@ function Home() {
         Polls. Untangled.
         {data["email"]}
       </p>
-     
-
       <div className=" justify-center">
         <Button
           variant="flat"

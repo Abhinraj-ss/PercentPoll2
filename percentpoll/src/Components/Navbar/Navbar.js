@@ -70,7 +70,10 @@ class NavBar extends Component {
              
               }
               {this.state.isLoggedIn==='true' &&
-                <Nav.Link eventKey={2} onClick={()=>localStorage.removeItem('isLoggedIn')} href='/' >
+                <Nav.Link eventKey={2} onClick={()=>{
+                  localStorage.removeItem('isLoggedIn')
+                  localStorage.removeItem('user_id')
+                }} href='/' >
                   <img alt="" src={logoutLogo} width="25" height="25" />
                 </Nav.Link>
             }    

@@ -2,6 +2,9 @@ import React from 'react'
 import {  Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Donutchart from '../../DonutChart';
+import './ClosedReport.css'
+
 function ClosedReport(props) {
   console.log(props.show)
   return (
@@ -12,8 +15,11 @@ function ClosedReport(props) {
          
         </Modal.Header>
         <Modal.Body>
-        <h3>Total number of voters : 100</h3>
-          <h2>Donut chart can be implimented here</h2>
+          <h3>Total number of voters : 100</h3>
+          <div className="chart">
+            <Donutchart/>
+          </div>
+        
         </Modal.Body>
       </Modal>
     </>
