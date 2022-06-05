@@ -22,14 +22,14 @@ function App() {
   const [data, setData] = useState({isLoggedIn:false,email:"",password:""});
   
 
-  /*useEffect(() => {
+  useEffect(() => {
     fetch("/members")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
         console.log(data);
       });
-  }, []);*/
+  }, []);
 
   return (
     <div className="App" >
@@ -50,13 +50,6 @@ function App() {
             <Upcoming />
           </Tab>
           <Tab eventKey="live" title="Live Polls">
-            <Live />
-            <Live />
-            <Live />
-            <Live />
-            <Live />
-            <Live />
-            <Live />
             <Live />
           </Tab>
           <Tab eventKey="closed" title="Closed Polls">

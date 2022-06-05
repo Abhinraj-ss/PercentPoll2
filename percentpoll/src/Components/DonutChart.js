@@ -1,8 +1,8 @@
 import React from 'react'
 import {Doughnut} from 'react-chartjs-2'
 import { chartColors } from "./colors";
-import {Chart,ArcElement} from 'chart.js'
-Chart.register(ArcElement)
+import Chart from 'chart.js/auto';
+
 
 
 function Donutchart() {
@@ -14,13 +14,16 @@ function Donutchart() {
               borderColor: '#ffffff'
 
             }
-          }
+          },
+        legend :{
+            display:true,
+        }
       };
       const data = {
-        labels: ["a", "b", "c", "d"],
+        labels: ["a", "b", "c", "d","e","f"],
         datasets: [
           { label: 'My First Dataset',
-            data: [300, 50, 100, 50],
+            data: [300, 50, 100, 50,200,58],
             backgroundColor: chartColors,
             hoverBackgroundColor: chartColors
           }
@@ -28,10 +31,10 @@ function Donutchart() {
       };
 
   return (
-      <>
-        <div>DonutChart</div>
+      <div>
+        
         <Doughnut data={data} options={options} />
-      </>
+      </div>
     
   )
 }

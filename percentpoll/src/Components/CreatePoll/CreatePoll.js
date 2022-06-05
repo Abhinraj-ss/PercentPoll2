@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Modal,
   Button,
-  Row,
   Col,
   FormControl,
-  Form,
   CloseButton,
   FloatingLabel,
-  FormGroup,
   FormLabel,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./CreatePoll.css";
 
-function CreatePoll({ closeCreatePoll }) {
+function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
   const [pollOptionList, setPollOptionList] = useState([
     { pollOption: "" },
     { pollOption: "" },
@@ -26,6 +23,21 @@ function CreatePoll({ closeCreatePoll }) {
   const [openingTime, setOpeningTime] = useState("");
   const [closingTime, setClosingTime] = useState("");
 
+  
+  console.log(title)
+  useEffect(() => {
+  if (mTitle){
+    setTitle(mTitle)
+    setPollOptionList(mPollOptionList)
+    setOpeningDate(mOpeningDate)
+    setOpeningTime(mOpeningTime)
+    setClosingDate(mClosingDate)
+    setClosingTime(mClosingTime)
+    console.log(title)
+
+  }
+  }, [])
+   
   const [show, setShow] = useState(true);
   const handleClose = () => {
     setShow(false);
@@ -59,6 +71,7 @@ function CreatePoll({ closeCreatePoll }) {
   const handleSubmit = async () => {
    
     const pollData = {
+      user_id: localStorage.getItem('user_id'),
       Title: title,
       pollOptions: pollOptionList,
       openingDate: openingDate,
@@ -66,7 +79,8 @@ function CreatePoll({ closeCreatePoll }) {
       closingDate: closingDate,
       closingTime: closingTime,
     };
-    const res = await fetch("/newpoll", {
+
+    const res = await fetch("/createPoll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,18 +96,19 @@ function CreatePoll({ closeCreatePoll }) {
   return (
     <>
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
-        <Modal.Header>
-          <Modal.Title h4>CREATE POLL</Modal.Title>
+        <Modal.Header >
+          <Modal.Title className="ms-3" h4>CREATE POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="m-3">
           <div className="form-group">
-            <div class="mb-4 ">
+            <div className="mb-4 ">
               <FloatingLabel controlId="floatingInputGrid" label="Title Text">
                 <FormControl
                   required=""
                   placeholder="Enter title text"
                   type="text"
+                  defaultValue={title}
                   onChange={(e) => {
                     handleTitleChange(e);
                   }}
@@ -102,12 +117,12 @@ function CreatePoll({ closeCreatePoll }) {
               </FloatingLabel>
             </div>
             <div className="row">
-              <div className="col">
+              <div className="col-7">
               <FormLabel className="form-label">Poll Options</FormLabel>
             {pollOptionList.map((singlePollOption, index) => (
               <div key={index} className="pollOptions">
                 <div className="mb-4 row">
-                  <div className="col-md-9">
+                  <div className="col-md-11">
                     <FloatingLabel
                       controlId="floatingInputGrid"
                       label={index+1}
@@ -154,7 +169,7 @@ function CreatePoll({ closeCreatePoll }) {
               </div>
             ))}
               </div>
-              <div className="col">
+              <div className="col-5">
               <div className="form-group">
               <FormLabel class="form-label me-3">Opens On </FormLabel>
               <FloatingLabel controlId="floatingInputGrid" label="Opening Date">
@@ -162,12 +177,14 @@ function CreatePoll({ closeCreatePoll }) {
                   required=""
                   type="date"
                   placeholder="Opening time"
+                  value={openingDate}
                   onChange={(e) => setOpeningDate(e.target.value)}
                 />
               </FloatingLabel>
               <FloatingLabel controlId="floatingInputGrid" label="Opening Time">
                 <FormControl
                   type="time"
+                  defaultValue={openingTime}
                   onChange={(e) => setOpeningTime(e.target.value)}
                 />
               </FloatingLabel>
@@ -178,6 +195,7 @@ function CreatePoll({ closeCreatePoll }) {
                 <FormControl
                   required=""
                   type="date"
+                  defaultValue={closingDate}
                   placeholder="Closing time"
                   onChange={(e) => setClosingDate(e.target.value)}
                 />
@@ -185,13 +203,14 @@ function CreatePoll({ closeCreatePoll }) {
               <FloatingLabel controlId="floatingInputGrid" label="ClosingTime">
                 <FormControl
                   type="time"
+                  defaultValue={closingTime}
                   onChange={(e) => setClosingTime(e.target.value)}
                 />
               </FloatingLabel>
             </div>
-          </div>
-              </div>
             </div>
+           </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
         <div className="d-grid col-3 mb-1" 
@@ -200,6 +219,7 @@ function CreatePoll({ closeCreatePoll }) {
               type="submit"
               variant="success"
               class="btn-lg"
+              href="/"
               onClick={handleSubmit}
             >
               Create

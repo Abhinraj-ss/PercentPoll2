@@ -1,4 +1,4 @@
-import  React,{useContext, useState,useEffect} from 'react'
+import  React,{useContext, useState} from 'react'
 import { Button,Modal, CloseButton, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LogIn.css'
@@ -81,7 +81,7 @@ function LogIn(props) {
           </div>
         </form>
         <div className="d-grid  mb-3 " style={{marginTop:"7%"}}>
-            <Button type="submit" variant="success" onClick={handleSubmit} size="lg">Login</Button>
+            <Button type="submit"  variant="success" onClick={handleSubmit} size="lg">Login</Button>
           </div>
         </Modal.Body>
         <Modal.Footer style={{display: "flex",justifyContent: "center",}}>

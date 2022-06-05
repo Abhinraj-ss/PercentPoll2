@@ -13,13 +13,14 @@ class NavBar extends Component {
     
     logInModal: false,
     registerModal: false,
-    isLoggedIn:localStorage.getItem('isLoggedIn'),
+    isLoggedIn:localStorage.getItem('isLoggedIn')
   };
 
   handleLoginModalOpen = () => {
     this.setState((prevState) => {
       return {
         logInModal: !prevState.logInModal,
+        isLoggedIn:localStorage.getItem('isLoggedIn')
       };
     });
   };
