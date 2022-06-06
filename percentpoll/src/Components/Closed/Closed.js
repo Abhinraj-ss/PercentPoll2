@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './Closed.css'
 import ClosedReport from './ClosedReport/ClosedReport';
 
-function Closed() {
+
+function Closed(props) {
     const [show,setShow] = useState(false)
     const [closedPolls,setclosedPolls ]= useState([{}])
 
@@ -46,7 +47,7 @@ function Closed() {
   return (
       <>
       {show && <ClosedReport show={show} handleModalReport={handleClickReport}/>}
-      {closedPolls.length !=0 &&
+      {closedPolls[0].title &&
       <div className="row" id='card'>
       {closedPolls.map(
           (closedPoll,index)=>(
@@ -79,7 +80,15 @@ function Closed() {
     ))}
 </div>
       }
-      
+
+{!closedPolls[0].title &&
+
+<img
+alt="No Polls"
+src={props.noPolls}
+className="align-center"
+/>
+}
     </>
   )
 }

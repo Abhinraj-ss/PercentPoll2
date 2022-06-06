@@ -64,20 +64,20 @@ function LogIn(props) {
         backdrop="static"  
         keyboard={false}>
         <Modal.Header >
-          <Modal.Title h4>LOG IN</Modal.Title>
+          <Modal.Title >LOG IN</Modal.Title>
           <CloseButton onClick={props.handleModalOpen} className='btn-close-white' name="closeLogin"/>
         </Modal.Header>
         <Modal.Body>
         <Alert variant="danger"  show={show} onClose={() => setShow(false)} dismissible>
         <h6>User does not exists!</h6>
         </Alert>
-        <form class="">
-          <div class="mb-3 form-group">
+        <form className="">
+          <div className="mb-3 form-group">
             <label className="form-label">Email address</label>
             <input required="" placeholder="Enter email" type="email" className="form-control" value={email} onChange={(e)=>{setEmail(e.target.value)}} autoFocus/>
           </div>
-          <div class="mb-3 form-group"><label class="form-label">Password</label>
-            <input required="" placeholder="Password" type="password" class="form-control" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
+          <div className="mb-3 form-group"><label className="form-label">Password</label>
+            <input required="" placeholder="Password" type="password" className="form-control" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
           </div>
         </form>
         <div className="d-grid  mb-3 " style={{marginTop:"7%"}}>
@@ -87,8 +87,8 @@ function LogIn(props) {
         <Modal.Footer style={{display: "flex",justifyContent: "center",}}>
           <h6>
             Don't have an account? 
-            <Button variant="link" size='lg' onClick={handleClickRegister}>Create one</Button>
           </h6>
+            <Button variant="link" size='lg' onClick={handleClickRegister}>Create one</Button>
         </Modal.Footer>
       </Modal>
     </>)

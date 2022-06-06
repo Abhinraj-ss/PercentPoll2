@@ -67,7 +67,7 @@ function Register(props) {
         <h6>Email address already registered!</h6>
         </Alert>
           <div className="form-group">
-            <FormLabel class="form-label">Name</FormLabel>
+            <FormLabel >Name</FormLabel>
             <FormControl
               required=""
               placeholder="Enter name"
@@ -78,7 +78,7 @@ function Register(props) {
               }}
               autoFocus
             />
-            <FormLabel class="form-label">Email address</FormLabel>
+            <FormLabel >Email address</FormLabel>
             <FormControl
               required=""
               placeholder="Enter email"
@@ -88,7 +88,7 @@ function Register(props) {
                 setEmail(e.target.value);
               }}
             />
-            <FormLabel class="form-label">Password</FormLabel>
+            <FormLabel >Password</FormLabel>
             <FormControl
               required=""
               placeholder="Password"
@@ -98,7 +98,7 @@ function Register(props) {
                 setPassword(e.target.value);
               }}
             />
-            <FormLabel class="form-label">Confirm Password</FormLabel>
+            <FormLabel >Confirm Password</FormLabel>
             <FormControl
               required=""
               placeholder="Password"
@@ -123,8 +123,9 @@ function Register(props) {
         <Modal.Footer style={{ display: "flex", justifyContent: "center" }}>
           <h6>
             Already have an account?
+            </h6>
+
             <Button variant="link" size="lg" onClick={handleClickLogin}>Login</Button>
-          </h6>
         </Modal.Footer>
       </Modal>
   );

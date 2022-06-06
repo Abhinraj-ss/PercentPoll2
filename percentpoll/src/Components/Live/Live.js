@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Live.css";
 import LiveReport from "./LiveReport/LiveReport";
 
-function Live() {
+
+function Live(props) {
   const [show,setShow] = useState(false)
   const [livePolls,setlivePolls ]= useState([{}])
 
@@ -16,7 +17,7 @@ function Live() {
     }
   const getPolls = async() =>{
     var userId =localStorage.getItem('user_id')
-    var userData ={'user_id': userId}
+    var userData ={'user_id': "1"}
     let res = await fetch('/live',{
       method : ['POST'],
       headers : {
@@ -41,11 +42,11 @@ function Live() {
   }
   useEffect(() => {
     getPolls()
-  }, []);
+  },[]);
   return (
     <>
     {show&& <LiveReport show={show} handleModalReport={handleClickReport}/>}
-    {livePolls.length !=0 &&
+    {livePolls[0].title &&
     <div className="row" id='card'>
     {livePolls.map(
       (livePoll,index)=>(
@@ -56,7 +57,7 @@ function Live() {
               <h5>{livePoll.title}</h5>
             </Card.Title>
             <div className="progressGroup ">
-              <div class="progress">
+              <div className="progress">
                 <div
                   className="progress-bar bg-success"
                   role="progressbar"
@@ -65,7 +66,7 @@ function Live() {
                   aria-valuemax="100"
                 ></div>
               </div>
-              <div class="progress">
+              <div className="progress">
                 <div
                   className="progress-bar bg-info"
                   role="progressbar"
@@ -95,10 +96,8 @@ function Live() {
             </div>
             <hr />
             <Card.Text>
-              <h6>
                 With supporting text below as a natural lead-in to additional
                 content.
-              </h6>
             </Card.Text>
             <Button variant="flat" onClick={handleClickReport}>See live report</Button>
           </Card.Body>
@@ -112,6 +111,14 @@ function Live() {
     } 
     </div>
     }
+    {!livePolls[0].title &&
+
+<img
+alt="No Polls"
+src={props.noPolls}
+className="align-center"
+/>
+}
     </>
   );
   

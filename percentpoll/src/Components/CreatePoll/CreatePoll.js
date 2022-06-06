@@ -97,7 +97,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
     <>
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header >
-          <Modal.Title className="ms-3" h4>CREATE POLL</Modal.Title>
+          <Modal.Title className="ms-3" >CREATE POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
         </Modal.Header>
         <Modal.Body className="m-3">
@@ -132,7 +132,6 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                         placeholder="Poll Option"
                         name="pollOption"
                         type="text"
-                        class="form-control"
                         value={singlePollOption.pollOption}
                         onChange={(e) => {
                           handlePollOptionChange(e, index);
@@ -140,7 +139,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                       />
                     </FloatingLabel>
                   </div>
-                  <Col col-auto id="removeBtn" >
+                  <Col id="removeBtn" >
                     {pollOptionList.length >= 2 && (
                       <Button        
                         variant="danger"
@@ -158,7 +157,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                     <div className=".col-auto mb-4  .me-auto" >
                       <Button
                         type="button"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                         onClick={handleClickAdd}
                       >
                         Add Poll Option
@@ -171,7 +170,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               </div>
               <div className="col-5">
               <div className="form-group">
-              <FormLabel class="form-label me-3">Opens On </FormLabel>
+              <FormLabel className="form-label me-3">Opens On </FormLabel>
               <FloatingLabel controlId="floatingInputGrid" label="Opening Date">
                 <FormControl
                   required=""
@@ -189,7 +188,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                 />
               </FloatingLabel>
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
               <FormLabel className="form-label me-3">Closes On </FormLabel>
               <FloatingLabel controlId="floatingInputGrid" label="Closing Time">
                 <FormControl
@@ -218,7 +217,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
             <Button
               type="submit"
               variant="success"
-              class="btn-lg"
+              className="btn-lg"
               href="/"
               onClick={handleSubmit}
             >

@@ -14,22 +14,46 @@ import "./App.css";
 import NavBar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home/Home";
 import {userContext} from './Components/Contexts/userContext'
+import noPolls from './Components/images/NoPolls.png'
+
 
 function App() {
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [key, setKey] = useState("home");
   const [data, setData] = useState({isLoggedIn:false,email:"",password:""});
-  
+  const userId =localStorage.getItem('user_id')
+  const [upcomingPolls,setUpcomingPolls ]= useState([{}])
 
+
+  const getPolls = async() =>{
+    var userData ={'user_id':userId}
+    let res = await fetch('/upcoming',{
+      method : ['POST'],
+      headers : {
+        "Content-Type" : "application/json",
+        "Accept":"application/json"
+      },
+      body : JSON.stringify(userData)
+     
+    });
+    if(res.status === 200){
+      console.log(res.json())
+      console.log("no upcoming polls!!");
+    }
+       
+    else if(res.status === 201){
+      res = await res.json()
+      setUpcomingPolls(res)
+      console.log(res,upcomingPolls )
+      console.log("upcoming polls exists!!");
+    }
+    
+  }
   useEffect(() => {
-    fetch("/members")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        console.log(data);
-      });
-  }, []);
+    console.log(userId)
+    getPolls()
+  },[]);
 
   return (
     <div className="App" >
@@ -47,13 +71,13 @@ function App() {
             <Home/>
           </Tab>
           <Tab eventKey="upcoming" title="Upcoming Polls">
-            <Upcoming />
+            <Upcoming noPolls = {noPolls} upcomingPolls={upcomingPolls}/>
           </Tab>
           <Tab eventKey="live" title="Live Polls">
-            <Live />
+            <Live noPolls = {noPolls}/>
           </Tab>
           <Tab eventKey="closed" title="Closed Polls">
-            <Closed />
+            <Closed noPolls = {noPolls} />
 
           </Tab>
         </Tabs>

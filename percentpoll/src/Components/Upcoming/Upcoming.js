@@ -1,4 +1,4 @@
-import React ,{useState, useEffect} from 'react'
+import React ,{useState} from 'react'
 import { Button, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -7,48 +7,29 @@ import './Upcoming.css'
 import ViewPoll from './ViewPoll/ViewPoll';
 
 
-function Upcoming() {
+function Upcoming(props) {
   const [show,setShow] = useState(false)
-  const [upcomingPolls,setUpcomingPolls ]= useState([{}])
+
 
   const handleClickView = () =>{
       console.log(show)
       setShow(!show)  
     }
-  const getPolls = async() =>{
-      var userId =localStorage.getItem('user_id')
-      var userData ={'user_id': userId}
-      let res = await fetch('/upcoming',{
-        method : ['POST'],
-        headers : {
-          "Content-Type" : "application/json",
-          "Accept":"application/json"
-        },
-        body : JSON.stringify(userData)
-       
-      });
-      if(res.status === 200){
-        console.log(res.json())
-        console.log("no upcoming polls!!");
-      }
-         
-      else if(res.status === 201){
-        res = await res.json()
-        setUpcomingPolls(res)
-        console.log(res,upcomingPolls )
-        console.log("upcoming polls exists!!");
-      }
-      
-    }
-    useEffect(() => {
-      getPolls()
-    }, []);
+  
   return (
     <>
     {show && <ViewPoll show={show} handleModalView={handleClickView}/>}
-    {upcomingPolls.length !=0 && 
+    {!props.upcomingPolls[0].title &&
+      <img
+      alt="No Polls"
+      src={props.noPolls}
+      className="d-inline-block align-center"
+      />
+      }
+
+    {props.upcomingPolls[0].title && 
       <div className="row" id='card'>
-    {upcomingPolls.map(
+    {props.upcomingPolls.map(
       (upcomingPoll,index)=>(
         
         <div key={index} className="col-6">
@@ -59,8 +40,7 @@ function Upcoming() {
           </Card.Title>
             <hr/>
             <Card.Text>
-              <h6>This poll is scheduled to start on {upcomingPoll.open_date}</h6>
-
+              This poll is scheduled to start on {upcomingPoll.open_date}
             </Card.Text>
             <Button variant="flat" onClick={handleClickView}>View poll</Button>
         </Card.Body>

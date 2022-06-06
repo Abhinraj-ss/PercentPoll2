@@ -47,7 +47,7 @@ function ViewPoll(props) {
           
         </Modal.Body>
         <Modal.Footer>
-            <Button type="button" class="btn btn-primary" onClick={handleClickModify}>Modify</Button>
+            <Button type="button" className="btn btn-primary" onClick={handleClickModify}>Modify</Button>
         </Modal.Footer>
       </Modal>
     </>
