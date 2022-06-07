@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { Button, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Live.css";
@@ -7,7 +7,6 @@ import LiveReport from "./LiveReport/LiveReport";
 
 function Live(props) {
   const [show,setShow] = useState(false)
-  const [livePolls,setlivePolls ]= useState([{}])
 
 
   const handleClickReport = () =>{
@@ -15,40 +14,12 @@ function Live(props) {
       setShow(!show)
         
     }
-  const getPolls = async() =>{
-    var userId =localStorage.getItem('user_id')
-    var userData ={'user_id': "1"}
-    let res = await fetch('/live',{
-      method : ['POST'],
-      headers : {
-        "Content-Type" : "application/json",
-        "Accept":"application/json"
-      },
-      body : JSON.stringify(userData)
-     
-    });
-    if(res.status === 200){
-      console.log(res.json())
-      console.log("no live polls!!");
-    }
-       
-    else if(res.status === 201){
-      res = await res.json()
-      setlivePolls(res)
-      console.log(res,livePolls )
-      console.log("live polls exists!!");
-    }
-    
-  }
-  useEffect(() => {
-    getPolls()
-  },[]);
   return (
     <>
     {show&& <LiveReport show={show} handleModalReport={handleClickReport}/>}
-    {livePolls[0].title &&
+    {props.livePolls[0].title &&
     <div className="row" id='card'>
-    {livePolls.map(
+    {props.livePolls.map(
       (livePoll,index)=>(
         <div key ={index} className="col-6">
         <Card className="text-center text-white bg-dark" id="card">
@@ -111,7 +82,7 @@ function Live(props) {
     } 
     </div>
     }
-    {!livePolls[0].title &&
+    {!props.livePolls[0].title &&
 
 <img
 alt="No Polls"

@@ -11,7 +11,6 @@ function Home() {
   const {data}= useContext(userContext)
   const isLoggedIn = localStorage.getItem('isLoggedIn')
   const user_id = localStorage.getItem('user_id')
-  console.log(user_id)
 
   const handleClick = () => {
     console.log(data)

@@ -24,11 +24,13 @@ function App() {
   const [data, setData] = useState({isLoggedIn:false,email:"",password:""});
   const userId =localStorage.getItem('user_id')
   const [upcomingPolls,setUpcomingPolls ]= useState([{}])
+  const [livePolls,setLivePolls ]= useState([{}])
+  const [closedPolls,setClosedPolls ]= useState([{}])
 
 
   const getPolls = async() =>{
     var userData ={'user_id':userId}
-    let res = await fetch('/upcoming',{
+    let res = await fetch('/getPolls',{
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",
@@ -44,8 +46,9 @@ function App() {
        
     else if(res.status === 201){
       res = await res.json()
-      setUpcomingPolls(res)
-      console.log(res,upcomingPolls )
+      setUpcomingPolls(res.upcoming)
+      setLivePolls(res.live)
+      setClosedPolls(res.closed)
       console.log("upcoming polls exists!!");
     }
     
@@ -54,7 +57,7 @@ function App() {
     console.log(userId)
     getPolls()
   },[]);
-
+  console.log(upcomingPolls,livePolls,closedPolls )
   return (
     <div className="App" >
       <userContext.Provider value={{data,setData}}>
@@ -74,10 +77,10 @@ function App() {
             <Upcoming noPolls = {noPolls} upcomingPolls={upcomingPolls}/>
           </Tab>
           <Tab eventKey="live" title="Live Polls">
-            <Live noPolls = {noPolls}/>
+            <Live noPolls = {noPolls} livePolls={livePolls}/>
           </Tab>
           <Tab eventKey="closed" title="Closed Polls">
-            <Closed noPolls = {noPolls} />
+            <Closed noPolls = {noPolls} closedPolls={closedPolls}/>
 
           </Tab>
         </Tabs>

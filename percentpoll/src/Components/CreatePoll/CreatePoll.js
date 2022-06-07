@@ -3,12 +3,14 @@ import {
   Modal,
   Button,
   Col,
+  FormCheck,
   FormControl,
   CloseButton,
   FloatingLabel,
   FormLabel,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import moment from "moment";
 
 import "./CreatePoll.css";
 
@@ -67,7 +69,11 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
     list[index][name] = value;
     setPollOptionList(list);
   };
-
+  const handleClickswitch  = () =>{
+    console.log("switch checked")
+    setOpeningDate(moment().format("YYYY-MM-DD")) 
+    setOpeningTime(moment().format("hh:mm:ss"))
+  }
   const handleSubmit = async () => {
    
     const pollData = {
@@ -171,6 +177,12 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               <div className="col-5">
               <div className="form-group">
               <FormLabel className="form-label me-3">Opens On </FormLabel>
+              <FormCheck 
+                type="switch"
+                id="custom-switch"
+                onChange={handleClickswitch}
+                label="Open Now"
+              />
               <FloatingLabel controlId="floatingInputGrid" label="Opening Date">
                 <FormControl
                   required=""
@@ -218,7 +230,6 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               type="submit"
               variant="success"
               className="btn-lg"
-              href="/"
               onClick={handleSubmit}
             >
               Create

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import { Button, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -8,7 +8,6 @@ import ClosedReport from './ClosedReport/ClosedReport';
 
 function Closed(props) {
     const [show,setShow] = useState(false)
-    const [closedPolls,setclosedPolls ]= useState([{}])
 
 
     const handleClickReport = () =>{
@@ -16,40 +15,12 @@ function Closed(props) {
         setShow(!show)
         
     }
-    const getPolls = async() =>{
-        var userId =localStorage.getItem('user_id')
-        var userData ={'user_id': userId}
-        let res = await fetch('/closed',{
-          method : ['POST'],
-          headers : {
-            "Content-Type" : "application/json",
-            "Accept":"application/json"
-          },
-          body : JSON.stringify(userData)
-         
-        });
-        if(res.status === 200){
-          console.log(res.json())
-          console.log("no closed polls!!");
-        }
-           
-        else if(res.status === 201){
-          res = await res.json()
-          setclosedPolls(res)
-          console.log(res,closedPolls )
-          console.log("closed polls exists!!");
-        }
-        
-      }
-      useEffect(() => {
-        getPolls()
-      }, []);
   return (
       <>
       {show && <ClosedReport show={show} handleModalReport={handleClickReport}/>}
-      {closedPolls[0].title &&
+      {props.closedPolls[0].title &&
       <div className="row" id='card'>
-      {closedPolls.map(
+      {props.closedPolls.map(
           (closedPoll,index)=>(
             <div key={index} className="col-6">
                 <Card className=" text-white bg-dark" id='card'>
@@ -81,7 +52,7 @@ function Closed(props) {
 </div>
       }
 
-{!closedPolls[0].title &&
+{!props.closedPolls[0].title &&
 
 <img
 alt="No Polls"
