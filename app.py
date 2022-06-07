@@ -98,6 +98,52 @@ def createPoll():
 
 @app.route('/modify',methods=['POST'])
 def modifyPoll():
+    dateTimeNow = datetime.datetime.now()
+    pollData = request.get_json()
+    print(pollData)
+    poll_id_old = pollData['poll_id']
+    user_id = pollData['user_id']
+    dataPollsInfo = (user_id,pollData['Title'],pollData['openingDate'],pollData['openingTime'],pollData['closingDate'],pollData['closingTime'])
+    openingDateTime =  datetime.datetime.fromisoformat(pollData['openingDate']+" "+pollData['openingTime'])
+    closingDateTime = datetime.datetime.fromisoformat(pollData['closingDate']+ " "+pollData['closingTime'])
+    print(dataPollsInfo)
+    if(openingDateTime>dateTimeNow):
+        selectQueryUpcomingInfo ='''SELECT * FROM upcoming_polls_info WHERE poll_id=%s AND user_id=%s'''
+        cur.execute(selectQueryUpcomingInfo,(poll_id_old,user_id))
+        if(cur.fetchall() != None):
+            deleteQueryUpcomingPollsInfo = '''DELETE FROM upcoming_polls_info WHERE poll_id=%s AND user_id=%s'''
+            cur.execute(deleteQueryUpcomingPollsInfo,(poll_id_old,user_id))
+            insertQueryUpcomingPollsInfo = '''INSERT INTO upcoming_polls_info(user_id,title ,open_date,open_time,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
+            cur.execute(insertQueryUpcomingPollsInfo,dataPollsInfo)
+            poll_id = cur.lastrowid
+            insertQueryLivePollOptions = '''INSERT INTO upcoming_poll_options(poll_id, poll_option) VALUES(%s,%s);'''
+            for pollOption in pollData['pollOptions']:
+                dataPollOptionsOld = (poll_id_old,pollOption['pollOption'])
+                dataPollOptionsNew = (poll_id,pollOption['pollOption'])
+                selectQueryUpcomingOptions ='''SELECT * FROM upcoming_poll_options WHERE poll_id=%s AND poll_option=%s'''
+                cur.execute(selectQueryUpcomingOptions,dataPollOptionsOld)
+                if(cur.fetchone() == None):
+                    cur.execute(insertQueryLivePollOptions,dataPollOptionsNew)
+
+    elif(openingDateTime<=dateTimeNow and closingDateTime>dateTimeNow):
+        selectQueryLiveInfo ='''SELECT * FROM live_polls_info WHERE poll_id=%s AND user_id=%s'''
+        cur.execute(selectQueryLiveInfo,(poll_id_old,user_id))
+        if(cur.fetchall() != None):
+            deleteQueryLivePollsInfo = '''DELETE FROM live_polls_info WHERE poll_id=%s AND user_id=%s'''
+            cur.execute(deleteQueryLivePollsInfo,(poll_id_old,user_id))
+            insertQueryLivePollsInfo = '''INSERT INTO TABLE live_polls_info(user_id,title ,open_date,open_time,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
+            cur.execute(insertQueryLivePollsInfo,dataPollsInfo)
+            poll_id = cur.lastrowid
+            insertQueryLivePollOptions = '''INSERT INTO live_poll_options(poll_id, poll_option) VALUES(%s,%s);'''
+            for pollOption in pollData['pollOptions']:
+                dataPollOptionsOld = (poll_id_old,pollOption['pollOption'])
+                dataPollOptionsNew = (poll_id,pollOption['pollOption'])
+                selectQueryLiveOptions ='''SELECT * FROM live_poll_options WHERE poll_id=%s AND poll_option=%s'''
+                cur.execute(selectQueryLiveOptions,dataPollOptionsOld)
+                if(cur.fetchone() != None):
+                    cur.execute(insertQueryLivePollOptions,dataPollOptionsNew)
+    
+    connection.commit()
     return 'Done', 201
 
 @app.route('/getPolls',methods=['POST'])

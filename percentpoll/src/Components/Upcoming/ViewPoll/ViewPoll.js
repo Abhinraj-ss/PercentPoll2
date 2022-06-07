@@ -15,6 +15,9 @@ function ViewPoll(props) {
     }
   }, [])
   
+  const handleClickCancel = () =>{
+    props.handleModalView()
+  }
 
   const handleClickModify =() =>{
     setShow(!show)
@@ -24,8 +27,8 @@ function ViewPoll(props) {
 
   return (
     <>
-      {show && <ModifyPoll mPoll_id={props.pollData.poll_id} closeModifyPoll={setShow} mTitle={props.pollData.title} mPollOptionList={pollOptionList} mOpeningDate={props.pollData.open_date} mOpeningTime={props.pollData.open_time} mClosingDate={props.pollData.close_date} mClosingTime={props.pollData.close_time}/>}
-    <Modal show={props.show} fullscreen={props.show} onHide={()=>props.handleModalView()}>
+      {show && <ModifyPoll handleModalView={handleClickCancel} mPoll_id={props.pollData.poll_id} closeModifyPoll={setShow} mTitle={props.pollData.title} mPollOptionList={pollOptionList} mOpeningDate={props.pollData.open_date} mOpeningTime={props.pollData.open_time} mClosingDate={props.pollData.close_date} mClosingTime={props.pollData.close_time}/>}
+    <Modal show={props.show} fullscreen={props.show} onHide={handleClickCancel}>
         <Modal.Header closeVariant="white" closeButton>
           <Modal.Title>View poll</Modal.Title>
         </Modal.Header>
@@ -35,7 +38,7 @@ function ViewPoll(props) {
         <h5>Poll Options.</h5>
           <ListGroup>
             {pollOptionsArr.map((option,index)=>(
-              <ListGroupItem className='my-2'>
+              <ListGroupItem key={index} className='my-2'>
               {index+1}  {option}
               </ListGroupItem>
             ))
@@ -46,19 +49,19 @@ function ViewPoll(props) {
                     <h5>
                       <div id='sub'>
                       Opening On  
-                      </div> {props.pollData.open_date} {props.pollData.open_time}</h5>
+                      </div> {props.pollData.open_date} {props.pollData.open_time.substring(0,8)}</h5>
               </div>
               <div className='col' id='closing'>
                   <h5>
                     <div id="sub">
                     Closing On 
-                    </div> {props.pollData.close_date} {props.pollData.close_time}</h5>
+                    </div> {props.pollData.close_date} {props.pollData.close_time.substring(0,8)}</h5>
               </div>
           </div>
           
         </Modal.Body>
         <Modal.Footer>
-          <Button type="button" variant='outline-danger' size='lg' onClick={()=>props.handleModalView()}>Cancel</Button>
+          <Button type="button" variant='outline-danger' size='lg' onClick={handleClickCancel}>Cancel</Button>
             <Button type="button" variant='outline-primary' id="btnModify" size='lg' onClick={handleClickModify}>Modify</Button>
         </Modal.Footer>
       </Modal>

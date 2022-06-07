@@ -41,6 +41,7 @@ function LogIn(props) {
       localStorage.setItem('user_id',JSON.stringify(res['user_id']))
       setData({isLoggedIn:true,email:email,password:password})
       props.handleModalOpen()
+      //localStorage.setItem('modal_closing',"true")
     }
     console.log(data)
     

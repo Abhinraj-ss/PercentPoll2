@@ -46,7 +46,7 @@ function Upcoming(props) {
             <Button variant="flat" onClick={()=>handleClickView(index)}>View poll</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
-          Deadline: {upcomingPoll.close_date} at {upcomingPoll.close_time}
+          Deadline: {upcomingPoll.close_date} at {upcomingPoll.close_time.substring(0,8)}
         </Card.Footer>
     </Card>
     </div>

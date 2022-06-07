@@ -12,7 +12,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import moment from "moment";
 
-function ModifyPoll({ mPoll_id,closeModifyPoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
+function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
   const [pollOptionList, setPollOptionList] = useState(mPollOptionList);
   const [title, setTitle] = useState(mTitle);
   const [openingDate, setOpeningDate] = useState(mOpeningDate);
@@ -59,7 +59,7 @@ function ModifyPoll({ mPoll_id,closeModifyPoll,mTitle,mPollOptionList,mOpeningDa
    
     const pollData = {
       user_id: localStorage.getItem('user_id'),
-      PollId:mPoll_id,
+      poll_id:mPoll_id,
       Title: title,
       pollOptions: pollOptionList,
       openingDate: openingDate,
@@ -212,7 +212,8 @@ function ModifyPoll({ mPoll_id,closeModifyPoll,mTitle,mPollOptionList,mOpeningDa
               type="submit"
               variant="success"
               className="btn-lg"
-              onClick={handleSubmit}
+              onClick={()=>{handleModalView()
+                handleSubmit()}}
             >
               Update
             </Button>

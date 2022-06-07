@@ -73,7 +73,7 @@ function Live(props) {
             <Button variant="flat" onClick={handleClickReport}>See live report</Button>
           </Card.Body>
           <Card.Footer className="text-muted">
-            Deadline: {livePoll.close_date} at {livePoll.close_time} OR a timer can be implimented.
+            Deadline: {livePoll.close_date} at {livePoll.close_time.substring(0,8)} OR a timer can be implimented.
           </Card.Footer>
         </Card>
       </div>

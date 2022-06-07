@@ -10,7 +10,6 @@ import './Navbar.css'
 
 class NavBar extends Component {
   state = {
-    
     logInModal: false,
     registerModal: false,
     isLoggedIn:localStorage.getItem('isLoggedIn')
