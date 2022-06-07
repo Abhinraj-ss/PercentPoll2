@@ -9,16 +9,17 @@ import ViewPoll from './ViewPoll/ViewPoll';
 
 function Upcoming(props) {
   const [show,setShow] = useState(false)
+  const [pollData,setPollData] = useState({})
 
-
-  const handleClickView = () =>{
+  const handleClickView = (key) =>{
       console.log(show)
+      setPollData(props.upcomingPolls[key])
       setShow(!show)  
     }
   
   return (
     <>
-    {show && <ViewPoll show={show} handleModalView={handleClickView}/>}
+    {show && <ViewPoll show={show} handleModalView={handleClickView} pollData={pollData}/>}
     {!props.upcomingPolls[0].title &&
       <img
       alt="No Polls"
@@ -42,7 +43,7 @@ function Upcoming(props) {
             <Card.Text>
               This poll is scheduled to start on {upcomingPoll.open_date}
             </Card.Text>
-            <Button variant="flat" onClick={handleClickView}>View poll</Button>
+            <Button variant="flat" onClick={()=>handleClickView(index)}>View poll</Button>
         </Card.Body>
         <Card.Footer className="text-muted">
           Deadline: {upcomingPoll.close_date} at {upcomingPoll.close_time}

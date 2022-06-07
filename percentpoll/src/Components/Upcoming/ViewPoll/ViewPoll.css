@@ -4,3 +4,28 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.list-group-item{
+    background-color: rgba(127, 255, 212, 0.132);
+    border-inline: rgba(0, 255, 255, 0.853) solid 10px;
+    color: white;
+}
+
+#closing{
+    text-align: end;
+}
+#btnModify{
+    border-color: aquamarine;
+    color: aquamarine;
+}
+#btnModify:hover{
+    background-color: aquamarine;
+    color: rgb(42, 41, 41);
+}
+#sub{
+    color: aquamarine;
+}

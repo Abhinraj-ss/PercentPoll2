@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask, jsonify, request
 import mysql.connector
 import datetime
@@ -94,6 +95,10 @@ def createPoll():
     connection.commit()
     return "Done",201
 
+
+@app.route('/modify',methods=['POST'])
+def modifyPoll():
+    return 'Done', 201
 
 @app.route('/getPolls',methods=['POST'])
 def getPolls():

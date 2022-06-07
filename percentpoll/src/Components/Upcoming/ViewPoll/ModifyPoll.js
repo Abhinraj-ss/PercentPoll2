@@ -12,41 +12,22 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import moment from "moment";
 
-import "./CreatePoll.css";
-
-function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
-  const [pollOptionList, setPollOptionList] = useState([
-    { 'pollOption': "" },
-    { 'pollOption': "" },
-  ]);
-  const [title, setTitle] = useState("");
-  const [openingDate, setOpeningDate] = useState("");
-  const [closingDate, setClosingDate] = useState("");
-  const [openingTime, setOpeningTime] = useState("");
-  const [closingTime, setClosingTime] = useState("");
-
-  
-  console.log(title)
-  useEffect(() => {
-  if (mTitle){
-    setTitle(mTitle)
-    setPollOptionList(mPollOptionList)
-    setOpeningDate(mOpeningDate)
-    setOpeningTime(mOpeningTime)
-    setClosingDate(mClosingDate)
-    setClosingTime(mClosingTime)
-    console.log(title)
-
-  }
-  }, [])
-   
+function ModifyPoll({ mPoll_id,closeModifyPoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
+  const [pollOptionList, setPollOptionList] = useState(mPollOptionList);
+  const [title, setTitle] = useState(mTitle);
+  const [openingDate, setOpeningDate] = useState(mOpeningDate);
+  const [closingDate, setClosingDate] = useState(mClosingDate);
+  const [openingTime, setOpeningTime] = useState(mOpeningTime.substring(0,8));
+  const [closingTime, setClosingTime] = useState(mClosingTime.substring(0,8));
   const [show, setShow] = useState(true);
+
   const handleClose = () => {
     setShow(false);
-    closeCreatePoll(false);
+    closeModifyPoll(false);
   };
   console.log(title);
   console.log(pollOptionList);
+  console.log(openingTime)
 
   const handleClickAdd = () => {
     setPollOptionList([...pollOptionList, { 'pollOption': "" }]);
@@ -78,6 +59,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
    
     const pollData = {
       user_id: localStorage.getItem('user_id'),
+      PollId:mPoll_id,
       Title: title,
       pollOptions: pollOptionList,
       openingDate: openingDate,
@@ -85,8 +67,8 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
       closingDate: closingDate,
       closingTime: closingTime,
     };
-
-    const res = await fetch("/createPoll", {
+    console.log(pollData)
+    const res = await fetch("/modify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,13 +79,13 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
       console.log("response worked");
     }
 
-    closeCreatePoll(false);
+    closeModifyPoll(false);
   };
   return (
     <>
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header >
-          <Modal.Title className="ms-3" >CREATE POLL</Modal.Title>
+          <Modal.Title className="ms-3" >MODIFY POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
         </Modal.Header>
         <Modal.Body className="m-3">
@@ -163,7 +145,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                     <div className=".col-auto mb-4  .me-auto" >
                       <Button
                         type="button"
-                        className="btn btn-primary"
+                        variant="info"
                         onClick={handleClickAdd}
                       >
                         Add Poll Option
@@ -232,7 +214,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               className="btn-lg"
               onClick={handleSubmit}
             >
-              Create
+              Update
             </Button>
             
           </div>
@@ -241,5 +223,4 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
     </>
   );
 }
-
-export default CreatePoll;
+export default ModifyPoll;
