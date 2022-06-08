@@ -1,0 +1,25 @@
+#cont{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    min-height: 74vh;
+}
+
+#vote{
+    min-height: 90vh;
+}
+.list-group{
+    min-width: 100%;
+    border-radius: 9px;
+}
+.list-group-item{
+    display: flex;
+    flex-direction: row;
+    border-radius: 9px;
+}
+.list-group-item:hover{
+    border: aquamarine solid 3px ;
+    background-color: #1e564333;
+    color: white;
+}
+

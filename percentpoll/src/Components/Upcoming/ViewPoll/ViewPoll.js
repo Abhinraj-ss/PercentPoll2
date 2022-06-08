@@ -50,16 +50,16 @@ function ViewPoll(props) {
       {show && <ModifyPoll handleModalView={handleClickCancel} mPoll_id={props.pollData.poll_id} closeModifyPoll={setShow} mTitle={props.pollData.title} mPollOptionList={pollOptionList} mOpeningDate={props.pollData.open_date} mOpeningTime={props.pollData.open_time} mClosingDate={props.pollData.close_date} mClosingTime={props.pollData.close_time}/>}
     <Modal show={props.show} fullscreen={props.show} onHide={handleClickCancel}>
         <Modal.Header closeVariant="white" closeButton>
-          <Modal.Title>View poll</Modal.Title>
+          <Modal.Title>VIEW POLL</Modal.Title>
         </Modal.Header>
         <Modal.Body className=''>
         <h2>Title - {props.pollData.title}</h2>
         <hr/>
-        <h5>Poll Options.</h5>
+        <h4>Poll Options.</h4>
           <ListGroup>
             {pollOptionsArr.map((option,index)=>(
               <ListGroupItem key={index} className='my-2'>
-              {index+1}  {option}
+                <h5>{option}</h5>
               </ListGroupItem>
             ))
             }

@@ -11,7 +11,8 @@
 }
 .list-group-item{
     background-color: rgba(127, 255, 212, 0.132);
-    border-inline: rgba(0, 255, 255, 0.853) solid 10px;
+    border-inline: rgba(0, 255, 255, 0.853) solid 8px;
+    border-block-end: white solid 0.1px;
     color: white;
 }
 

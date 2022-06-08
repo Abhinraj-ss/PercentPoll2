@@ -125,7 +125,7 @@ function Register(props) {
             Already have an account?
             </h6>
 
-            <Button variant="link" size="lg" onClick={handleClickLogin}>Login</Button>
+            <Button variant="link" size="lg" id="btnLogin" onClick={handleClickLogin}>Login</Button>
         </Modal.Footer>
       </Modal>
   );

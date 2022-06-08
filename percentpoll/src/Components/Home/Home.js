@@ -34,6 +34,9 @@ function Home() {
         >
           Create Poll
         </Button>
+        <Button href="/vote">
+          Test Polling
+        </Button>
       </div>
     </div>
   );

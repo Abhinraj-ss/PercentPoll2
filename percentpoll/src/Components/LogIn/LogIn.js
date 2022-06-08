@@ -89,7 +89,7 @@ function LogIn(props) {
           <h6>
             Don't have an account? 
           </h6>
-            <Button variant="link" size='lg' onClick={handleClickRegister}>Create one</Button>
+            <Button variant="link" size='lg' id="btnRegister" onClick={handleClickRegister}>Create one</Button>
         </Modal.Footer>
       </Modal>
     </>)

@@ -8,3 +8,6 @@
 .alert-dismissible .btn-close{
     padding-block: 3%;
 }
+#btnRegister{
+    padding-left: 0%;
+}

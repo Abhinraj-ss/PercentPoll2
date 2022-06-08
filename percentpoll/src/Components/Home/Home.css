@@ -20,7 +20,7 @@
     background-color: #212529;
     border-color: #7fffd4;
 }
-#create:hover,#create:focus{
+#create:hover{
     background-color: #7fffd4;
     color: black;
 }
