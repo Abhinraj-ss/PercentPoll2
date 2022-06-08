@@ -8,13 +8,33 @@ function ViewPoll(props) {
   const [show,setShow] = useState(false)
   const [pollOptionList ,setPollOptionList] = useState([])
   const pollOptionsArr=JSON.parse(props.pollData.pollOptions)
-  
   useEffect(() => {
+    
     for (let index = 0; index < pollOptionsArr.length; index++) {
       pollOptionList.push({pollOption:pollOptionsArr[index]})
     }
   }, [])
+  function formatDate (input) {
+    var datePart = input.match(/\d+/g),
+    year = datePart[0].substring(2), // get only two digits
+    month = datePart[1], day = datePart[2];
   
+    return day+'/'+month+'/'+year;
+  }
+  function tConvert (time) {
+    // Check correct time format and split into components
+    time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  
+    if (time.length > 1) { // If time format correct
+      time = time.slice (1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join (''); // return adjusted time or original string
+  }
+  
+  tConvert ('18:00:00');
+
   const handleClickCancel = () =>{
     props.handleModalView()
   }
@@ -49,13 +69,13 @@ function ViewPoll(props) {
                     <h5>
                       <div id='sub'>
                       Opening On  
-                      </div> {props.pollData.open_date} {props.pollData.open_time.substring(0,8)}</h5>
+                      </div> {formatDate(props.pollData.open_date)} {tConvert(props.pollData.open_time.substring(0,5))}</h5>
               </div>
               <div className='col' id='closing'>
                   <h5>
                     <div id="sub">
                     Closing On 
-                    </div> {props.pollData.close_date} {props.pollData.close_time.substring(0,8)}</h5>
+                    </div> {formatDate(props.pollData.close_date)} {tConvert(props.pollData.close_time.substring(0,5))}</h5>
               </div>
           </div>
           

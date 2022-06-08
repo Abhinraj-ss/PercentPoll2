@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import {
   Modal,
   Button,
@@ -184,12 +184,12 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
             </div>
             <div className="mb-3">
               <FormLabel className="form-label me-3">Closes On </FormLabel>
-              <FloatingLabel controlId="floatingInputGrid" label="Closing Time">
+              <FloatingLabel controlId="floatingInputGrid" label="Closing Date">
                 <FormControl
                   required=""
                   type="date"
                   defaultValue={closingDate}
-                  placeholder="Closing time"
+                  placeholder="Closing Date"
                   onChange={(e) => setClosingDate(e.target.value)}
                 />
               </FloatingLabel>

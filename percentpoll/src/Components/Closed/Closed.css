@@ -5,3 +5,6 @@
 .btn-flat{
     background-color: aquamarine;
 }
+#closedCardEnd{
+    justify-content: end;
+}
