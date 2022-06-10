@@ -6,7 +6,7 @@ import './Vote.css'
 import NavBar from '../Navbar/Navbar';
 
 function Vote() {
-    const pollOptionsArr= ["hghbfjhfbgf" ,"gjfjkdhfk","hgjhsbdfdjf","gvahvsdh"]
+    const pollOptionsArr= ["surabi" ,"churabi","chundari","chakkara"]
     var selectOptionId=[]
     var selectedOption = ""
 
@@ -34,9 +34,9 @@ function Vote() {
         <div id='vote'>
         <NavBar/>
         <div className='container' id="cont">
-            <h2>Title - </h2>
+            <h2>Kettyonte kettyolaara? </h2>
                 <hr/>
-                <h5>Poll Options.</h5>
+                <h6>You can SELECT ANY ONE of options listed below and click on SUBMIT button for being part of this poll.</h6>
                 <ListGroup>
                     {pollOptionsArr.map((option,index)=>(
                         <ListGroupItem id= {index} key={index}className=' btn my-2' onClick={(e)=>handleClickOption(e)} >

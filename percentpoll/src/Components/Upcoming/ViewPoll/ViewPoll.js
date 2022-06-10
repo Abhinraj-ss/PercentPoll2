@@ -4,6 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import './ViewPoll.css'
 import ModifyPoll from './ModifyPoll'
+import eyeIcon from "../../images/eye_aqua.png"
+
+
 function ViewPoll(props) {
   const [show,setShow] = useState(false)
   const [pollOptionList ,setPollOptionList] = useState([])
@@ -50,7 +53,15 @@ function ViewPoll(props) {
       {show && <ModifyPoll handleModalView={handleClickCancel} mPoll_id={props.pollData.poll_id} closeModifyPoll={setShow} mTitle={props.pollData.title} mPollOptionList={pollOptionList} mOpeningDate={props.pollData.open_date} mOpeningTime={props.pollData.open_time} mClosingDate={props.pollData.close_date} mClosingTime={props.pollData.close_time}/>}
     <Modal show={props.show} fullscreen={props.show} onHide={handleClickCancel}>
         <Modal.Header closeVariant="white" closeButton>
-          <Modal.Title>VIEW POLL</Modal.Title>
+          <Modal.Title className='col-5'>
+          <img
+                alt=""
+                src={eyeIcon}
+                width="50"
+                height="50"
+                className="d-inline-block"
+              />
+              VIEW POLL</Modal.Title>
         </Modal.Header>
         <Modal.Body className=''>
         <h2>Title - {props.pollData.title}</h2>

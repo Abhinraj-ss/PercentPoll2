@@ -10,4 +10,11 @@
     #card{
       min-width: 90vw;
     }
+    
+  }
+  @media screen and (max-width: 1200px){
+    #viewpoll{
+      min-width: 34%;
+      max-height: 20%;
+    }
   }

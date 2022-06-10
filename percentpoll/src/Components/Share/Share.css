@@ -1,0 +1,8 @@
+#shareBtnGroup{
+    display: flex;
+    justify-content: space-around;
+    padding-inline: 15%;
+}
+.modal-title{
+    font-size: 1.8rem;
+}

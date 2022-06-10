@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Flask, jsonify, request
 import mysql.connector
 import datetime
@@ -10,12 +9,33 @@ connection = mysql.connector.connect(host="localhost",user = "root", passwd ="ro
 
 cur = connection.cursor(buffered=True)
 
-#cur.execute('''CREATE DATABASE percentpoll;''')
+cur.execute('''CREATE DATABASE IF NOT EXISTS percentpoll;''')
+connection.commit()
+
 cur.execute('''USE percentpoll;''' )
+cur.execute('''SHOW TABLES;''')
+#print(cur.fetchall())
 
+if (cur.fetchall()== None):
+    create_user_data ='''CREATE TABLE users_data(user_id int not null primary key auto_increment, name varchar(25) not null,email_id varchar(20) not null,password varchar(25) not null);'''
+    
+    create_upcoming_polls_info = '''CREATE TABLE upcoming_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
+    create_live_polls_info = '''CREATE TABLE live_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
+    create_closed_polls_info = '''CREATE TABLE closed_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
 
+    create_upcoming_poll_options = '''CREATE TABLE upcoming_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references upcoming_polls_info(poll_id) ON DELETE CASCADE);'''
+    create_live_poll_options = '''CREATE TABLE live_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references live_polls_info(poll_id) ON DELETE CASCADE);'''
+    create_closed_poll_options = '''CREATE TABLE closed_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references closed_polls_info(poll_id) ON DELETE CASCADE);'''
 
+    cur.execute(create_user_data)
+    cur.execute(create_upcoming_polls_info)
+    cur.execute(create_live_polls_info)
+    cur.execute(create_closed_polls_info)
+    cur.execute(create_upcoming_poll_options)
+    cur.execute(create_live_poll_options)
+    cur.execute(create_closed_poll_options)
 
+    connection.commit()
 
 #@app.route("/members")
 #def server():
@@ -173,8 +193,6 @@ def upcomingPolls(user_id,dateTimeNow):
         for obj in upcomingList:
 
             openingDateTime =  datetime.datetime.fromisoformat(obj['open_date']+" "+obj['open_time'])
-            print("open:",openingDateTime,"timeNow:",dateTimeNow)
-
             poll_id = (obj['poll_id'],)
             jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(poll_option) FROM upcoming_poll_options WHERE poll_id = %s;'''
             cur.execute(jsonArrPollOptions,poll_id)
@@ -191,7 +209,7 @@ def upcomingPolls(user_id,dateTimeNow):
         return [{}]
 
 def livePolls(user_id,dateTimeNow):
-    jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time)) FROM live_polls_info WHERE user_id = %s'''
+    jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time, 'poll_count',poll_count)) FROM live_polls_info WHERE user_id = %s'''
     cur.execute(jsonObjPollInfo,(user_id,))
     liveJsonArr = cur.fetchone()[0]
     #print("live Arr",liveJsonArr)
@@ -202,7 +220,7 @@ def livePolls(user_id,dateTimeNow):
         for obj in liveList:
             closingDateTime =  datetime.datetime.fromisoformat(obj['close_date']+" "+obj['close_time'])
             poll_id = (obj['poll_id'],)
-            jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(poll_option) FROM live_poll_options WHERE poll_id = %s;'''
+            jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_option',poll_option,'option_count',option_count)) FROM live_poll_options WHERE poll_id = %s;'''
             cur.execute(jsonArrPollOptions,poll_id)
             pollOptions = cur.fetchone()[0]
                 
@@ -211,15 +229,27 @@ def livePolls(user_id,dateTimeNow):
                 
             else:
                 liveList[index]['pollOptions']=pollOptions
-                index+=1
 
+                maxCount=0
+                maxPollOptions=[]
+                if pollOptions != None:
+                    for pollOption in json.loads(pollOptions):
+                        count=pollOption['option_count']
+                        if count >= maxCount:
+                            maxCount =pollOption['option_count']
+                            maxPollOptions.append(pollOption['poll_option'])
+                    
+                    maxPercent =(maxCount/obj['poll_count'])*100 if (obj['poll_count']!=0) else 0
+                    liveList[index]['maxPercent'] = maxPercent
+                    liveList[index]['maxPollOptions'] = maxPollOptions
+                index+=1
             #print(liveList) 
         return liveList
     else :
         return [{}]
     
 def closedPolls(user_id):
-    jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time)) FROM closed_polls_info WHERE user_id = %s'''
+    jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time,'poll_count',poll_count)) FROM closed_polls_info WHERE user_id = %s'''
     cur.execute(jsonObjPollInfo,(user_id,))
     closedJsonArr = cur.fetchone()[0]
     #print("closed Arr",closedJsonArr)
@@ -229,11 +259,23 @@ def closedPolls(user_id):
         index =0
         for obj in closedList:
             poll_id = (obj['poll_id'],)
-            jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(poll_option) FROM closed_poll_options WHERE poll_id = %s;'''
+            jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_option',poll_option,'option_count',option_count)) FROM closed_poll_options WHERE poll_id = %s;'''
             cur.execute(jsonArrPollOptions,poll_id)
             pollOptions = cur.fetchone()[0]
             closedList[index]['pollOptions']=pollOptions
             #print(closedList) 
+            maxCount=0
+            maxPollOptions=[]
+            if pollOptions != None:
+                for pollOption in json.loads(pollOptions):
+                    print("n",pollOption,"c",(pollOption['option_count']))
+                    count=pollOption['option_count']
+                    if count >= maxCount:
+                        maxCount =count
+                        maxPollOptions.append(pollOption['poll_option'])
+                maxPercent =(maxCount/obj['poll_count'])*100 if (obj['poll_count']!=0) else 0
+                closedList[index]['maxPercent'] = maxPercent
+                closedList[index]['maxPollOptions'] = maxPollOptions
             index+=1
         return closedList
     else :
@@ -244,16 +286,16 @@ def updateUpcomingToLive(user_id,obj,pollOptions):
     #insert record to live_polls_info, live_poll_options
     print("reached update upcoming to live")
     poll_id=obj['poll_id']
-    dataPollsInfo = (user_id,obj['title'],obj['open_date'],obj['open_time'],obj['close_date'],obj['close_time'])
+    dataPollsInfo = (user_id,obj['title'],obj['open_date'],obj['open_time'],obj['close_date'],obj['close_time'],obj['poll_count'])
 
     deleteUpcomingQuery = '''DELETE FROM upcoming_polls_info WHERE poll_id=%s'''
     cur.execute(deleteUpcomingQuery,(poll_id,))
     deleteUpcomingQueryPollOptions = '''DELETE FROM live_poll_options WHERE poll_id=%s'''
     cur.execute(deleteUpcomingQueryPollOptions,(poll_id,))
-    insertQueryLivePollsInfo = '''INSERT INTO live_polls_info(user_id,title ,open_date,open_time,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
+    insertQueryLivePollsInfo = '''INSERT INTO live_polls_info(user_id,title ,open_date,open_time,close_date, close_time,poll_count) VALUES(%s,%s,%s,%s,%s,%s);'''
     cur.execute(insertQueryLivePollsInfo,dataPollsInfo)
     poll_id = cur.lastrowid
-    insertQueryLivePollOptions = '''INSERT INTO live_poll_options(poll_id, poll_option) VALUES(%s,%s);'''
+    insertQueryLivePollOptions = '''INSERT INTO live_poll_options(poll_id, poll_option,option_count) VALUES(%s,%s);'''
     for pollOption in pollOptions:
         dataPollOptions = (poll_id,pollOption)
         cur.execute(insertQueryLivePollOptions,dataPollOptions)
@@ -266,16 +308,16 @@ def updateLiveToClosed(user_id,obj,pollOptions):
     print("reached update live to closed")
 
     poll_id=obj['poll_id']
-    dataPollsInfo = (user_id,obj['title'],obj['open_date'],obj['open_time'],obj['close_date'],obj['close_time'])
+    dataPollsInfo = (user_id,obj['title'],obj['open_date'],obj['open_time'],obj['close_date'],obj['close_time'],obj['poll_count'])
 
     deleteLiveQueryPollsInfo = '''DELETE FROM live_polls_info WHERE poll_id=%s'''
     cur.execute(deleteLiveQueryPollsInfo,(poll_id,))
     deleteliveQueryPollOptions = '''DELETE FROM live_poll_options WHERE poll_id=%s'''
     cur.execute(deleteliveQueryPollOptions,(poll_id,))
-    insertQueryClosedPollsInfo = '''INSERT INTO closed_polls_info(user_id,title ,open_date,open_time,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
+    insertQueryClosedPollsInfo = '''INSERT INTO closed_polls_info(user_id,title ,open_date,open_time,close_date, close_time,poll_count) VALUES(%s,%s,%s,%s,%s,%s);'''
     cur.execute(insertQueryClosedPollsInfo,dataPollsInfo)
     poll_id = cur.lastrowid
-    insertQueryLivePollOptions = '''INSERT INTO closed_poll_options(poll_id, poll_option) VALUES(%s,%s);'''
+    insertQueryLivePollOptions = '''INSERT INTO closed_poll_options(poll_id, poll_option,option_count) VALUES(%s,%s);'''
     for pollOption in pollOptions:
         dataPollOptions = (poll_id,pollOption)
         cur.execute(insertQueryLivePollOptions,dataPollOptions)

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Donutchart from '../../DonutChart';
 import './ClosedReport.css'
+import reportIcon from "../../images/finalReport_aqua.png"
 
 function ClosedReport(props) {
   console.log(props.show)
@@ -11,7 +12,15 @@ function ClosedReport(props) {
     <>
     <Modal show={props.show} fullscreen={props.show} onHide={()=>props.handleModalReport()}>
         <Modal.Header closeVariant="white" closeButton>
-          <Modal.Title>Final Report</Modal.Title>
+          <Modal.Title className="col-5">
+          <img
+            alt=""
+            src={reportIcon}
+            width="50"
+            height="50"
+            className="d-inline-block"
+        />
+        Final Report</Modal.Title>
          
         </Modal.Header>
         <Modal.Body>

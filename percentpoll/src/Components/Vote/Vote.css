@@ -3,6 +3,7 @@
     flex-direction: column;
     color: white;
     min-height: 74vh;
+    padding-top: 4%;
 }
 
 #vote{

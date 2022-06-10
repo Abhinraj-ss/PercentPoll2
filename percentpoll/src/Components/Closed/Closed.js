@@ -6,13 +6,13 @@ import moment from "moment";
 
 import './Closed.css'
 import ClosedReport from './ClosedReport/ClosedReport';
+import reportIcon from "../images/finalReport.png"
 
 
 function Closed(props) {
     const [show,setShow] = useState(false)
 
     const handleClickReport = () =>{
-        console.log(show)
         setShow(!show)
         
     }
@@ -25,28 +25,44 @@ function Closed(props) {
         return diffDays
     }
 
+    
   return (
       <>
       {show && <ClosedReport show={show} handleModalReport={handleClickReport}/>}
       {props.closedPolls[0].title &&
       <div className="row" id='card'>
       {props.closedPolls.map(
-          (closedPoll,index)=>(
+          (closedPoll,index,)=>(
+            
             <div key={index} className="col-6">
-                <Card className=" text-white bg-dark" id='card'>
+                <Card className=" text-white bg-dark" id='card' >
                     <Card.Body>
                         <div className="row d-flex ">
                             <div className="col-4 "> 
-                                <div id='percentVotes'>90%</div>
+                                <div id='percentVotes'>{closedPoll.maxPercent}%</div>
                                 <p>
                                 of votes.
                                 </p>
                             </div>
                             <div className="col-8 text-end" id="closedCardEnd">
+                            
                                 <h4 className="card-title">{closedPoll.title}</h4>
                                 <hr/>
-                                <h4 className="card-text">Poll Option which opted more.</h4>
-                                <Button variant="flat" onClick={handleClickReport} >See full report</Button>
+                                {closedPoll.maxPollOptions.map(
+                                    (option,index)=>(
+                                        <h4 key={index} className="card-text">{option}</h4>
+                                    )
+                                )
+
+                                }
+                                <Button variant="flat" className="col-6"id= "full" onClick={handleClickReport} >
+                                <img
+                                    alt=""
+                                    src={reportIcon}
+                                    width="30"
+                                    height="30"
+                                    className="d-inline-block"
+                                />See full report</Button>
                             </div>
                         </div> 
                        

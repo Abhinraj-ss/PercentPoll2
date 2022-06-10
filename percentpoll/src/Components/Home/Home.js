@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import CreatePoll from "../CreatePoll/CreatePoll";
 import "./Home.css";
 import {userContext} from '../Contexts/userContext'
+import createIcon from "../images/create.png"
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,10 +33,14 @@ function Home() {
           onClick={handleClick}
           size="lg"
         >
-          Create Poll
-        </Button>
-        <Button href="/vote">
-          Test Polling
+          <img
+                alt=""
+                src={createIcon}
+                width="25"
+                height="25"
+                className="d-inline-block"
+              />
+          Create a poll
         </Button>
       </div>
     </div>

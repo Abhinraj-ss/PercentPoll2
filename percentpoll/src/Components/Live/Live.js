@@ -1,12 +1,18 @@
 import React, {useState} from "react";
 import { Button, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./Live.css";
 import LiveReport from "./LiveReport/LiveReport";
+import Share from "../Share/Share";
+import shareIcon from "../images/share.png"
+import ReportIcon from "../images/radio.png"
 
 
 function Live(props) {
-  const [show,setShow] = useState(false)
+  const [showReport,setShowReport] = useState(false)
+  const [showShare,setShowShare] = useState(false)
+
   
   
   
@@ -33,13 +39,18 @@ function Live(props) {
   tConvert ('18:00:00');
 
   const handleClickReport = () =>{
-      console.log(show)
-      setShow(!show)
+      console.log(showReport)
+      setShowReport(!showReport)
+    }
+    const handleClickShare = () =>{
+      console.log(showShare)
+      setShowShare(!showShare)
         
     }
   return (
     <>
-    {show&& <LiveReport show={show} handleModalReport={handleClickReport}/>}
+    {showShare&& <Share show={showShare} handleModalShare={handleClickShare}/>}
+    {showReport&& <LiveReport show={showReport} handleModalReport={handleClickReport}/>}
     {props.livePolls[0].title &&
     <div className="row" id='card'>
     {props.livePolls.map(
@@ -50,53 +61,32 @@ function Live(props) {
             <Card.Title>
               <h4>{livePoll.title}</h4>
             </Card.Title>
-            <div className="progressGroup ">
-              <div className="progress">
-                <div
-                  className="progress-bar bg-success"
-                  role="progressbar"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-              <div className="progress">
-                <div
-                  className="progress-bar bg-info"
-                  role="progressbar"
-                  aria-valuenow="50"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-              <div className="progress">
-                <div
-                  className="progress-bar bg-warning"
-                  role="progressbar"
-                  aria-valuenow="75"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-              <div className="progress">
-                <div
-                  className="progress-bar bg-danger"
-                  role="progressbar"
-                  aria-valuenow="100"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
             <hr />
             <Card.Text>
                 With supporting text below as a natural lead-in to additional
                 content.
             </Card.Text>
-            <Button variant="flat" onClick={handleClickReport}>See live report</Button>
+            <div id="btnRowReport">
+            <Button className = "col-3 share"  variant="flat"  onClick={handleClickShare}><img
+                alt=""
+                src={shareIcon}
+                width="21"
+                height="20"
+                className="d-inline-block"
+              />Share</Button>
+            <Button className = "col-4 report" variant="flat" onClick={handleClickReport}>
+            <img
+                alt=""
+                src={ReportIcon}
+                width="25"
+                height="25"
+                className="d-inline-block"
+              />See live report</Button>
+            </div>
+            
           </Card.Body>
           <Card.Footer className="text-muted">
-          Deadline: {formatDate(livePoll.close_date)} at {tConvert(livePoll.close_time.substring(0,5))} OR a timer can be implimented.
+          Deadline: {formatDate(livePoll.close_date)} at {tConvert(livePoll.close_time.substring(0,5))} 
           </Card.Footer>
         </Card>
       </div>

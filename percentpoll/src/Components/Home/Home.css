@@ -15,12 +15,37 @@
     color: #7fffd4;
     border-color: aquamarine;
 }
-#create{
-    color: #7fffd4;
-    background-color: #212529;
-    border-color: #7fffd4;
+
+#create:hover img{
+    filter: brightness(0);
 }
 #create:hover{
     background-color: #7fffd4;
     color: black;
+}
+#create{
+
+    color: #7fffd4;
+    background-color: #212529;
+    border-color: #7fffd4;
+}
+@media screen and (max-width: 1300px),(min-width:740px){
+    #create{
+        min-width: 30%;
+        min-height: 7%;
+    }
+}
+@media screen and (min-width: 1301px){
+    #create{
+        
+        min-width: 20%;
+        min-height: 7%;
+    }
+}
+@media screen and (max-width: 739px){
+    #create{
+        padding-inline: 2%;
+        min-width: 45%;
+        max-height: 7%;
+    }
 }

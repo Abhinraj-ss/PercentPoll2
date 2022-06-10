@@ -28,6 +28,7 @@ function App() {
   const [closedPolls,setClosedPolls ]= useState([{}])
   const modalClosing =localStorage.getItem('modal_closing')
 
+
   const getPolls = async() =>{
     var userData ={'user_id':userId}
     let res = await fetch('/getPolls',{
@@ -52,6 +53,9 @@ function App() {
       console.log("upcoming polls exists!!");
     }
   }
+
+  
+
   useEffect(() => {
     console.log(userId)
     getPolls()

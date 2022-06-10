@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import moment from "moment";
+import editIcon from "../../images/pencil_aqua.png"
 
 function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
   const [pollOptionList, setPollOptionList] = useState(mPollOptionList);
@@ -85,7 +86,14 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
     <>
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header >
-          <Modal.Title className="ms-3" >MODIFY POLL</Modal.Title>
+          <Modal.Title className="col-5" >
+          <img
+                alt=""
+                src={editIcon}
+                width="35"
+                height="35"
+                className="d-inline-block"
+              />MODIFY POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
         </Modal.Header>
         <Modal.Body className="m-3">

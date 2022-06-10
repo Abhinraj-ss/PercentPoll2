@@ -1,7 +1,6 @@
 .modal-content{
-    background-image: url(./logo.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-image: url(../../images/logo.png);
+    background-size: cover;
     background-position: center;
 }
 .modal-body{
@@ -15,7 +14,6 @@
     border-block-end: white solid 0.1px;
     color: white;
 }
-
 #closing{
     text-align: end;
 }
