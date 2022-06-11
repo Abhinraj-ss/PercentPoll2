@@ -11,8 +11,10 @@ import reportIcon from "../images/finalReport.png"
 
 function Closed(props) {
     const [show,setShow] = useState(false)
+    const [closedPoll, setClosedPoll] = useState()
 
-    const handleClickReport = () =>{
+    const handleClickReport = (closedPoll) =>{
+        setClosedPoll(closedPoll)
         setShow(!show)
         
     }
@@ -28,7 +30,7 @@ function Closed(props) {
     
   return (
       <>
-      {show && <ClosedReport show={show} handleModalReport={handleClickReport}/>}
+      {show && <ClosedReport show={show} closedPoll={closedPoll} handleModalReport={handleClickReport}/>}
       {props.closedPolls[0].title &&
       <div className="row" id='card'>
       {props.closedPolls.map(
@@ -55,7 +57,7 @@ function Closed(props) {
                                 )
 
                                 }
-                                <Button variant="flat" className="col-6"id= "full" onClick={handleClickReport} >
+                                <Button variant="flat" className="col-6"id= "full" onClick={()=>handleClickReport(closedPoll)} >
                                 <img
                                     alt=""
                                     src={reportIcon}

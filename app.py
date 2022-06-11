@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 import mysql.connector
 import datetime
 import json
+from werkzeug.security import check_password_hash,generate_password_hash
+import math
 
 app = Flask(__name__)
 
@@ -17,7 +19,7 @@ cur.execute('''SHOW TABLES;''')
 #print(cur.fetchall())
 
 if (cur.fetchall()== None):
-    create_user_data ='''CREATE TABLE users_data(user_id int not null primary key auto_increment, name varchar(25) not null,email_id varchar(20) not null,password varchar(25) not null);'''
+    create_user_data ='''CREATE TABLE users_data(user_id int not null primary key auto_increment, name varchar(25) not null,email_id varchar(20) not null,password varchar(100) not null);'''
     
     create_upcoming_polls_info = '''CREATE TABLE upcoming_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
     create_live_polls_info = '''CREATE TABLE live_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
@@ -46,9 +48,10 @@ if (cur.fetchall()== None):
 def register():
     registerData = request.get_json()
     print(registerData)
+    hashedPassword= generate_password_hash(registerData['password'], method='pbkdf2:sha256', salt_length=12)
     registerUserQuery = "INSERT INTO users_data(name,email_id,password) VALUES(%s,%s,%s);"
     searchUserQuery = "SELECT * FROM users_data WHERE email_id = %s;"
-    userInfo = (registerData['name'],registerData['email'],registerData['password'])
+    userInfo = (registerData['name'],registerData['email'],hashedPassword)
     email = registerData['email']
     cur.execute(searchUserQuery,(email,))
     userData = cur.fetchone()
@@ -73,7 +76,7 @@ def login():
     password = result[1]
     print(password)
     if (password != None):
-        if(password==loginData["password"]):
+        if(check_password_hash(password,loginData["password"])):
             return jsonify({"user_id":user_id}),201
     else :
         return "userNotPresent",200
@@ -239,7 +242,7 @@ def livePolls(user_id,dateTimeNow):
                             maxCount =pollOption['option_count']
                             maxPollOptions.append(pollOption['poll_option'])
                     
-                    maxPercent =(maxCount/obj['poll_count'])*100 if (obj['poll_count']!=0) else 0
+                    maxPercent =math.ceil(maxCount*100/obj['poll_count']) if (obj['poll_count']!=0) else 0
                     liveList[index]['maxPercent'] = maxPercent
                     liveList[index]['maxPollOptions'] = maxPollOptions
                 index+=1
@@ -273,7 +276,7 @@ def closedPolls(user_id):
                     if count >= maxCount:
                         maxCount =count
                         maxPollOptions.append(pollOption['poll_option'])
-                maxPercent =(maxCount/obj['poll_count'])*100 if (obj['poll_count']!=0) else 0
+                maxPercent =math.ceil(maxCount*100/obj['poll_count']) if (obj['poll_count']!=0) else 0
                 closedList[index]['maxPercent'] = maxPercent
                 closedList[index]['maxPollOptions'] = maxPollOptions
             index+=1
@@ -292,12 +295,13 @@ def updateUpcomingToLive(user_id,obj,pollOptions):
     cur.execute(deleteUpcomingQuery,(poll_id,))
     deleteUpcomingQueryPollOptions = '''DELETE FROM live_poll_options WHERE poll_id=%s'''
     cur.execute(deleteUpcomingQueryPollOptions,(poll_id,))
-    insertQueryLivePollsInfo = '''INSERT INTO live_polls_info(user_id,title ,open_date,open_time,close_date, close_time,poll_count) VALUES(%s,%s,%s,%s,%s,%s);'''
+    insertQueryLivePollsInfo = '''INSERT INTO live_polls_info(user_id,title ,open_date,open_time,close_date, close_time,poll_count) VALUES(%s,%s,%s,%s,%s,%s,%s);'''
     cur.execute(insertQueryLivePollsInfo,dataPollsInfo)
     poll_id = cur.lastrowid
-    insertQueryLivePollOptions = '''INSERT INTO live_poll_options(poll_id, poll_option,option_count) VALUES(%s,%s);'''
-    for pollOption in pollOptions:
-        dataPollOptions = (poll_id,pollOption)
+    insertQueryLivePollOptions = '''INSERT INTO live_poll_options(poll_id, poll_option,option_count) VALUES(%s,%s,%s);'''
+    for pollOption in json.loads(pollOptions):
+        print(pollOption)
+        dataPollOptions = (poll_id,pollOption['poll_option'],pollOption['option_count'])
         cur.execute(insertQueryLivePollOptions,dataPollOptions)
     connection.commit()
     return True
@@ -314,15 +318,17 @@ def updateLiveToClosed(user_id,obj,pollOptions):
     cur.execute(deleteLiveQueryPollsInfo,(poll_id,))
     deleteliveQueryPollOptions = '''DELETE FROM live_poll_options WHERE poll_id=%s'''
     cur.execute(deleteliveQueryPollOptions,(poll_id,))
-    insertQueryClosedPollsInfo = '''INSERT INTO closed_polls_info(user_id,title ,open_date,open_time,close_date, close_time,poll_count) VALUES(%s,%s,%s,%s,%s,%s);'''
+    insertQueryClosedPollsInfo = '''INSERT INTO closed_polls_info(user_id,title ,open_date,open_time,close_date, close_time,poll_count) VALUES(%s,%s,%s,%s,%s,%s,%s);'''
     cur.execute(insertQueryClosedPollsInfo,dataPollsInfo)
     poll_id = cur.lastrowid
-    insertQueryLivePollOptions = '''INSERT INTO closed_poll_options(poll_id, poll_option,option_count) VALUES(%s,%s);'''
-    for pollOption in pollOptions:
-        dataPollOptions = (poll_id,pollOption)
+    insertQueryLivePollOptions = '''INSERT INTO closed_poll_options(poll_id, poll_option,option_count) VALUES(%s,%s,%s);'''
+    print(pollOptions)
+    for pollOption in json.loads(pollOptions):
+        print(pollOption)
+        dataPollOptions = (poll_id,pollOption['poll_option'],pollOption['option_count'])
         cur.execute(insertQueryLivePollOptions,dataPollOptions)
     connection.commit()
     return True
 
 if __name__ ==" __main__":
-    app.run(debug= True)
+    app.run(debug= True, use_debugger=False, use_reloader=False)

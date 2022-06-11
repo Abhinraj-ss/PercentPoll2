@@ -1,4 +1,4 @@
-import  React,{useContext, useState} from 'react'
+import  React,{useState} from 'react'
 import { Button,Modal, CloseButton, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LogIn.css'
@@ -8,7 +8,6 @@ function LogIn(props) {
   const [email,setEmail] = useState("");
   const [password, setPassword] =  useState("");
   const [show, setShow] = useState(false);
-  var {data,setData} = useContext(userContext)
   
   
   console.log(email,password);
@@ -39,11 +38,9 @@ function LogIn(props) {
       console.log("Response Worked! and user exists!!");
       localStorage.setItem('isLoggedIn','true')
       localStorage.setItem('user_id',JSON.stringify(res['user_id']))
-      setData({isLoggedIn:true,email:email,password:password})
       props.handleModalOpen()
       //localStorage.setItem('modal_closing',"true")
     }
-    console.log(data)
     
   }
   

@@ -1,3 +1,7 @@
-.chart{
-    width: 40vw;
+
+.chart > div:nth-child(1) > canvas:nth-child(1) {
+    display: inline-block; /*! box-sizing: border-box; */
+    min-height: 37vw;
+    max-height: 38vw;
+    min-width: 40vw;
 }

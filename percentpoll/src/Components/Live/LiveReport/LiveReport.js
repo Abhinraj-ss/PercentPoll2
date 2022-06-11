@@ -2,7 +2,7 @@ import React from 'react'
 import {  Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Donutchart from '../../DonutChart';
+import DoughnutChart from '../../DoughnutChart';
 import liveIcon from '../../images/radio_aqua.png'
 
 function LiveReport(props) {
@@ -21,10 +21,13 @@ function LiveReport(props) {
               Live Report</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <h3>Total number of voters : 100</h3>
-        <div className="chart">
-            <Donutchart/>
-        </div>
+        <div className="container">
+          <h2 >{props.livePoll.title}</h2>
+          <div className="chart">
+            <DoughnutChart poll={props.livePoll}/>
+          </div>
+          <h3>Total votes : {props.livePoll.poll_count}</h3>
+          </div>
         </Modal.Body>
       </Modal>
     </>

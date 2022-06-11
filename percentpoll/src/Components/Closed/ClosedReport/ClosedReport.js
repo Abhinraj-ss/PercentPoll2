@@ -2,12 +2,13 @@ import React from 'react'
 import {  Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Donutchart from '../../DonutChart';
+import DoughnutChart from '../../DoughnutChart';
 import './ClosedReport.css'
 import reportIcon from "../../images/finalReport_aqua.png"
 
 function ClosedReport(props) {
   console.log(props.show)
+  console.log(props.closedPoll)
   return (
     <>
     <Modal show={props.show} fullscreen={props.show} onHide={()=>props.handleModalReport()}>
@@ -24,10 +25,14 @@ function ClosedReport(props) {
          
         </Modal.Header>
         <Modal.Body>
-          <h3>Total number of voters : 100</h3>
+          <div className="container">
+          <h2 >{props.closedPoll.title}</h2>
           <div className="chart">
-            <Donutchart/>
+            <DoughnutChart id="chart"  poll={props.closedPoll}/>
           </div>
+          <h3>Total votes : {props.closedPoll.poll_count}</h3>
+          </div>
+         
         
         </Modal.Body>
       </Modal>

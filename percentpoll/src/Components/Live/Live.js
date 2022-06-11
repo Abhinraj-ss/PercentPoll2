@@ -12,6 +12,7 @@ import ReportIcon from "../images/radio.png"
 function Live(props) {
   const [showReport,setShowReport] = useState(false)
   const [showShare,setShowShare] = useState(false)
+  const [livePoll, setLivePoll] = useState()
 
   
   
@@ -38,8 +39,9 @@ function Live(props) {
   
   tConvert ('18:00:00');
 
-  const handleClickReport = () =>{
+  const handleClickReport = (livePoll) =>{
       console.log(showReport)
+      setLivePoll(livePoll)
       setShowReport(!showReport)
     }
     const handleClickShare = () =>{
@@ -50,7 +52,7 @@ function Live(props) {
   return (
     <>
     {showShare&& <Share show={showShare} handleModalShare={handleClickShare}/>}
-    {showReport&& <LiveReport show={showReport} handleModalReport={handleClickReport}/>}
+    {showReport&& <LiveReport show={showReport} livePoll={livePoll} handleModalReport={handleClickReport}/>}
     {props.livePolls[0].title &&
     <div className="row" id='card'>
     {props.livePolls.map(
@@ -74,7 +76,7 @@ function Live(props) {
                 height="20"
                 className="d-inline-block"
               />Share</Button>
-            <Button className = "col-4 report" variant="flat" onClick={handleClickReport}>
+            <Button className = "col-4 report" variant="flat" onClick={()=>handleClickReport(livePoll)}>
             <img
                 alt=""
                 src={ReportIcon}
