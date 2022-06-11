@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import { Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -11,9 +11,7 @@ import {
   } from "react-share";
 
   import {
-    EmailIcon,
     FacebookIcon,
-    FacebookMessengerIcon,
     LinkedinIcon,
     TelegramIcon,
     TwitterIcon,
@@ -22,8 +20,11 @@ import {
 
 import "./Share.css"
 import shareIcon from '../images/share_aqua.png'
+import linkIcon from '../images/link.png'
+import gmailIcon from '../images/gmail.png'
 
 function Share(props) {
+  const [link,setLink] = useState('http://localhost:3000/vote/'+props.pollId)
   return (
     <Modal show={props.show} size="lg" aria-labelledby="contained-modal-title-vcenter" onHide={()=>props.handleModalShare()} centered>
       <Modal.Header closeVariant="white" closeButton>
@@ -39,23 +40,34 @@ function Share(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex-row" id="shareBtnGroup">
-            
-            <WhatsappShareButton>
+            <img
+                alt=""
+                src={linkIcon}
+                width="62"
+                height="68"
+                className="pt-2"
+              />
+            <WhatsappShareButton title={props.title}  url={link}>
                 <WhatsappIcon borderRadius={15}/>
             </WhatsappShareButton>
-            <FacebookShareButton>
+            <FacebookShareButton quote={props.title} hashtag="#percentpoll2" url={link}>
                 <FacebookIcon borderRadius={15}/>
             </FacebookShareButton>
-            <EmailShareButton>
-                <EmailIcon borderRadius={15}/>
+            <EmailShareButton url={link} subject={props.title} body={link} openShareDialogOnClick='true'>
+              <img
+                  alt=""
+                  src={gmailIcon}
+                  width="62"
+                  height="80"
+                />
             </EmailShareButton>
-            <TelegramShareButton>
+            <TelegramShareButton url={link} title={props.title}>
                 <TelegramIcon borderRadius={15}/>
             </TelegramShareButton>
-            <TwitterShareButton>
+            <TwitterShareButton url={link} title={props.title} via="percent poll2" hashtags="#percentpoll2">
                 <TwitterIcon borderRadius={15}/>
             </TwitterShareButton>
-            <LinkedinShareButton>
+            <LinkedinShareButton url={link} title={props.title} summary="Take part in the poll to find the 100% right choice." source="percent poll2">
                 <LinkedinIcon borderRadius={15}/>
             </LinkedinShareButton>
         </div>

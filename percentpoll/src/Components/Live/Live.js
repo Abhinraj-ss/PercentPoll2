@@ -13,6 +13,8 @@ function Live(props) {
   const [showReport,setShowReport] = useState(false)
   const [showShare,setShowShare] = useState(false)
   const [livePoll, setLivePoll] = useState()
+  const [pollId,setPollId] = useState()
+  const [title,setTitle] =useState()
 
   
   
@@ -44,14 +46,16 @@ function Live(props) {
       setLivePoll(livePoll)
       setShowReport(!showReport)
     }
-    const handleClickShare = () =>{
+    const handleClickShare = (livePoll) =>{
       console.log(showShare)
+      setPollId(livePoll.poll_id)
+      setTitle(livePoll.title)
       setShowShare(!showShare)
         
     }
   return (
     <>
-    {showShare&& <Share show={showShare} handleModalShare={handleClickShare}/>}
+    {showShare&& <Share show={showShare} pollId={pollId} title={title} handleModalShare={handleClickShare}/>}
     {showReport&& <LiveReport show={showReport} livePoll={livePoll} handleModalReport={handleClickReport}/>}
     {props.livePolls[0].title &&
     <div className="row" id='card'>
@@ -69,7 +73,7 @@ function Live(props) {
                 content.
             </Card.Text>
             <div id="btnRowReport">
-            <Button className = "col-3 share"  variant="flat"  onClick={handleClickShare}><img
+            <Button className = "col-3 share"  variant="flat"  onClick={()=>handleClickShare(livePoll)}><img
                 alt=""
                 src={shareIcon}
                 width="21"
