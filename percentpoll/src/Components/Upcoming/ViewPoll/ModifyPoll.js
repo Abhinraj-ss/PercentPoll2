@@ -86,7 +86,7 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
     <>
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header >
-          <Modal.Title className="col-5" >
+          <Modal.Title className="col-7" >
           <img
                 alt=""
                 src={editIcon}

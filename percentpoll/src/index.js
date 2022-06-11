@@ -11,11 +11,12 @@ import Vote from './Components/Vote/Vote';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/vote" element={<Vote/>} />
+      <Route exact path="/" element={<App />} />
+      <Route path="/vote/:pollId" element={<Vote/>} />
     </Routes>
   </BrowserRouter>
 

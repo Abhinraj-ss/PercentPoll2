@@ -54,8 +54,6 @@ function App() {
     }
   }
 
-  
-
   useEffect(() => {
     console.log(userId)
     getPolls()

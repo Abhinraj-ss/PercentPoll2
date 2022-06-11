@@ -13,7 +13,7 @@ function ClosedReport(props) {
     <>
     <Modal show={props.show} fullscreen={props.show} onHide={()=>props.handleModalReport()}>
         <Modal.Header closeVariant="white" closeButton>
-          <Modal.Title className="col-5">
+          <Modal.Title className="col-7">
           <img
             alt=""
             src={reportIcon}

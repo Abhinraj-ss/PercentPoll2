@@ -1,19 +1,57 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import './Vote.css'
 import NavBar from '../Navbar/Navbar';
+import { useParams ,useNavigate} from 'react-router-dom';
 
 function Vote() {
-    const pollOptionsArr= ["surabi" ,"churabi","chundari","chakkara"]
+    const pollId =useParams()
+    const [title,setTitle] = useState()
+    const [pollOptionsArr,setPollOptionsArr]= useState([])
+    const navigate = useNavigate()
+
+    
+    // ["surabi" ,"churabi","chundari","chakkara"]
     var selectOptionId=[]
     var selectedOption = ""
-
-    const handleSubmit = () =>{
-
+    console.log('url',pollId)
+    console.log(title,pollOptionsArr)
+    const handleSubmit = async() =>{
+        const voteData ={"selected_option" : selectedOption}
+        let res = await fetch('/vote/'+pollId.pollId,{
+            method : ['POST'],
+            headers :{
+                'Content-Type': 'application/json',
+                "Accept":"application/json"
+            },
+            body: JSON.stringify(voteData)
+        });
+        if(res.status === 200){
+            let message = await res.json()
+            console.log("voting successful!!",message['message']);
+            navigate('/')
+          }
+             
+          else if(res.status === 201){
+            console.log(res.json())
+            console.log("voting unsuccessful!!");
+          }
     }
 
+    console.log(pollId.pollId)
+    useEffect(() => {
+        fetch('/vote/'+pollId.pollId)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data,typeof(data),data['pollOptions'])
+            setPollOptionsArr([...data['pollOptions']])
+            setTitle(data['title'])});
+    }, [])
+    //  console.log(data,typeof(data),data['pollOptions'])
+    
+    
     const handleClickOption = (e) =>{
         selectedOption = e.target.textContent
         console.log(selectedOption)
@@ -30,11 +68,21 @@ function Vote() {
         }
     }
 
+
+    /*<ListGroup>
+                    {pollOptionsArr.map((option,index)=>(
+                        <ListGroupItem id= {index} key={index}className=' btn my-2' onClick={(e)=>handleClickOption(e)} >
+                        <h5>{option}</h5>
+                        </ListGroupItem>
+                    ))
+                    } 
+                </ListGroup> */
+    
   return (
         <div id='vote'>
         <NavBar/>
         <div className='container' id="cont">
-            <h2>Kettyonte kettyolaara? </h2>
+            <h2>{title} </h2>
                 <hr/>
                 <h6>You can SELECT ANY ONE of options listed below and click on SUBMIT button for being part of this poll.</h6>
                 <ListGroup>
@@ -51,7 +99,7 @@ function Vote() {
                 type="submit"
                 variant="success"
                 className="btn-lg"
-                onClick={handleSubmit()}>
+                onClick={handleSubmit}>
                 Submit
             </Button>
         </div>

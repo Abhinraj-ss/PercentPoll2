@@ -53,7 +53,7 @@ function ViewPoll(props) {
       {show && <ModifyPoll handleModalView={handleClickCancel} mPoll_id={props.pollData.poll_id} closeModifyPoll={setShow} mTitle={props.pollData.title} mPollOptionList={pollOptionList} mOpeningDate={props.pollData.open_date} mOpeningTime={props.pollData.open_time} mClosingDate={props.pollData.close_date} mClosingTime={props.pollData.close_time}/>}
     <Modal show={props.show} fullscreen={props.show} onHide={handleClickCancel}>
         <Modal.Header closeVariant="white" closeButton>
-          <Modal.Title className='col-5'>
+          <Modal.Title className='col-7'>
           <img
                 alt=""
                 src={eyeIcon}

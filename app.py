@@ -58,9 +58,9 @@ def register():
     if (userData == None):
         cur.execute(registerUserQuery,userInfo)
         connection.commit()
-        return "user added", 201
+        return {"message":"user added"}, 201
     else:
-        return "user exists", 200
+        return {"message":"user exists"}, 200
 
 @app.route("/login",methods=['POST'])
 def login():
@@ -79,7 +79,7 @@ def login():
         if(check_password_hash(password,loginData["password"])):
             return jsonify({"user_id":user_id}),201
     else :
-        return "userNotPresent",200
+        return {"message":"userNotPresent"},200
     
         
 @app.route("/createPoll", methods=["POST"])
@@ -116,7 +116,7 @@ def createPoll():
             dataPollOptions = (poll_id,pollOption['pollOption'])
             cur.execute(insertQueryClosedPollOptions,dataPollOptions)
     connection.commit()
-    return "Done",201
+    return {"message":"poll creation successful!"},201
 
 
 @app.route('/modify',methods=['POST'])
@@ -167,7 +167,34 @@ def modifyPoll():
                     cur.execute(insertQueryLivePollOptions,dataPollOptionsNew)
     
     connection.commit()
-    return 'Done', 201
+    return {"message":"modification successful!"}, 201
+
+@app.route('/vote/<pollId>',methods=['GET','POST'])
+def vote(pollId):
+    print('pollId',pollId)
+    if (request.method == 'GET'):
+        voteData = {}
+        getTitleQuery='''SELECT title FROM live_polls_info WHERE poll_id = %s'''
+        cur.execute(getTitleQuery,(pollId,))
+        title = cur.fetchone()[0]
+        getPollOptionsQuery = '''SELECT JSON_ARRAYAGG(poll_option) FROM live_poll_options WHERE poll_id=%s'''
+        cur.execute(getPollOptionsQuery,(pollId,))
+        pollOptions = cur.fetchone()[0]
+        voteData['title'] = title
+        voteData['pollOptions'] = json.loads(pollOptions)
+        #print('voteData',voteData)
+        return jsonify(voteData)
+    if (request.method == 'POST'):
+        data = request.get_json()
+        print(data)
+        selectedOption=data['selected_option']
+        print(selectedOption)
+        updatePollCountQuery = '''UPDATE live_polls_info SET poll_count = poll_count+1 WHERE poll_id =%s'''
+        cur.execute(updatePollCountQuery,(pollId,))
+        updateOptionCountQuery = '''UPDATE live_poll_options SET option_count = option_count+1 WHERE poll_option =%s'''
+        cur.execute(updateOptionCountQuery,(selectedOption,))
+        connection.commit()
+        return {"message":"voting successful!"},200
 
 @app.route('/getPolls',methods=['POST'])
 def getPolls():
@@ -271,7 +298,6 @@ def closedPolls(user_id):
             maxPollOptions=[]
             if pollOptions != None:
                 for pollOption in json.loads(pollOptions):
-                    print("n",pollOption,"c",(pollOption['option_count']))
                     count=pollOption['option_count']
                     if count >= maxCount:
                         maxCount =count
