@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React from 'react'
 import {Doughnut} from 'react-chartjs-2'
 import { chartColors } from "./colors";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -8,11 +8,11 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function Donutchart(props) {
   var arr = JSON.parse(props.poll.pollOptions)
 
-  const [pollOptions,setPollOptions] = useState(arr.map((item)=>(item.poll_option)))
-  const [pollCount,setPollCount] =useState(arr.map((item)=>(item.option_count)))
+  const pollOptions = [arr.map((item)=>(item.poll_option))]
+  const pollCount =[arr.map((item)=>(item.option_count))]
   console.log(arr)
   
-  const [options,setOptions] = useState({
+  const options = {
     layout:{
       padding:0
     },
@@ -41,8 +41,8 @@ function Donutchart(props) {
         }
       }
     
-  })
-  const [data,setData] = useState({
+  }
+  const data ={
     labels: pollOptions,
     datasets: [
       { 
@@ -51,7 +51,7 @@ function Donutchart(props) {
         hoverBackgroundColor: chartColors
       }
     ]
-  })
+  }
 
   return (
       <div>

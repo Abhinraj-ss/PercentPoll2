@@ -9,7 +9,7 @@ import eyeIcon from "../../images/eye_aqua.png"
 
 function ViewPoll(props) {
   const [show,setShow] = useState(false)
-  const [pollOptionList ,setPollOptionList] = useState([])
+  const pollOptionList = []
   const pollOptionsArr=JSON.parse(props.pollData.pollOptions)
   useEffect(() => {
     

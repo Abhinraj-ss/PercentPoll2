@@ -2,7 +2,6 @@ import  React,{useState} from 'react'
 import { Button,Modal, CloseButton, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './LogIn.css'
-import { userContext } from '../Contexts/userContext';
 
 function LogIn(props) {
   const [email,setEmail] = useState("");
@@ -39,7 +38,6 @@ function LogIn(props) {
       localStorage.setItem('isLoggedIn','true')
       localStorage.setItem('user_id',JSON.stringify(res['user_id']))
       props.handleModalOpen()
-      //localStorage.setItem('modal_closing',"true")
     }
     
   }

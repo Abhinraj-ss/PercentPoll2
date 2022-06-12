@@ -1,4 +1,4 @@
-import React ,{useState}from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -24,7 +24,7 @@ import linkIcon from '../images/link.png'
 import gmailIcon from '../images/gmail.png'
 
 function Share(props) {
-  const [link,setLink] = useState('http://localhost:3000/vote/'+props.pollId)
+  const link = 'http://localhost:3000/vote/'+props.pollId
   return (
     <Modal show={props.show} size="lg" aria-labelledby="contained-modal-title-vcenter" onHide={()=>props.handleModalShare()} centered>
       <Modal.Header closeVariant="white" closeButton>

@@ -10,8 +10,6 @@ import createIcon from "../images/create.png"
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const {data}= useContext(userContext)
-  const isLoggedIn = localStorage.getItem('isLoggedIn')
-  const user_id = localStorage.getItem('user_id')
 
   const handleClick = () => {
     console.log(data)
