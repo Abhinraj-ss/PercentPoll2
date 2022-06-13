@@ -4,7 +4,7 @@ import datetime
 import json
 from werkzeug.security import check_password_hash,generate_password_hash
 import math
-from flask_cors import CORS
+from flask_cors import cross_origin
 
 app = Flask(__name__)
 
@@ -71,6 +71,7 @@ def register():
         return {"message":"user exists"}, 200
 
 @app.route("/login",methods=['POST'])
+@cross_origin()
 def login():
     cur = connection.cursor(buffered=True)
     loginData = request.get_json()

@@ -20,7 +20,7 @@ function Vote() {
     console.log(title,pollOptionsArr)
     const handleSubmit = async() =>{
         const voteData ={"selected_option" : selectedOption}
-        let res = await fetch('https://percentpoll2.herokuapp.com/vote/'+pollId.pollId,{
+        let res = await fetch('https://percentpoll-2.netlify.app/vote/'+pollId.pollId,{
             method : ['POST'],
             headers :{
                 'Content-Type': 'application/json',
