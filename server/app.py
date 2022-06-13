@@ -4,8 +4,10 @@ import datetime
 import json
 from werkzeug.security import check_password_hash,generate_password_hash
 import math
+from flask_cors import CORS
 
 app = Flask(__name__)
+
 
 #connection = mysql.connector.connect(host="localhost",user = "root", passwd ="root", auth_plugin='mysql_native_password')
 connection = mysql.connector.connect(host="bhgmzdjldrdmbzrzwr6z-mysql.services.clever-cloud.com",database="bhgmzdjldrdmbzrzwr6z",user = "uz8lge1whj1jxeq9", passwd ="IZLg6ZLNzTvBdP3eMZ2T")
@@ -50,6 +52,7 @@ if (cur.fetchall()== None):
 
 
 @app.route("/register", methods=['POST'])
+@cross_origin()
 def register():
     registerData = request.get_json()
     print(registerData)
@@ -88,6 +91,7 @@ def login():
     
         
 @app.route("/createPoll", methods=["POST"])
+@cross_origin()
 def createPoll():
     dateTimeNow = datetime.datetime.now()
     pollData = request.get_json()
@@ -125,6 +129,7 @@ def createPoll():
 
 
 @app.route('/modify',methods=['POST'])
+@cross_origin()
 def modifyPoll():
     dateTimeNow = datetime.datetime.now()
     pollData = request.get_json()
@@ -175,6 +180,7 @@ def modifyPoll():
     return {"message":"modification successful!"}, 201
 
 @app.route('/vote/<pollId>',methods=['GET','POST'])
+@cross_origin()
 def vote(pollId):
     print('pollId',pollId)
     if (request.method == 'GET'):
@@ -202,6 +208,7 @@ def vote(pollId):
         return {"message":"voting successful!"},200
 
 @app.route('/getPolls',methods=['POST'])
+@cross_origin()
 def getPolls():
     dateTimeNow = datetime.datetime.now()
     data = request.get_json()
