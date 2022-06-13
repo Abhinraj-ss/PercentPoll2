@@ -7,23 +7,28 @@ import math
 
 app = Flask(__name__)
 
-connection = mysql.connector.connect(host="localhost",user = "root", passwd ="root", auth_plugin='mysql_native_password')
+#connection = mysql.connector.connect(host="localhost",user = "root", passwd ="root", auth_plugin='mysql_native_password')
+connection = mysql.connector.connect(host="bhgmzdjldrdmbzrzwr6z-mysql.services.clever-cloud.com",database="bhgmzdjldrdmbzrzwr6z",user = "uz8lge1whj1jxeq9", passwd ="IZLg6ZLNzTvBdP3eMZ2T")
+if(connection):
+    print("got connected!")
+else:
+    print("not connected")
 
 cur = connection.cursor(buffered=True)
 
-cur.execute('''CREATE DATABASE IF NOT EXISTS percentpoll;''')
+#cur.execute('''CREATE DATABASE IF NOT EXISTS percentpoll;''')
 connection.commit()
 
-cur.execute('''USE percentpoll;''' )
+#cur.execute('''USE percentpoll;''' )
 cur.execute('''SHOW TABLES;''')
 #print(cur.fetchall())
 
 if (cur.fetchall()== None):
     create_user_data ='''CREATE TABLE users_data(user_id int not null primary key auto_increment, name varchar(25) not null,email_id varchar(20) not null,password varchar(100) not null);'''
     
-    create_upcoming_polls_info = '''CREATE TABLE upcoming_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
-    create_live_polls_info = '''CREATE TABLE live_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
-    create_closed_polls_info = '''CREATE TABLE closed_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),openTime varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
+    create_upcoming_polls_info = '''CREATE TABLE upcoming_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
+    create_live_polls_info = '''CREATE TABLE live_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
+    create_closed_polls_info = '''CREATE TABLE closed_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
 
     create_upcoming_poll_options = '''CREATE TABLE upcoming_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references upcoming_polls_info(poll_id) ON DELETE CASCADE);'''
     create_live_poll_options = '''CREATE TABLE live_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references live_polls_info(poll_id) ON DELETE CASCADE);'''
