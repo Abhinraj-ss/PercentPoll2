@@ -20,7 +20,7 @@ function Vote() {
     console.log(title,pollOptionsArr)
     const handleSubmit = async() =>{
         const voteData ={"selected_option" : selectedOption}
-        let res = await fetch('https://percentpoll-2.netlify.app/vote/'+pollId.pollId,{
+        let res = await fetch('https://percentpoll2.herokuapp.com/vote/'+pollId.pollId,{
             method : ['POST'],
             headers :{
                 'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function Vote() {
 
     console.log(pollId.pollId)
     useEffect(() => {
-        fetch('/vote/'+pollId.pollId)
+        fetch('https://percentpoll2.herokuapp.com/vote/'+pollId.pollId)
         .then(response => response.json())
         .then(data => {
             console.log(data,typeof(data),data['pollOptions'])
