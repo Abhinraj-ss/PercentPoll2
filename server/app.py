@@ -362,4 +362,4 @@ def updateLiveToClosed(user_id,obj,pollOptions):
     return True
 
 if __name__ ==" __main__":
-    app.run(debug= True, use_debugger=False, use_reloader=False)
+    app.run()

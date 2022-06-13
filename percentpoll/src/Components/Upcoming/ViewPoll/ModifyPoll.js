@@ -69,7 +69,7 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
       closingTime: closingTime,
     };
     console.log(pollData)
-    const res = await fetch("/modify", {
+    const res = await fetch("https://percentpoll2.herokuapp.com/modify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

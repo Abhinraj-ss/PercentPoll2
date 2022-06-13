@@ -24,7 +24,7 @@ import linkIcon from '../images/link.png'
 import gmailIcon from '../images/gmail.png'
 
 function Share(props) {
-  const link = 'http://localhost:3000/vote/'+props.pollId
+  const link = 'https://percentpoll-2.netlify.app/vote'+props.pollId
   return (
     <Modal show={props.show} size="lg" aria-labelledby="contained-modal-title-vcenter" onHide={()=>props.handleModalShare()} centered>
       <Modal.Header closeVariant="white" closeButton>

@@ -86,7 +86,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
       closingTime: closingTime,
     };
 
-    const res = await fetch("/createPoll", {
+    const res = await fetch("https://percentpoll2.herokuapp.com/createPoll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

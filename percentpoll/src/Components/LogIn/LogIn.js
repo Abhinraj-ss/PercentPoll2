@@ -16,7 +16,7 @@ function LogIn(props) {
     var userData = {
       email: email,
       password:password}
-    let res = await fetch('/login',{
+    let res = await fetch('https://percentpoll2.herokuapp.com/login',{
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",

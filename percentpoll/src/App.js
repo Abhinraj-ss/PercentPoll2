@@ -31,7 +31,7 @@ function App() {
 
   const getPolls = async() =>{
     var userData ={'user_id':userId}
-    let res = await fetch('/getPolls',{
+    let res = await fetch('https://percentpoll2.herokuapp.com/getPolls',{
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",

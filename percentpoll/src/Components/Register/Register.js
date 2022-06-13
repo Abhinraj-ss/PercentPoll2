@@ -22,7 +22,7 @@ function Register(props) {
       name:name,
       email: email,
       password: password }
-    const res = await fetch('/register',{
+    const res = await fetch('https://percentpoll2.herokuapp.com/register',{
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",
