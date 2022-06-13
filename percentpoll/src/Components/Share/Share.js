@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -24,7 +24,9 @@ import linkIcon from '../images/link.png'
 import gmailIcon from '../images/gmail.png'
 
 function Share(props) {
-  const link = 'https://percentpoll-2.netlify.app/vote'+props.pollId
+  const [livePoll,setLivePoll] = useState(props.livePoll)
+  console.log(livePoll)
+  const link = 'https://percentpoll-2.netlify.app/vote/'+livePoll.pollId
   return (
     <Modal show={props.show} size="lg" aria-labelledby="contained-modal-title-vcenter" onHide={()=>props.handleModalShare()} centered>
       <Modal.Header closeVariant="white" closeButton>
@@ -47,13 +49,13 @@ function Share(props) {
                 height="68"
                 className="pt-2"
               />
-            <WhatsappShareButton title={props.title}  url={link}>
+            <WhatsappShareButton title={livePoll.title}  url={link}>
                 <WhatsappIcon borderRadius={15}/>
             </WhatsappShareButton>
-            <FacebookShareButton quote={props.title} hashtag="#percentpoll2" url={link}>
+            <FacebookShareButton quote={livePoll.title} hashtag="#percentpoll2" url={link}>
                 <FacebookIcon borderRadius={15}/>
             </FacebookShareButton>
-            <EmailShareButton url={link} subject={props.title} body={link} openShareDialogOnClick='true'>
+            <EmailShareButton url={link} subject={livePoll.title} body={link} openShareDialogOnClick='true'>
               <img
                   alt=""
                   src={gmailIcon}
@@ -61,13 +63,13 @@ function Share(props) {
                   height="80"
                 />
             </EmailShareButton>
-            <TelegramShareButton url={link} title={props.title}>
+            <TelegramShareButton url={link} title={livePoll.title}>
                 <TelegramIcon borderRadius={15}/>
             </TelegramShareButton>
-            <TwitterShareButton url={link} title={props.title} via="percent poll2" hashtags="#percentpoll2">
+            <TwitterShareButton url={link} title={livePoll.title} via="percent poll2" hashtags="#percentpoll2">
                 <TwitterIcon borderRadius={15}/>
             </TwitterShareButton>
-            <LinkedinShareButton url={link} title={props.title} summary="Take part in the poll to find the 100% right choice." source="percent poll2">
+            <LinkedinShareButton url={link} title={livePoll.title} summary="Take part in the poll to find the 100% right choice." source="percent poll2">
                 <LinkedinIcon borderRadius={15}/>
             </LinkedinShareButton>
         </div>
