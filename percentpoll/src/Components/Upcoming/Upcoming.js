@@ -38,7 +38,7 @@ function Upcoming(props) {
   
   tConvert ('18:00:00');
   return (
-    <>
+    <div className='tab'>
     {show && <ViewPoll show={show} handleModalView={handleClickView} pollData={pollData}/>}
     {!props.upcomingPolls[0].title &&
       <img
@@ -84,7 +84,7 @@ function Upcoming(props) {
     </div>
     }
     
-    </>
+    </div>
   )
 }
 

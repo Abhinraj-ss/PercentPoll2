@@ -4,22 +4,25 @@
     border: aquamarine solid 1px;
 
 }
-.progressGroup{
-    margin-block: 4%;
-}
-.progress{
-    margin-block: 2%;
-}
-@media screen and (min-width:1100px) {
+
+
+@media screen and (min-width:501px) {
     .align-center {
-        width: 45%;
-        height: auto;   
+        display: grid;
+        position: relative;
+        align-self: center;
+        justify-self: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-130%, 0%);  
 }
 }
 @media screen and (max-width:500px) {
     .align-center {
         width: 100%;
-        height: auto;   
+        height: auto;
+        object-fit: cover; 
+         
 }
 
 }
@@ -46,4 +49,9 @@
         min-width: 45%;
         max-height: 8%;
     }
+}
+.tab{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }

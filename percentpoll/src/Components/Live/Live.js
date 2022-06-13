@@ -52,9 +52,16 @@ function Live(props) {
         
     }
   return (
-    <>
+    <div className='tab'>
     {showShare&& <Share show={showShare} livePoll={livePoll} handleModalShare={handleClickShare}/>}
     {showReport&& <LiveReport show={showReport} livePoll={livePoll} handleModalReport={handleClickReport}/>}
+    {!props.livePolls[0].title &&
+      <img
+      alt="No Polls"
+      src={props.noPolls}
+      className="d-inline-block align-center"
+      />
+      }
     {props.livePolls[0].title &&
     <div className="row" id='card'>
     {props.livePolls.map(
@@ -99,15 +106,8 @@ function Live(props) {
     } 
     </div>
     }
-    {!props.livePolls[0].title &&
-
-<img
-alt="No Polls"
-src={props.noPolls}
-className="align-center"
-/>
-}
-    </>
+    
+    </div>
   );
   
 }

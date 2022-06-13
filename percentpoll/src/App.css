@@ -1,5 +1,5 @@
 .App {
-  min-height: 90vh;
+  height: 90vh;
   text-align: center;
   width: 100%;
   margin: 0;
@@ -7,11 +7,16 @@
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-position: center ;
-   background-size: cover;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+
 }
 .body{
+  display: block;
   padding-inline: 5%;
   margin-top: 1%;
+  height: 100vh;
 }
 
 @media screen and (max-width:500px) {
@@ -37,14 +42,16 @@
   border: 0;
 }
 .nav-tabs{
-
   padding-bottom: 0.3%;
 }
-@media screen and (max-width: 700px){
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+  background-color: whitesmoke;
+  color: black;
+  border-radius: 100vh 100vh;
+}
+@media screen and (min-width:501px),(max-width: 700px){
   .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
-    background-color: whitesmoke;
-    color: black;
-    border-radius: 100vh 100vh;
     min-width: 84px;
   }
   .nav-link{
@@ -54,11 +61,20 @@
   }
   
 }
+@media screen and (max-width: 500px){
+  .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    min-width: auto;
+  }
+  .nav-link{
+    color: aquamarine;
+    font-size: xx-small;
+    border: 0;
+  }
+  
+}
+
 @media screen and (min-width:701px) {
   .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
-    background-color: whitesmoke;
-    color: black;
-    border-radius: 100vh 100vh;
     min-width: 150px;
   }
 }

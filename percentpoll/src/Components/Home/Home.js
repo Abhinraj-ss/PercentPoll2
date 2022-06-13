@@ -23,7 +23,7 @@ function Home() {
         Polls. Untangled.
         {data["email"]}
       </p>
-      <div className=" justify-center">
+      <div className=" d-grid d-md-block .mx-auto">
         <Button
           variant="flat"
           id="create"

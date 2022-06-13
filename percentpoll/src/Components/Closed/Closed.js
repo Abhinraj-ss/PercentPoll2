@@ -29,7 +29,7 @@ function Closed(props) {
 
     
   return (
-      <>
+      <div className='tab'>
       {show && <ClosedReport show={show} closedPoll={closedPoll} handleModalReport={handleClickReport}/>}
       {props.closedPolls[0].title &&
       <div className="row" id='card'>
@@ -90,10 +90,10 @@ function Closed(props) {
 <img
 alt="No Polls"
 src={props.noPolls}
-className="align-center"
+className="d-inline-block align-center"
 />
 }
-    </>
+    </div>
   )
 }
 
