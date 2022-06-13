@@ -20,7 +20,8 @@ function LogIn(props) {
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",
-        "Accept":"application/json"
+        "Accept":"application/json",
+        "Access-Control-Allow-Origin": "https://percentpoll-2.netlify.app/"
       },
       body : JSON.stringify(userData)
      
