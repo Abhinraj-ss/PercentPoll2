@@ -4,6 +4,7 @@ import {
   Button,
   Col,
   FormCheck,
+  InputGroup,
   FormControl,
   CloseButton,
   FloatingLabel,
@@ -123,17 +124,16 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               </FloatingLabel>
             </div>
             <div className="row">
-              <div className="col-7">
+              <div className="col">
               <FormLabel className="form-label">Poll Options</FormLabel>
             {pollOptionList.map((singlePollOption, index) => (
               <div key={index} className="pollOptions">
-                <div className="mb-4 row">
-                  <div className="col-md-11">
-                    <FloatingLabel
+                <div className="mb-4 row input-group">
+                  <div id="pollOption">
+                  <FloatingLabel id="floatingCreate"
                       controlId="floatingInputGrid"
-                      label={index+1}
-                    >
-                      <FormControl
+                      label={index+1}>
+                        <FormControl
                         required=""
                         placeholder="Poll Option"
                         name="pollOption"
@@ -145,10 +145,11 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                       />
                     </FloatingLabel>
                   </div>
-                  <Col id="removeBtn" >
+                      
                     {pollOptionList.length >= 2 && (
-                      <Button        
-                        variant="danger"
+                      <Button
+                        id="removeBtn"
+                        variant="outline-danger"      
                         onClick={() => {
                           handleClickRemove(index);
                         }}
@@ -156,7 +157,6 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                         X
                       </Button>
                     )}
-                  </Col>
                 </div>
                 <Col>
                   {pollOptionList.length - 1 === index && (
@@ -174,7 +174,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               </div>
             ))}
               </div>
-              <div className="col-5">
+              <div className="col">
               <div className="form-group">
               <FormLabel className="form-label me-3">Opens On </FormLabel>
               <FormCheck 

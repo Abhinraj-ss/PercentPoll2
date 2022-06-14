@@ -2,7 +2,7 @@
     background-color: rgb(45, 47, 46);
     margin-bottom: 2%;
     color: #ffffff;
-
+    border-color: aquamarine;
 }
 .form-control:focus{
     background: rgb(48, 53, 51);
@@ -17,6 +17,43 @@
      margin-inline: 38%;
      margin-bottom: 0%;
  }
- #removeBtn{
-    padding-top: 10px;
+
+.input-group{
+    white-space: nowrap;
+    column-gap: 0px;
+    width: 100%;
  }
+ 
+
+#pollOption {
+    width: 93%;
+    display: inline-block;
+  }
+  #removeBtn {
+    /* height: 58px; */
+    height: 50px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: red;
+    font-size: larger;
+    width: fit-content;
+    display: inline-block;
+    border: red solid 3px;
+  }
+  #removeBtn:hover{
+    color: #ffffff;
+  }
+  .form-check-input:checked{
+    background-color: aquamarine;
+    border-color: aquamarine;
+  }
+  .form-check-input{
+    border-color: aquamarine;
+    color: aquamarine;
+  }
+  .form-check-input:focus{
+    border-color: aquamarine;
+    outline: 0;
+    box-shadow: 0 0 0 .1rem rgb(94, 235, 188);
+  }
+  
