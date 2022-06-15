@@ -11,6 +11,13 @@ function Vote() {
     const [title,setTitle] = useState()
     const [pollOptionsArr,setPollOptionsArr]= useState([])
     const navigate = useNavigate()
+    const [url,setUrl] = useState(()=>{
+    
+        if(process.env.NODE_ENV==='production'){
+          return "https://percentpoll2.herokuapp.com" 
+        } else if(process.env.NODE_ENV==='development')
+          return "http://localhost:5000"
+      } )
 
     
     // ["surabi" ,"churabi","chundari","chakkara"]
@@ -20,7 +27,7 @@ function Vote() {
     console.log(title,pollOptionsArr)
     const handleSubmit = async() =>{
         const voteData ={"selected_option" : selectedOption}
-        let res = await fetch('https://percentpoll2.herokuapp.com/vote/'+pollId.pollId,{
+        let res = await fetch(url+'/vote/'+pollId.pollId,{
             method : ['POST'],
             headers :{
                 'Content-Type': 'application/json',
@@ -42,7 +49,7 @@ function Vote() {
 
     console.log(pollId.pollId)
     useEffect(() => {
-        fetch('https://percentpoll2.herokuapp.com/vote/'+pollId.pollId)
+        fetch(url+'/vote/'+pollId.pollId)
         .then(response => response.json())
         .then(data => {
             console.log(data,typeof(data),data['pollOptions'])

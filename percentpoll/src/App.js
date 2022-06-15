@@ -27,11 +27,18 @@ function App() {
   const [livePolls,setLivePolls ]= useState([{}])
   const [closedPolls,setClosedPolls ]= useState([{}])
   const modalClosing =localStorage.getItem('modal_closing')
+  const [url,setUrl] = useState(()=>{
+    
+    if(process.env.NODE_ENV==='production'){
+      return "https://percentpoll2.herokuapp.com" 
+    } else if(process.env.NODE_ENV==='development')
+      return "http://localhost:5000"
+  } )
 
 
   const getPolls = async() =>{
     var userData ={'user_id':userId}
-    let res = await fetch('https://percentpoll2.herokuapp.com/getPolls',{
+    let res = await fetch(url+'/getPolls',{
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",

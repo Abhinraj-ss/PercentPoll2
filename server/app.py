@@ -4,12 +4,11 @@ import datetime
 import json
 from werkzeug.security import check_password_hash,generate_password_hash
 import math
-from flask_cors import cross_origin
+from flask_cors import cross_origin,CORS
 
 app = Flask(__name__)
 
-
-#connection = mysql.connector.connect(host="localhost",user = "root", passwd ="root", auth_plugin='mysql_native_password')
+CORS(app)
 connection = mysql.connector.connect(host="bhgmzdjldrdmbzrzwr6z-mysql.services.clever-cloud.com",database="bhgmzdjldrdmbzrzwr6z",user = "uz8lge1whj1jxeq9", passwd ="IZLg6ZLNzTvBdP3eMZ2T")
 if(connection):
     print("got connected!")
@@ -17,34 +16,40 @@ else:
     print("not connected")
 
 cur = connection.cursor(buffered=True)
+def connectDb():
+    #connection = mysql.connector.connect(host="localhost",user = "root", passwd ="root", auth_plugin='mysql_native_password')
+    connection = mysql.connector.connect(host="bhgmzdjldrdmbzrzwr6z-mysql.services.clever-cloud.com",database="bhgmzdjldrdmbzrzwr6z",user = "uz8lge1whj1jxeq9", passwd ="IZLg6ZLNzTvBdP3eMZ2T")
+    if(connection):
+        print("got connected!")
+    else:
+        print("not connected")
 
-#cur.execute('''CREATE DATABASE IF NOT EXISTS percentpoll;''')
-connection.commit()
+    cur = connection.cursor(buffered=True)
 
-#cur.execute('''USE percentpoll;''' )
-cur.execute('''SHOW TABLES;''')
-#print(cur.fetchall())
+    #cur.execute('''CREATE DATABASE IF NOT EXISTS percentpoll;''')
 
-if (cur.fetchall()== None):
-    create_user_data ='''CREATE TABLE users_data(user_id int not null primary key auto_increment, name varchar(25) not null,email_id varchar(20) not null,password varchar(100) not null);'''
-    
-    create_upcoming_polls_info = '''CREATE TABLE upcoming_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
-    create_live_polls_info = '''CREATE TABLE live_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
-    create_closed_polls_info = '''CREATE TABLE closed_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
+    #cur.execute('''USE percentpoll;''' )
+    #print(cur.fetchall())
 
-    create_upcoming_poll_options = '''CREATE TABLE upcoming_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references upcoming_polls_info(poll_id) ON DELETE CASCADE);'''
-    create_live_poll_options = '''CREATE TABLE live_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references live_polls_info(poll_id) ON DELETE CASCADE);'''
-    create_closed_poll_options = '''CREATE TABLE closed_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references closed_polls_info(poll_id) ON DELETE CASCADE);'''
+    #if (cur.fetchall()== None):
+    #    create_user_data ='''CREATE TABLE users_data(user_id int not null primary key auto_increment, name varchar(25) not null,email_id varchar(20) not null,password varchar(100) not null);'''
+    #    
+    #    create_live_polls_info = '''CREATE TABLE live_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
+    #    create_closed_polls_info = '''CREATE TABLE closed_polls_info(user_id int NOT NULL ,poll_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,title varchar(50),open_date varchar(10),open_time varchar(10),close_date varchar(10), close_time varchar(10),poll_count int default 0, FOREIGN KEY(user_id) REFERENCES users_data(user_id) ON DELETE CASCADE);'''
 
-    cur.execute(create_user_data)
-    cur.execute(create_upcoming_polls_info)
-    cur.execute(create_live_polls_info)
-    cur.execute(create_closed_polls_info)
-    cur.execute(create_upcoming_poll_options)
-    cur.execute(create_live_poll_options)
-    cur.execute(create_closed_poll_options)
+    #    create_upcoming_poll_options = '''CREATE TABLE upcoming_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references upcoming_polls_info(poll_id) ON DELETE CASCADE);'''
+    #    create_live_poll_options = '''CREATE TABLE live_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references live_polls_info(poll_id) ON DELETE CASCADE);'''
+    #    create_closed_poll_options = '''CREATE TABLE closed_poll_options(poll_id int not null, poll_option varchar(50), option_count int default 0,foreign key(poll_id) references closed_polls_info(poll_id) ON DELETE CASCADE);'''
 
-    connection.commit()
+    #    cur.execute(create_user_data)
+    '''   cur.execute(create_upcoming_polls_info)
+        cur.execute(create_live_polls_info)
+        cur.execute(create_closed_polls_info)
+        cur.execute(create_upcoming_poll_options)
+        cur.execute(create_live_poll_options)
+        cur.execute(create_closed_poll_options)
+
+        connection.commit()'''
 
 #@app.route("/members")
 #def server():
@@ -54,6 +59,7 @@ if (cur.fetchall()== None):
 @app.route("/register", methods=['POST'])
 @cross_origin()
 def register():
+    connectDb()
     registerData = request.get_json()
     print(registerData)
     hashedPassword= generate_password_hash(registerData['password'], method='pbkdf2:sha256', salt_length=12)
@@ -73,6 +79,7 @@ def register():
 @app.route("/login",methods=['POST'])
 @cross_origin()
 def login():
+    connectDb()
     cur = connection.cursor(buffered=True)
     loginData = request.get_json()
     email = loginData['email']
@@ -94,6 +101,7 @@ def login():
 @app.route("/createPoll", methods=["POST"])
 @cross_origin()
 def createPoll():
+    connectDb()
     dateTimeNow = datetime.datetime.now()
     pollData = request.get_json()
     dataPollsInfo = (pollData['user_id'],pollData['Title'],pollData['openingDate'],pollData['openingTime'],pollData['closingDate'],pollData['closingTime'])
@@ -132,6 +140,7 @@ def createPoll():
 @app.route('/modify',methods=['POST'])
 @cross_origin()
 def modifyPoll():
+    connectDb()
     dateTimeNow = datetime.datetime.now()
     pollData = request.get_json()
     print(pollData)
@@ -183,6 +192,7 @@ def modifyPoll():
 @app.route('/vote/<pollId>',methods=['GET','POST'])
 @cross_origin()
 def vote(pollId):
+    connectDb()
     print('pollId',pollId)
     if (request.method == 'GET'):
         voteData = {}
@@ -211,6 +221,7 @@ def vote(pollId):
 @app.route('/getPolls',methods=['POST'])
 @cross_origin()
 def getPolls():
+    connectDb()
     dateTimeNow = datetime.datetime.now()
     data = request.get_json()
     user_id =data['user_id']
@@ -225,7 +236,7 @@ def getPolls():
    
 
 def upcomingPolls(user_id,dateTimeNow):
-    jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time)) FROM upcoming_polls_info WHERE user_id = %s'''
+    jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time,'poll_count',poll_count)) FROM upcoming_polls_info WHERE user_id = %s'''
     cur.execute(jsonObjPollInfo,(user_id,))
     upcomingJsonArr = cur.fetchone()[0]
     #print("upcoming Arr",upcomingJsonArr)
@@ -237,7 +248,7 @@ def upcomingPolls(user_id,dateTimeNow):
 
             openingDateTime =  datetime.datetime.fromisoformat(obj['open_date']+" "+obj['open_time'])
             poll_id = (obj['poll_id'],)
-            jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(poll_option) FROM upcoming_poll_options WHERE poll_id = %s;'''
+            jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_option',poll_option,'option_count',option_count)) FROM upcoming_poll_options WHERE poll_id = %s;'''
             cur.execute(jsonArrPollOptions,poll_id)
             pollOptions = cur.fetchone()[0]
             if (openingDateTime<=dateTimeNow):
@@ -328,16 +339,19 @@ def updateUpcomingToLive(user_id,obj,pollOptions):
     #insert record to live_polls_info, live_poll_options
     print("reached update upcoming to live")
     poll_id=obj['poll_id']
+    print(obj)
     dataPollsInfo = (user_id,obj['title'],obj['open_date'],obj['open_time'],obj['close_date'],obj['close_time'],obj['poll_count'])
 
     deleteUpcomingQuery = '''DELETE FROM upcoming_polls_info WHERE poll_id=%s'''
     cur.execute(deleteUpcomingQuery,(poll_id,))
     deleteUpcomingQueryPollOptions = '''DELETE FROM live_poll_options WHERE poll_id=%s'''
     cur.execute(deleteUpcomingQueryPollOptions,(poll_id,))
+
     insertQueryLivePollsInfo = '''INSERT INTO live_polls_info(user_id,title ,open_date,open_time,close_date, close_time,poll_count) VALUES(%s,%s,%s,%s,%s,%s,%s);'''
     cur.execute(insertQueryLivePollsInfo,dataPollsInfo)
     poll_id = cur.lastrowid
     insertQueryLivePollOptions = '''INSERT INTO live_poll_options(poll_id, poll_option,option_count) VALUES(%s,%s,%s);'''
+    print("polloption:" ,pollOptions)
     for pollOption in json.loads(pollOptions):
         print(pollOption)
         dataPollOptions = (poll_id,pollOption['poll_option'],pollOption['option_count'])

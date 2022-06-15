@@ -25,7 +25,7 @@ import gmailIcon from '../images/gmail.png'
 
 function Share(props) {
   const [livePoll,setLivePoll] = useState(props.livePoll)
-  const link = 'https://percentpoll-2.netlify.app/vote/'+livePoll.poll_id
+  const link = 'https://percentpoll2-front.herokuapp.com/vote/'+livePoll.poll_id
   console.log(livePoll,link)
   return (
     <Modal show={props.show} size="lg" aria-labelledby="contained-modal-title-vcenter" onHide={()=>props.handleModalShare()} centered>

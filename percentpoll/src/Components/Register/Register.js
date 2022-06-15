@@ -16,13 +16,20 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [url,setUrl] = useState(()=>{
+    
+    if(process.env.NODE_ENV==='production'){
+      return "https://percentpoll2.herokuapp.com" 
+    } else if(process.env.NODE_ENV==='development')
+      return "http://localhost:5000"
+  } )
 
   const handleSubmit = async() =>{
     const userData = {
       name:name,
       email: email,
       password: password }
-    const res = await fetch('https://percentpoll2.herokuapp.com/register',{
+    const res = await fetch(url+'/register',{
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",

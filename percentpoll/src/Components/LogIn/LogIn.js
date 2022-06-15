@@ -7,7 +7,13 @@ function LogIn(props) {
   const [email,setEmail] = useState("");
   const [password, setPassword] =  useState("");
   const [show, setShow] = useState(false);
-  
+  const [url,setUrl] = useState(()=>{
+    
+    if(process.env.NODE_ENV==='production'){
+      return "https://percentpoll2.herokuapp.com" 
+    } else if(process.env.NODE_ENV==='development')
+      return "http://localhost:5000"
+  } )
   
   console.log(email,password);
 
@@ -16,7 +22,7 @@ function LogIn(props) {
     var userData = {
       email: email,
       password:password}
-    let res = await fetch('https://percentpoll2.herokuapp.com/login',{
+    let res = await fetch(url+'/login',{
       method : ['POST'],
       headers : {
         "Content-Type" : "application/json",

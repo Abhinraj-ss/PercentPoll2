@@ -25,6 +25,13 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
   const [closingDate, setClosingDate] = useState("");
   const [openingTime, setOpeningTime] = useState("");
   const [closingTime, setClosingTime] = useState("");
+  const [url,setUrl] = useState(()=>{
+    
+    if(process.env.NODE_ENV==='production'){
+      return "https://percentpoll2.herokuapp.com" 
+    } else if(process.env.NODE_ENV==='development')
+      return "http://localhost:5000"
+  } )
 
   
   console.log(title)
@@ -87,7 +94,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
       closingTime: closingTime,
     };
 
-    const res = await fetch("https://percentpoll2.herokuapp.com/createPoll", {
+    const res = await fetch(url+"/createPoll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
