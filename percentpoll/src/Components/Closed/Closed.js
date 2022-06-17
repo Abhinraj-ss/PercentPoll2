@@ -57,12 +57,11 @@ function Closed(props) {
                                 )
 
                                 }
-                                <Button variant="flat" className="col-6"id= "full" onClick={()=>handleClickReport(closedPoll)} >
+                                <Button variant="flat" className="col-11" id="cardBtn" onClick={()=>handleClickReport(closedPoll)} >
                                 <img
                                     alt=""
                                     src={reportIcon}
-                                    width="30"
-                                    height="30"
+                                    id="btnIcon"
                                     className="d-inline-block"
                                 />See full report</Button>
                             </div>
@@ -90,7 +89,7 @@ function Closed(props) {
 <img
 alt="No Polls"
 src={props.noPolls}
-className="d-inline-block align-center"
+className="noPolls"
 />
 }
     </div>

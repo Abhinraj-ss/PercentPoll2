@@ -8,10 +8,5 @@
 #closedCardEnd{
     justify-content: end;
 }
-@media screen and (max-width:1250px) {
-    #full{
-        min-width: 75%;
-        max-height: 30%;
-    }
-}
+
 

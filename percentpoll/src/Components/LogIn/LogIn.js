@@ -51,8 +51,6 @@ function LogIn(props) {
   const handleClickRegister=()=>{
     props.handleRegisterModalOpen()
     props.handleModalOpen()
-    
-    
   }
   
     

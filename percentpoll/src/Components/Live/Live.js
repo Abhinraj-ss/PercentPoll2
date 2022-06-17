@@ -59,7 +59,7 @@ function Live(props) {
       <img
       alt="No Polls"
       src={props.noPolls}
-      className="d-inline-block align-center"
+      className="noPolls"
       />
       }
     {props.livePolls[0].title &&
@@ -70,27 +70,25 @@ function Live(props) {
         <Card className="text-center text-white bg-dark" id="card">
           <Card.Body>
             <Card.Title>
-              <h4>{livePoll.title}</h4>
+              {livePoll.title}
             </Card.Title>
             <hr />
             <Card.Text>
                 With supporting text below as a natural lead-in to additional
                 content.
             </Card.Text>
-            <div id="btnRowReport">
-            <Button className = "col-3 share"  variant="flat"  onClick={()=>handleClickShare(livePoll)}><img
-                alt=""
+            <div className="row p-2">
+            <Button className = "col-3 me-auto share" id="cardBtn" variant="flat"  onClick={()=>handleClickShare(livePoll)}><img
+                alt="shareIcon"
                 src={shareIcon}
-                width="21"
-                height="20"
+                id="btnIcon"
                 className="d-inline-block"
               />Share</Button>
-            <Button className = "col-4 report" variant="flat" onClick={()=>handleClickReport(livePoll)}>
+            <Button className = "col-5 report" id="cardBtn" variant="flat" onClick={()=>handleClickReport(livePoll)}>
             <img
-                alt=""
+                alt="reportIcon"
                 src={ReportIcon}
-                width="25"
-                height="25"
+                id="btnIcon"
                 className="d-inline-block"
               />See live report</Button>
             </div>

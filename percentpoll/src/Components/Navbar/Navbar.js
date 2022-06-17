@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import navbarLogo from "./navbar.png";
-import logoutLogo from "./logout_wyt.png";
+import navbarLogo from "../images/navbar.png";
+import logoutLogo from "../images/logout_wyt.png";
 import LogIn from "../LogIn/LogIn";
 import Register from "../Register/Register";
 import './Navbar.css'

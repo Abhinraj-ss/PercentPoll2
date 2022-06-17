@@ -13,20 +13,17 @@ import Closed from "./Components/Closed/Closed";
 import "./App.css";
 import NavBar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home/Home";
-import {userContext} from './Components/Contexts/userContext'
-import noPolls from './Components/images/NoPolls.png'
+import noPolls from './Components/images/NoPolls.png' 
 
 
 function App() {
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [key, setKey] = useState("home");
-  const [data, setData] = useState({isLoggedIn:false,email:"",password:""});
   const userId =localStorage.getItem('user_id')
   const [upcomingPolls,setUpcomingPolls ]= useState([{}])
   const [livePolls,setLivePolls ]= useState([{}])
   const [closedPolls,setClosedPolls ]= useState([{}])
-  const modalClosing =localStorage.getItem('modal_closing')
   const [url,setUrl] = useState(()=>{
     
     if(process.env.NODE_ENV==='production'){
@@ -64,14 +61,11 @@ function App() {
   useEffect(() => {
     console.log(userId)
     getPolls()
-  },[modalClosing]);
   console.log(upcomingPolls,livePolls,closedPolls )
+  },[isOpenLogin]);
   return (
     <div className="App" >
-      <userContext.Provider value={{data,setData}}>
       <NavBar />
-      
-
       <div className="body">
         <Tabs
           activeKey={key}
@@ -82,27 +76,26 @@ function App() {
             <Home/>
           </Tab>
           <Tab eventKey="upcoming" title="Upcoming Polls">
-            <Upcoming noPolls = {noPolls} upcomingPolls={upcomingPolls}/>
+            <Upcoming noPolls={noPolls} upcomingPolls={upcomingPolls}/>
           </Tab>
           <Tab eventKey="live" title="Live Polls">
-            <Live noPolls = {noPolls} livePolls={livePolls}/>
+            <Live noPolls={noPolls} livePolls={livePolls}/>
           </Tab>
           <Tab eventKey="closed" title="Closed Polls">
-            <Closed noPolls = {noPolls} closedPolls={closedPolls}/>
+            <Closed noPolls={noPolls} isOpenLogin={isOpenLogin} closedPolls={closedPolls}/>
 
           </Tab>
         </Tabs>
 
         {isOpenLogin && (
           <LogIn
-            closeLogin={() => setIsOpenLogin(false)}
-            loginData={(hello) => console.log(hello)}
+            closeLogin={() => {
+              setIsOpenLogin(false)}}
           />
         )}
         {isOpenRegister && (
           <Register
             closeRegister={() => setIsOpenRegister(false)}
-            registerData={(hi) => console.log(hi)}
           />
         )}
 
@@ -114,7 +107,6 @@ function App() {
         ))
         )*/}
       </div>
-      </userContext.Provider>
     </div>
   );
 }

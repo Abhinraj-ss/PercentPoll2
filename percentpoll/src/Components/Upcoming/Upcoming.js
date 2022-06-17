@@ -44,7 +44,7 @@ function Upcoming(props) {
       <img
       alt="No Polls"
       src={props.noPolls}
-      className="d-inline-block align-center"
+      className="noPolls"
       />
       }
 
@@ -57,18 +57,17 @@ function Upcoming(props) {
         <Card className="text-start text-white bg-dark" id='card'>
         <Card.Body>
           <Card.Title>
-            <h4>{upcomingPoll.title}</h4>
+            {upcomingPoll.title}
           </Card.Title>
             <hr/>
             <Card.Text>
               This poll is scheduled to start on {upcomingPoll.open_date} at {tConvert(upcomingPoll.open_time.substring(0,5))}
             </Card.Text>
-            <Button variant="flat" id="viewpoll" className="col-3" onClick={()=>handleClickView(index)}>
+            <Button variant="flat" id="cardBtn"  onClick={()=>handleClickView(index)}>
             <img
                 alt=""
+                id ="btnIcon"
                 src={eyeIcon}
-                width="25"
-                height="25"
                 className="d-inline-block"
               />View poll</Button>
         </Card.Body>

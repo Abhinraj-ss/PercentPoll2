@@ -93,7 +93,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
       closingDate: closingDate,
       closingTime: closingTime,
     };
-
+    console.log('createpoll open aayi')
     const res = await fetch(url+"/createPoll", {
       method: "POST",
       headers: {

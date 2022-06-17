@@ -5,17 +5,22 @@
   @media screen and (max-width: 960px){
     div.row{
       display: list-item;
-      
     }
     #card{
       min-width: 90vw;
+    }
+  }
+  #cardBtn{
+    font-weight: 800;
+    font-size: 0.9em;
+    margin-block:0.2rem;
+    border:  rgb(31, 31, 31) solid 3px;
+    border-radius: 1vh 1vh;
+  }
 
-    }
-    
-  }
-  @media screen and (max-width: 1200px){
-    #viewpoll{
-      min-width: 34%;
-      max-height: 20%;
-    }
-  }
+
+#btnIcon{
+  height: 1.8rem;
+  width: 1.8rem;
+  
+}

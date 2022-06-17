@@ -5,15 +5,19 @@
 
 }
 
-
+.card-text{
+   
+    font-size: 1rem;
+}
+.card-title{
+    font-size: 1.8rem;
+}
 @media screen and (min-width:501px) {
     .align-center {
         position: relative;
-        align-self: center;
-        justify-self: center;
         top: 50%;
-        left: 50%;
-        transform: translate(-50%, 0%);  
+        width: 50%;
+        height: auto;
 }
 }
 @media screen and (max-width:500px) {
@@ -28,32 +32,16 @@
 }
 
 }
-#btnRowReport{
-    display: flex;
-    flex-direction: row;
-}
-.report{
-    margin-inline-start: auto;
-}
-.d-inline-block{
-    margin-right: 5%;
-}
-.btn{
-    font-weight: 450;
-}
-
-@media screen and (max-width:1250px) {
+@media screen and (max-width: 960px){
     .share{
-        min-width: fit-content;
-        max-height: 8%;
+        width: 37%;
     }
     .report{
-        min-width: 45%;
-        max-height: 8%;
+        width: 63%;
     }
 }
 .tab{
     display: inline-block;
     height: 100%;
-    width: 90%;
+    width: 100%;
 }
