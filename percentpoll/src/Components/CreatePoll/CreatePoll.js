@@ -12,8 +12,10 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import moment from "moment";
+import axios from 'axios'
 
 import "./CreatePoll.css";
+import createIcon from "../images/create.png"
 
 function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
   const [pollOptionList, setPollOptionList] = useState([
@@ -33,7 +35,9 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
       return "http://localhost:5000"
   } )
 
-  
+  const api =axios.create({
+    baseURL:url
+  })
   console.log(title)
   useEffect(() => {
   if (mTitle){
@@ -94,24 +98,25 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
       closingTime: closingTime,
     };
     console.log('createpoll open aayi')
-    const res = await fetch(url+"/createPoll", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pollData)
-    });
-    if (res.ok) {
-      console.log("response worked");
-    }
 
+    await api.post('/createPoll',pollData).then(
+      response => console.log(response)
+    ).catch(function(error){
+      console.log(error)
+    })  
     closeCreatePoll(false);
   };
   return (
     <>
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header >
-          <Modal.Title className="ms-3" >CREATE POLL</Modal.Title>
+          <Modal.Title className="ms-3" ><img
+                alt=""
+                src={createIcon}
+                width="35"
+                height="35"
+                className="d-inline-block me-2"
+              />CREATE POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
         </Modal.Header>
         <Modal.Body className="m-3">
@@ -153,7 +158,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                     </FloatingLabel>
                   </div>
                       
-                    {pollOptionList.length >= 2 && (
+                    {pollOptionList.length >= 3 && (
                       <Button
                         id="removeBtn"
                         variant="outline-danger"      
@@ -170,7 +175,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                     <div className=".col-auto mb-4  .me-auto" >
                       <Button
                         type="button"
-                        className="btn btn-primary"
+                        variant="info"
                         onClick={handleClickAdd}
                       >
                         Add Poll Option

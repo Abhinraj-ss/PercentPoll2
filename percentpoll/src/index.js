@@ -22,7 +22,7 @@ root.render(
     <div className='footer'>
 <hr/>
     <p>Created by 
-      <a href='https://github.com/Abhinraj-ss'>@Abhinraj-ss</a>
+      <a href='https://github.com/Abhinraj-ss' >@Abhinraj-ss</a>
     </p>
     </div>
     

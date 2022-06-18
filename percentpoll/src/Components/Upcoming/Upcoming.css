@@ -1,26 +1,28 @@
-.card text-start{
-    color: aquamarine;
+
   
-  }
   @media screen and (max-width: 960px){
     div.row{
       display: list-item;
     }
     #card{
       min-width: 90vw;
+      margin-bottom: 10px;
     }
   }
   #cardBtn{
     font-weight: 800;
-    font-size: 0.9em;
+    font-size: 1.2em;
     margin-block:0.2rem;
     border:  rgb(31, 31, 31) solid 3px;
-    border-radius: 1vh 1vh;
+    border-radius: 0.5vmax 0.5vmax;
   }
 
 
 #btnIcon{
   height: 1.8rem;
   width: 1.8rem;
-  
+  margin-inline-end: 0.5rem;
+}
+card{
+  background-color: #06085a;
 }

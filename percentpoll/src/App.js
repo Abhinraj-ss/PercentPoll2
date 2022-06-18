@@ -4,6 +4,7 @@ import {
   Tab,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from 'axios'
 
 import LogIn from "./Components/LogIn/LogIn";
 import Register from "./Components/Register/Register";
@@ -31,31 +32,28 @@ function App() {
     } else if(process.env.NODE_ENV==='development')
       return "http://localhost:5000"
   } )
-
-
-  const getPolls = async() =>{
-    var userData ={'user_id':userId}
-    let res = await fetch(url+'/getPolls',{
-      method : ['POST'],
-      headers : {
-        "Content-Type" : "application/json",
-        "Accept":"application/json"
-      },
-      body : JSON.stringify(userData)
-     
+  const api = axios.create({
+    baseURL: url
+  })
+  const getPolls=async()=>{
+    await api.post('/getPolls',{user_id:userId})
+    .then(function (response) {
+      console.log(response);
+      if(response.status === 200){
+        console.log(response.json())
+        console.log("no upcoming polls!!");
+      }
+         
+      else if(response.status === 201){
+        setUpcomingPolls(response.data.upcoming)
+        setLivePolls(response.data.live)
+        setClosedPolls(response.data.closed)
+        console.log("upcoming polls exists!!");
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-    if(res.status === 200){
-      console.log(res.json())
-      console.log("no upcoming polls!!");
-    }
-       
-    else if(res.status === 201){
-      res = await res.json()
-      setUpcomingPolls(res.upcoming)
-      setLivePolls(res.live)
-      setClosedPolls(res.closed)
-      console.log("upcoming polls exists!!");
-    }
   }
 
   useEffect(() => {
@@ -98,14 +96,6 @@ function App() {
             closeRegister={() => setIsOpenRegister(false)}
           />
         )}
-
-        {/*(typeof data.members === 'undefined')?(
-        <p> Loading....</p>
-      ): (
-        data.members.map((member, i) => (
-          <p key={i}> {member}</p>
-        ))
-        )*/}
       </div>
     </div>
   );

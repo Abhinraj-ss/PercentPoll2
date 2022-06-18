@@ -15,20 +15,32 @@
     color: #7fffd4;
     border-color: aquamarine;
 }
-
+/*
 #create:hover img{
     filter: brightness(0);
-}
+}*/
 #create:hover{
     background-color: #7fffd4;
-    color: black;
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
 }
 #create{
     color: #7fffd4;
-    background-color: #212529;
-    border-color: #7fffd4;
-    border-radius: 1vh 1vh;
+    border: #7fffd4 solid 1.5px;
+    background-color: #06085a;
+    border-radius: 0.5vmax 0.5vmax;
+    background-image: linear-gradient(to right, #0575E6 0%, #021B79  51%, #0575E6  100%);
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #021B79;
 }
+
+ 
+
+ 
 @media screen and (min-width:740px), (max-width: 1200px){
     #create{
         min-width: 25%;

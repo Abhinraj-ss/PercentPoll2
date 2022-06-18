@@ -1,16 +1,12 @@
 .modal-content{
-    background-color: rgb(31, 31, 31);
+   /* background-color: rgb(31, 31, 31);*/
+   background-color: #06085a;
     color: rgb(88, 187, 154);
     border-color: aquamarine;
 }
 .modal-content{
     border-radius: 5px;
 }
-
-.form-control:focus {
-    border:3px solid aquamarine;
-    box-shadow: none;
-  }
 #btnLogin{
     padding-left: 0%;
 }

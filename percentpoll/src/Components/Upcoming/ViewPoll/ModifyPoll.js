@@ -11,7 +11,10 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import moment from "moment";
+import axios from "axios"
+
 import editIcon from "../../images/pencil_aqua.png"
+
 
 function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
   const [pollOptionList, setPollOptionList] = useState(mPollOptionList);
@@ -20,7 +23,16 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
   const [closingDate, setClosingDate] = useState(mClosingDate);
   const [openingTime, setOpeningTime] = useState(mOpeningTime.substring(0,8));
   const [closingTime, setClosingTime] = useState(mClosingTime.substring(0,8));
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(true);const [url,setUrl] = useState(()=>{
+    
+    if(process.env.NODE_ENV==='production'){
+      return "https://percentpoll2.herokuapp.com" 
+    } else if(process.env.NODE_ENV==='development')
+      return "http://localhost:5000"
+  } )
+  const api = axios.create({
+    baseURL: url
+  })
 
   const handleClose = () => {
     setShow(false);
@@ -69,30 +81,26 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
       closingTime: closingTime,
     };
     console.log(pollData)
-    const res = await fetch("/modify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pollData)
-    });
-    if (res.ok) {
-      console.log("response worked");
-    }
+    await api.post('/modify',pollData).then(
+      response => console.log(response)
+    ).catch(function(error){
+      console.log(error)
+    }) 
 
     closeModifyPoll(false);
   };
   return (
     <>
+    
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
         <Modal.Header >
-          <Modal.Title className="col-7" >
+          <Modal.Title className="ms-3" >
           <img
                 alt=""
                 src={editIcon}
-                width="35"
-                height="35"
-                className="d-inline-block"
+                width="25"
+                height="25"
+                className="d-inline-block me-2"
               />MODIFY POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
         </Modal.Header>
@@ -113,12 +121,12 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
               </FloatingLabel>
             </div>
             <div className="row">
-              <div className="col-7">
+              <div className="col">
               <FormLabel className="form-label">Poll Options</FormLabel>
             {pollOptionList.map((singlePollOption, index) => (
               <div key={index} className="pollOptions">
-                <div className="mb-4 row">
-                  <div className="col-md-11">
+                <div className="mb-4 row input-group">
+                  <div id="pollOption">
                     <FloatingLabel
                       controlId="floatingInputGrid"
                       label={index+1}
@@ -135,10 +143,10 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
                       />
                     </FloatingLabel>
                   </div>
-                  <Col id="removeBtn" >
-                    {pollOptionList.length >= 2 && (
-                      <Button        
-                        variant="danger"
+                    {pollOptionList.length >= 3 && (
+                      <Button   
+                        id="removeBtn"     
+                        variant="outline-danger"
                         onClick={() => {
                           handleClickRemove(index);
                         }}
@@ -146,7 +154,6 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
                         X
                       </Button>
                     )}
-                  </Col>
                 </div>
                 <Col>
                   {pollOptionList.length - 1 === index && (
@@ -164,7 +171,7 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
               </div>
             ))}
               </div>
-              <div className="col-5">
+              <div className="col">
               <div className="form-group">
               <FormLabel className="form-label me-3">Opens On </FormLabel>
               <FormCheck 

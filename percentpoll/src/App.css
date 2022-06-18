@@ -3,11 +3,12 @@
   text-align: center;
   width: 100%;
   margin: 0;
-  background-image: url('./Components/images/bgApp.png'); 
+  /*background-image: url('./Components/images/bgApp.png'); 
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-position: center ;
-  background-size: cover;
+  background-size: cover;*/
+  
   display: flex;
   flex-direction: column;
 
@@ -15,8 +16,8 @@
 .body{
   display: block;
   padding-inline: 5%;
-  margin-top: 1%;
-  height: 100vh;
+  margin-top: 1rem;
+  height: 100vmax;
 }
 
 @media screen and (max-width:500px) {
@@ -27,28 +28,33 @@
 }
 .nav-link{
   color: aquamarine;
-  font-size: medium;
   border: 0;
   
 }
 
 
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
-  border: aquamarine solid 2px;
-  border-radius: 100vh 100vh;
+  border: aquamarine solid 1px;
+  border-radius: 100vmax 100vmax;
   color: aquamarine;
 }
 .nav-tabs .nav-link.active:hover,.nav-tabs .nav-link.active:focus{
-  border: 0;
+  
+  border: aquamarine solid 0.5px;
 }
 .nav-tabs{
   padding-bottom: 0.3%;
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
-  background-color: whitesmoke;
-  color: black;
-  border-radius: 100vh 100vh;
+  background-color: #06085a;
+  background-image: linear-gradient(to right, #0575E6 0%, #021B79  51%, #0575E6  100%);
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #0576e67d;
+  border-radius: 100vmax 100vmax;
 }
 @media screen and (min-width:501px),(max-width: 700px){
   .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
@@ -84,7 +90,7 @@
 }
 .nav{
   border-radius: 100vh 100vh;
-  background-color: #212529;
+  background-color: #06085a;
   border:aquamarine solid 0.8px ;
   padding-top: 0.3%;
 }

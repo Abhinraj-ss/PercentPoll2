@@ -6,7 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 function Donutchart(props) {
-  var arr = JSON.parse(props.poll.pollOptions)
+  var arr = props.poll.pollOptions
 
   const pollOptions = [arr.map((item)=>(item.poll_option))]
   const pollCount =[arr.map((item)=>(item.option_count))]

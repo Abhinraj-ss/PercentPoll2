@@ -1,3 +1,4 @@
+from multiprocessing import connection
 from flask import Flask, jsonify, request
 import mysql.connector
 import datetime
@@ -10,23 +11,21 @@ app = Flask(__name__)
 
 CORS(app)
 
-connection = mysql.connector.connect(host="bhgmzdjldrdmbzrzwr6z-mysql.services.clever-cloud.com",database="bhgmzdjldrdmbzrzwr6z",user = "uz8lge1whj1jxeq9", passwd ="IZLg6ZLNzTvBdP3eMZ2T")
-if(connection):
-    print("got connected!")
-else:
-    print("not connected")
 
-cur = connection.cursor(buffered=True)
 #connection = mysql.connector.connect(host="localhost",user = "root", passwd ="root", auth_plugin='mysql_native_password')
-
-#@app.route("/members")
-#def server():
-#    return {"members": ["member1", "member2"]}
+def connectDb():
+    connection = mysql.connector.connect(host="bhgmzdjldrdmbzrzwr6z-mysql.services.clever-cloud.com",database="bhgmzdjldrdmbzrzwr6z",user = "uz8lge1whj1jxeq9", passwd ="IZLg6ZLNzTvBdP3eMZ2T")
+    if(connection):
+        print("got connected!")
+    else:
+        print("not connected")
+    return connection
 
 
 @app.route("/register", methods=['POST'])
 @cross_origin()
 def register():
+    connection=connectDb()
     cur = connection.cursor(buffered=True)
     registerData = request.get_json()
     print(registerData)
@@ -40,13 +39,16 @@ def register():
     if (userData == None):
         cur.execute(registerUserQuery,userInfo)
         connection.commit()
+        connection.close()
         return {"message":"user added"}, 201
     else:
+        connection.close()
         return {"message":"user exists"}, 200
 
 @app.route("/login",methods=['POST'])
 @cross_origin()
 def login():
+    connection=connectDb()
     cur = connection.cursor(buffered=True)
     loginData = request.get_json()
     email = loginData['email']
@@ -60,14 +62,17 @@ def login():
     print(password)
     if (password != None):
         if(check_password_hash(password,loginData["password"])):
+            connection.close()
             return jsonify({"user_id":user_id}),201
     else :
+        connection.close()
         return {"message":"userNotPresent"},200
     
         
 @app.route("/createPoll", methods=["POST"])
 @cross_origin()
 def createPoll():
+    connection=connectDb()
     cur = connection.cursor(buffered=True)
     dateTimeNow = datetime.datetime.now()
     pollData = request.get_json()
@@ -101,12 +106,14 @@ def createPoll():
             dataPollOptions = (poll_id,pollOption['pollOption'])
             cur.execute(insertQueryClosedPollOptions,dataPollOptions)
     connection.commit()
+    connection.close()
     return {"message":"poll creation successful!"},201
 
 
 @app.route('/modify',methods=['POST'])
 @cross_origin()
 def modifyPoll():
+    connection=connectDb()
     cur = connection.cursor(buffered=True)
     dateTimeNow = datetime.datetime.now()
     pollData = request.get_json()
@@ -154,11 +161,13 @@ def modifyPoll():
                     cur.execute(insertQueryLivePollOptions,dataPollOptionsNew)
     
     connection.commit()
+    connection.close()
     return {"message":"modification successful!"}, 201
 
 @app.route('/vote/<pollId>',methods=['GET','POST'])
 @cross_origin()
 def vote(pollId):
+    connection=connectDb()
     cur = connection.cursor(buffered=True)
     print('pollId',pollId)
     if (request.method == 'GET'):
@@ -184,26 +193,30 @@ def vote(pollId):
         updateOptionCountQuery = '''UPDATE live_poll_options SET option_count = option_count+1 WHERE poll_option =%s'''
         cur.execute(updateOptionCountQuery,(selectedOption,))
         connection.commit()
+        connection.close()
         return {"message":"voting successful!"},200
 
 @app.route('/getPolls',methods=['POST'])
 @cross_origin()
 def getPolls():
-    cur = connection.cursor(buffered=True)
+    connection=connectDb()
     dateTimeNow = datetime.datetime.now()
     data = request.get_json()
     user_id =data['user_id']
+    print(user_id)
     if user_id != None:
-        upcomingList = upcomingPolls(user_id,dateTimeNow)
-        liveList = livePolls(user_id,dateTimeNow)
-        closedList = closedPolls(user_id)
+        upcomingList = upcomingPolls(user_id,dateTimeNow,connection)
+        liveList = livePolls(user_id,dateTimeNow,connection)
+        closedList = closedPolls(user_id,connection)
         totalPollsList = {"upcoming" : upcomingList,"live": liveList,"closed":closedList}
+        connection.close()
         return jsonify(totalPollsList),201
     else :
+        connection.close()
         return {"message":"no polls created!"},200
    
 
-def upcomingPolls(user_id,dateTimeNow):
+def upcomingPolls(user_id,dateTimeNow,connection):
     cur = connection.cursor(buffered=True)
     jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time,'poll_count',poll_count)) FROM upcoming_polls_info WHERE user_id = %s'''
     cur.execute(jsonObjPollInfo,(user_id,))
@@ -220,10 +233,12 @@ def upcomingPolls(user_id,dateTimeNow):
             jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_option',poll_option,'option_count',option_count)) FROM upcoming_poll_options WHERE poll_id = %s;'''
             cur.execute(jsonArrPollOptions,poll_id)
             pollOptions = cur.fetchone()[0]
+            print(pollOptions)
             if (openingDateTime<=dateTimeNow):
-                upcomingList.pop(index) if updateUpcomingToLive(user_id,obj,pollOptions) else print("not updated from upcoming to live")
+                upcomingList.pop(index) if updateUpcomingToLive(user_id,obj,pollOptions,connection) else print("not updated from upcoming to live")
             else:
-                upcomingList[index]['pollOptions']=pollOptions
+                upcomingList[index]['pollOptions']=json.loads(pollOptions)
+                print(upcomingList)
                 index+=1
 
             #print(upcomingList) 
@@ -231,7 +246,7 @@ def upcomingPolls(user_id,dateTimeNow):
     else :
         return [{}]
 
-def livePolls(user_id,dateTimeNow):
+def livePolls(user_id,dateTimeNow,connection):
     cur = connection.cursor(buffered=True)
     jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time, 'poll_count',poll_count)) FROM live_polls_info WHERE user_id = %s'''
     cur.execute(jsonObjPollInfo,(user_id,))
@@ -249,10 +264,10 @@ def livePolls(user_id,dateTimeNow):
             pollOptions = cur.fetchone()[0]
                 
             if (closingDateTime<=dateTimeNow):
-                liveList.pop(index) if updateLiveToClosed(user_id,obj,pollOptions) else print("not updated from live to closed")
+                liveList.pop(index) if updateLiveToClosed(user_id,obj,pollOptions,connection) else print("not updated from live to closed")
                 
             else:
-                liveList[index]['pollOptions']=pollOptions
+                liveList[index]['pollOptions']=json.loads(pollOptions)
 
                 maxCount=0
                 maxPollOptions=[]
@@ -272,7 +287,7 @@ def livePolls(user_id,dateTimeNow):
     else :
         return [{}]
     
-def closedPolls(user_id):
+def closedPolls(user_id,connection):
     cur = connection.cursor(buffered=True)
     jsonObjPollInfo = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_id',poll_id,'title',title,'open_date',open_date,'open_time',open_time,'close_date',close_date,'close_time',close_time,'poll_count',poll_count)) FROM closed_polls_info WHERE user_id = %s'''
     cur.execute(jsonObjPollInfo,(user_id,))
@@ -287,7 +302,7 @@ def closedPolls(user_id):
             jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_option',poll_option,'option_count',option_count)) FROM closed_poll_options WHERE poll_id = %s;'''
             cur.execute(jsonArrPollOptions,poll_id)
             pollOptions = cur.fetchone()[0]
-            closedList[index]['pollOptions']=pollOptions
+            closedList[index]['pollOptions']=json.loads(pollOptions)
             #print(closedList) 
             maxCount=0
             maxPollOptions=[]
@@ -305,7 +320,7 @@ def closedPolls(user_id):
     else :
         return [{}]
 
-def updateUpcomingToLive(user_id,obj,pollOptions):
+def updateUpcomingToLive(user_id,obj,pollOptions,connection):
     #delete record from upcoming_polls-info , upcoming_poll_options 
     #insert record to live_polls_info, live_poll_options
     cur = connection.cursor(buffered=True)
@@ -331,7 +346,7 @@ def updateUpcomingToLive(user_id,obj,pollOptions):
     connection.commit()
     return True
 
-def updateLiveToClosed(user_id,obj,pollOptions):
+def updateLiveToClosed(user_id,obj,pollOptions,connection):
     #delete record from upcoming_polls-info , upcoming_poll_options 
     #insert record to live_polls_info, live_poll_options
     cur = connection.cursor(buffered=True)

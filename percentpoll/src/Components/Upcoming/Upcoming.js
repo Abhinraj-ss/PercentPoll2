@@ -12,9 +12,9 @@ function Upcoming(props) {
   const [show,setShow] = useState(false)
   const [pollData,setPollData] = useState({})
 
-  const handleClickView = (key) =>{
-      console.log(show)
-      setPollData(props.upcomingPolls[key])
+  const handleClickView = (index) =>{
+      console.log(show,props.upcomingPolls[index])
+      setPollData(props.upcomingPolls[index])
       setShow(!show)  
     }
   function formatDate (input) {
@@ -54,7 +54,7 @@ function Upcoming(props) {
       (upcomingPoll,index)=>(
         
         <div key={index} className="col-6">
-        <Card className="text-start text-white bg-dark" id='card'>
+        <Card className="text-start text-white" id='card'>
         <Card.Body>
           <Card.Title>
             {upcomingPoll.title}

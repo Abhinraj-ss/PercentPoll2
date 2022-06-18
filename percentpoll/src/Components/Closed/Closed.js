@@ -32,12 +32,12 @@ function Closed(props) {
       <div className='tab'>
       {show && <ClosedReport show={show} closedPoll={closedPoll} handleModalReport={handleClickReport}/>}
       {props.closedPolls[0].title &&
-      <div className="row" id='card'>
+      <div className="row" >
       {props.closedPolls.map(
           (closedPoll,index,)=>(
             
             <div key={index} className="col-6">
-                <Card className=" text-white bg-dark" id='card' >
+                <Card className=" text-white" id='card' >
                     <Card.Body>
                         <div className="row d-flex ">
                             <div className="col-4 "> 
@@ -57,7 +57,7 @@ function Closed(props) {
                                 )
 
                                 }
-                                <Button variant="flat" className="col-11" id="cardBtn" onClick={()=>handleClickReport(closedPoll)} >
+                                <Button variant="flat" className="col-6" id="cardBtn" onClick={()=>handleClickReport(closedPoll)} >
                                 <img
                                     alt=""
                                     src={reportIcon}

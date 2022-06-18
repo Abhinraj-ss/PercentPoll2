@@ -63,11 +63,11 @@ function Live(props) {
       />
       }
     {props.livePolls[0].title &&
-    <div className="row" id='card'>
+    <div className="row" >
     {props.livePolls.map(
       (livePoll,index)=>(
         <div key ={index} className="col-6">
-        <Card className="text-center text-white bg-dark" id="card">
+        <Card className="text-center text-white" id="card">
           <Card.Body>
             <Card.Title>
               {livePoll.title}
@@ -84,7 +84,7 @@ function Live(props) {
                 id="btnIcon"
                 className="d-inline-block"
               />Share</Button>
-            <Button className = "col-5 report" id="cardBtn" variant="flat" onClick={()=>handleClickReport(livePoll)}>
+            <Button className = "col-4 report" id="cardBtn" variant="flat" onClick={()=>handleClickReport(livePoll)}>
             <img
                 alt="reportIcon"
                 src={ReportIcon}

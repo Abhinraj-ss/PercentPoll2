@@ -39,7 +39,6 @@ class NavBar extends Component {
           collapseOnSelect
           expand="lg"
           sticky="top"
-          bg="dark"
           variant="dark"
         >
           <Container>

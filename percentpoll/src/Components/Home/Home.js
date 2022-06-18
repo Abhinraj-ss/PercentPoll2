@@ -32,7 +32,7 @@ function Home() {
                 src={createIcon}
                 width="25"
                 height="25"
-                className="d-inline-block"
+                className="d-inline-block me-2 mb-1"
               />
           Create a poll
         </Button>

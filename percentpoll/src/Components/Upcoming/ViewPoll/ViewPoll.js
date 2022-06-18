@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useMemo} from 'react'
 import { Button,Modal, ListGroup, ListGroupItem } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -9,14 +9,11 @@ import eyeIcon from "../../images/eye_aqua.png"
 
 function ViewPoll(props) {
   const [show,setShow] = useState(false)
-  const pollOptionList = []
-  const pollOptionsArr=JSON.parse(props.pollData.pollOptions)
-  useEffect(() => {
-    
-    for (let index = 0; index < pollOptionsArr.length; index++) {
-      pollOptionList.push({pollOption:pollOptionsArr[index]})
-    }
-  }, [])
+  const pollOptionsArr=props.pollData.pollOptions
+  const pollOptionList = pollOptionsArr.map((pollOption)=>{
+    return pollOption
+  })
+  console.log(pollOptionsArr,pollOptionList)
   function formatDate (input) {
     var datePart = input.match(/\d+/g),
     year = datePart[0].substring(2), // get only two digits
@@ -53,13 +50,13 @@ function ViewPoll(props) {
       {show && <ModifyPoll handleModalView={handleClickCancel} mPoll_id={props.pollData.poll_id} closeModifyPoll={setShow} mTitle={props.pollData.title} mPollOptionList={pollOptionList} mOpeningDate={props.pollData.open_date} mOpeningTime={props.pollData.open_time} mClosingDate={props.pollData.close_date} mClosingTime={props.pollData.close_time}/>}
     <Modal show={props.show} fullscreen={props.show} onHide={handleClickCancel}>
         <Modal.Header closeVariant="white" closeButton>
-          <Modal.Title className='col-7'>
+          <Modal.Title className='ms-2'>
           <img
                 alt=""
                 src={eyeIcon}
-                width="50"
-                height="50"
-                className="d-inline-block"
+                width="35"
+                height="35"
+                className="d-inline-block me-2"
               />
               VIEW POLL</Modal.Title>
         </Modal.Header>
@@ -70,7 +67,7 @@ function ViewPoll(props) {
           <ListGroup>
             {pollOptionsArr.map((option,index)=>(
               <ListGroupItem key={index} className='my-2'>
-                <h5>{option}</h5>
+                <h5>{option.poll_option}</h5>
               </ListGroupItem>
             ))
             }
