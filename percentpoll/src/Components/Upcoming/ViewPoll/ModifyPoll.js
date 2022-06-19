@@ -125,7 +125,7 @@ function ModifyPoll({handleModalView, mPoll_id,closeModifyPoll,mTitle,mPollOptio
               <FormLabel className="form-label">Poll Options</FormLabel>
             {pollOptionList.map((singlePollOption, index) => (
               <div key={index} className="pollOptions">
-                <div className="mb-4 row input-group">
+                <div className="mb-1 row input-group">
                   <div id="pollOption">
                     <FloatingLabel
                       controlId="floatingInputGrid"

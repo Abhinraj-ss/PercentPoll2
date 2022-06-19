@@ -233,12 +233,11 @@ def upcomingPolls(user_id,dateTimeNow,connection):
             jsonArrPollOptions = '''SELECT JSON_ARRAYAGG(JSON_OBJECT('poll_option',poll_option,'option_count',option_count)) FROM upcoming_poll_options WHERE poll_id = %s;'''
             cur.execute(jsonArrPollOptions,poll_id)
             pollOptions = cur.fetchone()[0]
-            print(pollOptions)
+            #print(pollOptions)
             if (openingDateTime<=dateTimeNow):
                 upcomingList.pop(index) if updateUpcomingToLive(user_id,obj,pollOptions,connection) else print("not updated from upcoming to live")
             else:
                 upcomingList[index]['pollOptions']=json.loads(pollOptions)
-                print(upcomingList)
                 index+=1
 
             #print(upcomingList) 

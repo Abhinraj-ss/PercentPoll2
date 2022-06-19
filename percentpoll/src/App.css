@@ -3,12 +3,11 @@
   text-align: center;
   width: 100%;
   margin: 0;
-  /*background-image: url('./Components/images/bgApp.png'); 
+  background-image: url('./Components/images/bgApp.png'); 
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-position: center ;
-  background-size: cover;*/
-  
+  background-size: cover;
   display: flex;
   flex-direction: column;
 
@@ -34,16 +33,13 @@
 
 
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
-  border: aquamarine solid 1px;
   border-radius: 100vmax 100vmax;
   color: aquamarine;
 }
-.nav-tabs .nav-link.active:hover,.nav-tabs .nav-link.active:focus{
-  
-  border: aquamarine solid 0.5px;
-}
+
 .nav-tabs{
   padding-bottom: 0.3%;
+  box-shadow: 0 0 20px #06085a;
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
@@ -97,6 +93,7 @@
 
 .noPolls{
   max-width: 90vw;
+  min-width: 35vw;
   position: absolute;
   top: 50%;
   left: 50%;

@@ -57,7 +57,7 @@ function Closed(props) {
                                 )
 
                                 }
-                                <Button variant="flat" className="col-6" id="cardBtn" onClick={()=>handleClickReport(closedPoll)} >
+                                <Button variant="flat" className="col-11" id="cardBtn" onClick={()=>handleClickReport(closedPoll)} >
                                 <img
                                     alt=""
                                     src={reportIcon}

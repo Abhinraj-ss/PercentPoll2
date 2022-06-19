@@ -140,7 +140,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               <FormLabel className="form-label">Poll Options</FormLabel>
             {pollOptionList.map((singlePollOption, index) => (
               <div key={index} className="pollOptions">
-                <div className="mb-4 row input-group">
+                <div className="mb-1 row input-group">
                   <div id="pollOption">
                   <FloatingLabel id="floatingCreate"
                       controlId="floatingInputGrid"

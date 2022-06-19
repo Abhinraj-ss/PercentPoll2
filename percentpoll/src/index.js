@@ -20,8 +20,7 @@ root.render(
       </Routes>
     </BrowserRouter>
     <div className='footer'>
-<hr/>
-    <p>Created by 
+    <p>Created by -&nbsp;
       <a href='https://github.com/Abhinraj-ss' >@Abhinraj-ss</a>
     </p>
     </div>

@@ -48,7 +48,7 @@ class NavBar extends Component {
                 src={navbarLogo}
                 width="35"
                 height="35"
-                className="d-inline-block align-top"
+                className="d-inline-block align-top me-2"
               />
               {"        "}
               Percent Poll 2

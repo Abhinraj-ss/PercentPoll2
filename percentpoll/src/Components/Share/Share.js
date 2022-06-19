@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import React, { useState,useRef } from "react";
+import { Modal,Button, Form, FormControl } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     EmailShareButton,
@@ -22,10 +22,20 @@ import "./Share.css"
 import shareIcon from '../images/share_aqua.png'
 import linkIcon from '../images/link.png'
 import gmailIcon from '../images/gmail.png'
+import tickIcon from '../images/tick.png'
 
 function Share(props) {
   const [livePoll,setLivePoll] = useState(props.livePoll)
-  const link = 'https://percentpoll2-front.herokuapp.com/vote/'+livePoll.poll_id
+  const link = 'https://percentpoll-2.herokuapp.com/vote/'+livePoll.poll_id
+  const [copySuccess, setCopySuccess] = useState('Copy');
+  const urlRef = useRef(null);
+  const [btnIcon,setBtnIcon] = useState(linkIcon)
+
+  function copyToClipboard(e) {
+    navigator.clipboard.writeText(link)
+    setBtnIcon(tickIcon)
+    setCopySuccess('Copied!');
+  };
   console.log(livePoll,link)
   return (
     <Modal show={props.show} size="lg" aria-labelledby="contained-modal-title-vcenter" onHide={()=>props.handleModalShare()} centered>
@@ -34,43 +44,57 @@ function Share(props) {
         <img
                 alt=""
                 src={shareIcon}
-                width="36"
-                height="36"
-                className="d-inline-block"
+                width="32"
+                height="32"
+                className="d-inline-block me-2"
               />Share
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+
+
+      <div className="row">
+        
+      {
+        navigator.clipboard &&
+        <div className="d-flex mx-3">
+        <Form   className='col-9'>
+        <FormControl
+          ref={urlRef}
+          value={link}
+        
+        />
+
+      </Form>
+      <Button onClick={copyToClipboard} variant='success'id='copy' className=' col-2 '>
+      <img
+                alt="linkIcon"
+                src={btnIcon}
+                id="linkIcon"
+                className="d-inline-block"
+              />{copySuccess}</Button> 
+          
+        </div>
+      }
+      
+    </div>
+
+    <h5  className="mx-auto">Also share to</h5>
         <div className="d-flex-row" id="shareBtnGroup">
-            <img
-                alt=""
-                src={linkIcon}
-                width="62"
-                height="68"
-                className="pt-2"
-              />
             <WhatsappShareButton title={livePoll.title}  url={link}>
-                <WhatsappIcon borderRadius={15}/>
+                <WhatsappIcon id="shareSocial" borderRadius={15}/>
             </WhatsappShareButton>
             <FacebookShareButton quote={livePoll.title} hashtag="#percentpoll2" url={link}>
-                <FacebookIcon borderRadius={15}/>
+                <FacebookIcon id="shareSocial" borderRadius={15}/>
             </FacebookShareButton>
-            <EmailShareButton url={link} subject={livePoll.title} body={link} openShareDialogOnClick='true'>
-              <img
-                  alt=""
-                  src={gmailIcon}
-                  width="62"
-                  height="80"
-                />
-            </EmailShareButton>
             <TelegramShareButton url={link} title={livePoll.title}>
-                <TelegramIcon borderRadius={15}/>
+                <TelegramIcon id="shareSocial" borderRadius={15}/>
             </TelegramShareButton>
             <TwitterShareButton url={link} title={livePoll.title} via="percent poll2" hashtags="#percentpoll2">
-                <TwitterIcon borderRadius={15}/>
+                <TwitterIcon id="shareSocial" borderRadius={15}/>
             </TwitterShareButton>
             <LinkedinShareButton url={link} title={livePoll.title} summary="Take part in the poll to find the 100% right choice." source="percent poll2">
-                <LinkedinIcon borderRadius={15}/>
+                <LinkedinIcon id="shareSocial" borderRadius={15}/>
             </LinkedinShareButton>
         </div>
       </Modal.Body>

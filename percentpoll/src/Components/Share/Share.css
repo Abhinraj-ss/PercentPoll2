@@ -1,9 +1,59 @@
 #shareBtnGroup{
     display: flex;
-    justify-content: space-around;
-    padding-inline: 10%;
+    justify-content: center;
+    align-items: center;
+    padding-inline:10%;
+    flex-wrap: wrap;
 }
 .modal-title{
     font-size: 1.8rem;
     color: aquamarine;
+}
+#copy{
+    height: 38px;
+}
+
+
+
+@media screen and (min-width:1001px) {
+    #shareSocial{
+        width: 4em;
+        height: 3em;
+    } 
+    #linkIcon{
+        width: 1em;
+        height: 1em;
+        margin-right: 0.5em;
+        margin-bottom:0.1rem ;
+    }
+}
+@media screen and (min-width:760px)  ,(max-width:1000px) {
+    #shareSocial{
+        width: 3em;
+        height: 2em;
+    }
+    #linkIcon{
+        width: 1em;
+        height: 1em;
+        margin-right: 0.1em;
+        margin-bottom:0.1rem ;
+    }
+    #copy{
+        font-size: 0.7em;
+    }
+}
+@media screen and (max-width:759px) {
+    #shareSocial{
+        width: 3em;
+        height: 2em;
+    }
+    #linkIcon{
+        width: 1em;
+        height: 1em;
+        margin-right: 0.1em;
+        margin-bottom:0.1rem ;
+    }
+    #copy{
+        font-size: 0.6em;
+    }
 }
