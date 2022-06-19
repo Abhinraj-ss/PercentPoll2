@@ -1,8 +1,10 @@
 .modal-content{
-   /* background-color: rgb(31, 31, 31);*/
-   background-color: #06085a;
+   /* background-color: rgb(31, 31, 31);
+   background-color: #06075ae6;*/
+   background-image: linear-gradient(to top, #1f7878 0%, #06085a 100%);
     color: rgb(88, 187, 154);
-    border-color: aquamarine;
+    border-color: #06085a;
+    box-shadow: 0 0 5px rgba(127, 255, 212, 0.414);
 }
 .modal-content{
     border-radius: 5px;

@@ -1,5 +1,5 @@
 .App {
-  height: 90vh;
+  min-height: 92vh;
   text-align: center;
   width: 100%;
   margin: 0;
@@ -16,7 +16,8 @@
   display: block;
   padding-inline: 5%;
   margin-top: 1rem;
-  height: 100vmax;
+  min-height: 80vmin;
+
 }
 
 @media screen and (max-width:500px) {
@@ -26,7 +27,7 @@
   
 }
 .nav-link{
-  color: aquamarine;
+  color: white;
   border: 0;
   
 }
@@ -34,7 +35,7 @@
 
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
   border-radius: 100vmax 100vmax;
-  color: aquamarine;
+  color: white;
 }
 
 .nav-tabs{
@@ -57,7 +58,6 @@
     min-width: 84px;
   }
   .nav-link{
-    color: aquamarine;
     font-size: small;
     border: 0;
   }
@@ -68,8 +68,7 @@
     min-width: auto;
   }
   .nav-link{
-    color: aquamarine;
-    font-size: xx-small;
+    font-size:0.65em;
     border: 0;
   }
   
@@ -98,4 +97,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+#tabIcon{
+  height: 1.5em;
+  width: 1.5em;
 }

@@ -1,8 +1,8 @@
 .form-control{
   background: #426e72;
-    margin-bottom: 2%;
-    color: white;
-    border:1.2px solid aquamarine;
+  margin-bottom: 2%;
+  color: white;
+  border:1.5px solid #040552;
     
 }
 .form-control::placeholder { 

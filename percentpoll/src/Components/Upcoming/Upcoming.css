@@ -3,6 +3,7 @@
   @media screen and (max-width: 960px){
     div.row{
       display: list-item;
+      list-style-type: none;
     }
     #card{
       min-width: 90vw;
@@ -11,16 +12,17 @@
   }
   #cardBtn{
     font-weight: 800;
-    font-size: 1.2em;
+    font-size: 0.9em;
+    padding-inline: 1.1em;
     margin-block:0.2rem;
     border-radius: 0.6vmax 0.6vmax;
   }
 
 
 #btnIcon{
-  height: 1.8rem;
-  width: 1.8rem;
-  margin-inline-end: 0.5rem;
+  height: 1.8em;
+  width: 1.8em;
+  margin-inline-end: 0.1em;
 }
 card{
   background-color: #06085a;

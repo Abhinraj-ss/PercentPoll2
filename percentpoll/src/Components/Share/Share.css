@@ -9,10 +9,14 @@
     font-size: 1.8rem;
     color: aquamarine;
 }
+.modal-title>h2{
+    font-size: 1.4rem;
+    padding-top: 0.5rem;;
+    color: white;
+}
 #copy{
     height: 38px;
 }
-
 
 
 @media screen and (min-width:1001px) {
@@ -39,7 +43,7 @@
         margin-bottom:0.1rem ;
     }
     #copy{
-        font-size: 0.7em;
+        font-size: 1em;
     }
 }
 @media screen and (max-width:759px) {
@@ -54,6 +58,6 @@
         margin-bottom:0.1rem ;
     }
     #copy{
-        font-size: 0.6em;
+        font-size: 0.65em;
     }
 }

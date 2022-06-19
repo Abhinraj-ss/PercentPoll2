@@ -33,7 +33,7 @@
          
 }
 
-}
+}/*
 @media screen and (max-width: 960px){
     .share{
         width: 37%;
@@ -41,9 +41,19 @@
     .report{
         width: 63%;
     }
-}
+}*/
 .tab{
     display: inline-block;
     height: 100%;
     width: 100%;
+}
+.row .liveBtnGroup{
+    display: flex;
+}
+.share{
+    display: flex-item;
+    margin-right: auto;
+}
+.report{
+    display: flex-item;
 }

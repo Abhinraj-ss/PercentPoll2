@@ -57,7 +57,7 @@ function Share(props) {
         
       {
         navigator.clipboard &&
-        <div className="d-flex mx-3">
+        <div className="d-flex mx-1">
         <Form   className='col-9'>
         <FormControl
           ref={urlRef}
@@ -66,7 +66,7 @@ function Share(props) {
         />
 
       </Form>
-      <Button onClick={copyToClipboard} variant='success'id='copy' className=' col-2 '>
+      <Button onClick={copyToClipboard} variant='success'id='copy' className=' col-3 '>
       <img
                 alt="linkIcon"
                 src={btnIcon}
@@ -98,9 +98,6 @@ function Share(props) {
             </LinkedinShareButton>
         </div>
       </Modal.Body>
-      <Modal.Footer>
-          
-      </Modal.Footer>
       
     </Modal>
   );

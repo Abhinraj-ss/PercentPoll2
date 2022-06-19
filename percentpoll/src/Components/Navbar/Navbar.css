@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 #navbar{
   background-color: #06085a;
 }
@@ -9,3 +10,7 @@
     }
   }
 
+.navbar-brand{
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.5rem;
+}

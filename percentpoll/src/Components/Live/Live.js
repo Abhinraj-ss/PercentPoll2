@@ -77,20 +77,25 @@ function Live(props) {
                 With supporting text below as a natural lead-in to additional
                 content.
             </Card.Text>
-            <div className="row p-2">
-            <Button className = "col-3 me-auto share" id="cardBtn" variant="flat"  onClick={()=>handleClickShare(livePoll)}><img
+            <div className="row liveBtnGroup">
+              <div className = "col share">
+              <Button  id="cardBtn" variant="flat"  onClick={()=>handleClickShare(livePoll)}><img
                 alt="shareIcon"
                 src={shareIcon}
                 id="btnIcon"
                 className="d-inline-block"
               />Share</Button>
-            <Button className = "col-4 report" id="cardBtn" variant="flat" onClick={()=>handleClickReport(livePoll)}>
-            <img
-                alt="reportIcon"
-                src={ReportIcon}
-                id="btnIcon"
-                className="d-inline-block"
-              />See live report</Button>
+              </div>
+            <div className="col report">
+              <Button id="cardBtn" variant="flat" onClick={()=>handleClickReport(livePoll)}>
+              <img
+                  alt="reportIcon"
+                  src={ReportIcon}
+                  id="btnIcon"
+                  className="d-inline-block"
+                />See live report</Button>
+            </div>
+            
             </div>
             
           </Card.Body>

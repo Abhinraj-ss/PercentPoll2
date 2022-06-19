@@ -16,13 +16,13 @@ code {
   clear: both;
   text-align: center;
   width: 90%;
-  height:11vh;
+  height:8vh;
   position: static ;
   bottom: 0;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  padding-block: 3vh;
+  padding-block: 1.5vh;
   border-top: rgba(255, 255, 255, 0.548) solid 1px;;
 }

@@ -15,16 +15,22 @@ import "./App.css";
 import NavBar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home/Home";
 import noPolls from './Components/images/NoPolls.png' 
+import homeIcon from './Components/images/home.png'
+import upcomingIcon from './Components/images/upcoming.png'
+import liveIcon from './Components/images/poll.png'
+import closedIcon from './Components/images/closed.png'
 
 
 function App() {
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
-  const [key, setKey] = useState("home");
+  const keyFromStorage = localStorage.getItem("key")
+  const [key, setKey] = useState(keyFromStorage?keyFromStorage:"home");
   const userId =localStorage.getItem('user_id')
   const [upcomingPolls,setUpcomingPolls ]= useState([{}])
   const [livePolls,setLivePolls ]= useState([{}])
   const [closedPolls,setClosedPolls ]= useState([{}])
+  const [getApi,setGetApi] = useState(true)
   const [url,setUrl] = useState(()=>{
     
     if(process.env.NODE_ENV==='production'){
@@ -56,11 +62,18 @@ function App() {
     });
   }
 
+  setTimeout(()=> setGetApi(!getApi),10000)
+
   useEffect(() => {
     console.log(userId)
     getPolls()
   console.log(upcomingPolls,livePolls,closedPolls )
-  },[isOpenLogin]);
+  },[getApi]);
+
+  useEffect(()=>{
+    localStorage.setItem("key",key)
+  },[key])
+
   return (
     <div className="App" >
       <NavBar />
@@ -70,16 +83,36 @@ function App() {
           onSelect={(k) => setKey(k)}
           className="justify-content-center mb-4 "
         >
-          <Tab eventKey="home" title="Home">
+          <Tab eventKey="home" title={<span><img
+                alt="home"
+                id="tabIcon"
+                src={homeIcon}
+                className="d-inline-block align-top"
+               /> Home </span>}>
             <Home/>
           </Tab>
-          <Tab eventKey="upcoming" title="Upcoming Polls">
+          <Tab eventKey="upcoming" title={<span><img
+                alt="upcoming"
+                id="tabIcon"
+                src={upcomingIcon}
+                className="d-inline-block align-top"
+               /> Upcoming</span>}>
             <Upcoming noPolls={noPolls} upcomingPolls={upcomingPolls}/>
           </Tab>
-          <Tab eventKey="live" title="Live Polls">
+          <Tab eventKey="live" title={<span><img
+                alt="live"
+                id="tabIcon"
+                src={liveIcon}
+                className="d-inline-block align-top "
+               /> Live</span>}>
             <Live noPolls={noPolls} livePolls={livePolls}/>
           </Tab>
-          <Tab eventKey="closed" title="Closed Polls">
+          <Tab eventKey="closed" title={<span><img
+                alt="closed"
+                id="tabIcon"
+                src={closedIcon}
+                className="d-inline-block align-top"
+               /> Closed</span>}>
             <Closed noPolls={noPolls} isOpenLogin={isOpenLogin} closedPolls={closedPolls}/>
 
           </Tab>

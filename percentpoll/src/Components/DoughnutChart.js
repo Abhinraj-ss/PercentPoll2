@@ -8,10 +8,11 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function Donutchart(props) {
   var arr = props.poll.pollOptions
 
-  const pollOptions = [arr.map((item)=>(item.poll_option))]
-  const pollCount =[arr.map((item)=>(item.option_count))]
-  console.log(arr)
+  const pollOptions = (arr.map((item)=>(item.poll_option)))
+  const pollCount =(arr.map((item)=>(item.option_count)))
+  console.log(arr,pollOptions,pollCount)
   
+
   const options = {
     layout:{
       padding:0
@@ -35,7 +36,7 @@ function Donutchart(props) {
             boxHeight:25,
             padding:40,
             font: {
-              size: 22
+              size: 22  
           }
           }
         }
@@ -46,13 +47,13 @@ function Donutchart(props) {
     labels: pollOptions,
     datasets: [
       { 
-        data: pollCount,
+        data:pollCount ,
         backgroundColor: chartColors,
         hoverBackgroundColor: chartColors
       }
     ]
   }
-
+  console.log(data)
   return (
       <div>
         <Doughnut  data={data} options={options} />

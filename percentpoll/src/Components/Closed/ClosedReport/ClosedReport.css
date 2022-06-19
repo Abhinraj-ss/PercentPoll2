@@ -1,7 +1,29 @@
 
 .chart > div:nth-child(1) > canvas:nth-child(1) {
-    display: inline-block; /*! box-sizing: border-box; */
+    display: inline-block; 
     min-height: 37vw;
     max-height: 38vw;
     min-width: 40vw;
+}
+
+#empty{
+    padding-top: 15vh;
+    display: flex;
+}
+#noVotes{
+    display: flex-item;
+    padding-top: 10vh;
+    padding-inline: 10vw;
+    text-align: start;
+}
+
+#emptyIcon{ 
+    display: flex-item;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+#italic{
+    font-style: italic;
 }
