@@ -73,13 +73,48 @@ function Live(props) {
               {livePoll.title}
             </Card.Title>
             <hr />
-            <Card.Text>
-                With supporting text below as a natural lead-in to additional
-                content.
+            <Card.Text className="row">
+              
+              {livePoll.maxPercent===0?<h5>
+                Poll does not have any votes yet.
+              </h5>:
+              <div className="col-4">
+                {livePoll.maxPollOptions.map(
+                  (option,index)=>(
+                      <h4 key={index} className="card-text">{option}</h4>
+                  )
+              )}</div>}
+
+              {livePoll.maxPollOptions.length>1 && livePoll.maxPercent>0 &&
+                <>
+                <div className="col text-center">
+                <h6>are leading with &nbsp; </h6>
+                </div>
+                  <div className="col">
+
+                  <h3>{livePoll.maxPercent}%  </h3>  
+                  of votes.
+                  </div>
+                </>
+              }
+              {livePoll.maxPollOptions.length===1 &&
+                <>
+                  <div className="col text-center">
+                <h6>is leading with &nbsp; </h6>
+                </div>
+                  <div className="col">
+
+                  <h3>{livePoll.maxPercent}%  </h3>  
+                  of votes.
+                  </div>
+                </>
+              }
+
             </Card.Text>
             <div className="row liveBtnGroup">
               <div className = "col share">
-              <Button  id="cardBtn" variant="flat"  onClick={()=>handleClickShare(livePoll)}><img
+              <Button  id="cardBtn" variant="flat"  onClick={()=>handleClickShare(livePoll)}>
+                <img
                 alt="shareIcon"
                 src={shareIcon}
                 id="btnIcon"

@@ -57,10 +57,9 @@ def login():
     selectUserIdPasswordQuery="SELECT user_id,password FROM users_data WHERE email_id = %s;"
     cur.execute(selectUserIdPasswordQuery,(email,))
     result = cur.fetchone()
-    user_id= result[0]
-    password = result[1]
-    print(password)
-    if (password != None):
+    if (result != None):
+        user_id= result[0]
+        password = result[1]
         if(check_password_hash(password,loginData["password"])):
             connection.close()
             return jsonify({"user_id":user_id}),201

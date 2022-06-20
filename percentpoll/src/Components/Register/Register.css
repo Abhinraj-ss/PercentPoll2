@@ -1,14 +1,16 @@
 .modal-content{
-   /* background-color: rgb(31, 31, 31);
-   background-color: #06075ae6;*/
    background-image: linear-gradient(to top, #1f7878 0%, #06085a 100%);
-    color: rgb(88, 187, 154);
+    color: white;
     border-color: #06085a;
     box-shadow: 0 0 5px rgba(127, 255, 212, 0.414);
-}
-.modal-content{
     border-radius: 5px;
 }
 #btnLogin{
     padding-left: 0%;
+}
+.btn-link{
+    color: #06085a;
+}
+.btn-link:hover{
+    color: #191b7e;
 }

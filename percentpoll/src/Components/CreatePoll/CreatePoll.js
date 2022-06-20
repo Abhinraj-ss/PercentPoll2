@@ -4,11 +4,12 @@ import {
   Button,
   Col,
   FormCheck,
-  InputGroup,
   FormControl,
   CloseButton,
   FloatingLabel,
   FormLabel,
+  FormGroup,
+  Form
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import moment from "moment";
@@ -16,6 +17,7 @@ import axios from 'axios'
 
 import "./CreatePoll.css";
 import createIcon from "../images/create.png"
+import loadingIcon from '../images/loading.png'
 
 function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeningTime,mClosingDate,mClosingTime }) {
   const [pollOptionList, setPollOptionList] = useState([
@@ -27,6 +29,8 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
   const [closingDate, setClosingDate] = useState("");
   const [openingTime, setOpeningTime] = useState("");
   const [closingTime, setClosingTime] = useState("");
+  const [validated, setValidated] = useState(false);
+  const [submit,setSubmit] = useState(false)
   const [url,setUrl] = useState(()=>{
     
     if(process.env.NODE_ENV==='production'){
@@ -87,7 +91,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
     setOpeningTime(moment().format("HH:mm:ss"))
   }
   const handleSubmit = async () => {
-   
+    setSubmit(true)
     const pollData = {
       user_id: localStorage.getItem('user_id'),
       Title: title,
@@ -106,6 +110,21 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
     })  
     closeCreatePoll(false);
   };
+
+
+  const handleValidate =(event) =>{
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    else{
+      event.preventDefault();
+      event.stopPropagation();
+      handleSubmit()
+    }
+    setValidated(true);
+  }
   return (
     <>
       <Modal show={show} fullscreen={show} onHide={setShow} backdrop="static" keyboard={false}>
@@ -119,21 +138,27 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               />CREATE POLL</Modal.Title>
           <CloseButton onClick={handleClose} className="btn-close-white" />
         </Modal.Header>
+        <Form noValidate validated={validated} onSubmit={handleValidate}>
         <Modal.Body className="m-3">
-          <div className="form-group">
             <div className="mb-4 ">
-              <FloatingLabel controlId="floatingInputGrid" label="Title Text">
-                <FormControl
-                  required=""
-                  placeholder="Enter title text"
-                  type="text"
-                  defaultValue={title}
-                  onChange={(e) => {
-                    handleTitleChange(e);
-                  }}
-                  autoFocus
-                />
-              </FloatingLabel>
+              <FormGroup>
+                <FloatingLabel controlId="floatingInputGrid" label="Title Text">
+                  <FormControl
+                    placeholder="Enter title text"
+                    type="text"
+                    defaultValue={title}
+                    onChange={(e) => {
+                      handleTitleChange(e);
+                    }}
+                    autoFocus
+                    required
+                  />
+                <Form.Control.Feedback type="invalid">
+                Title is a required field.
+              </Form.Control.Feedback>
+                </FloatingLabel>
+              </FormGroup>
+              
             </div>
             <div className="row">
               <div className="col">
@@ -146,7 +171,6 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                       controlId="floatingInputGrid"
                       label={index+1}>
                         <FormControl
-                        required=""
                         placeholder="Poll Option"
                         name="pollOption"
                         type="text"
@@ -154,7 +178,11 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                         onChange={(e) => {
                           handlePollOptionChange(e, index);
                         }}
+                        required
                       />
+                      <Form.Control.Feedback type="invalid">
+                        Poll option is a required field.
+                      </Form.Control.Feedback>
                     </FloatingLabel>
                   </div>
                       
@@ -187,7 +215,7 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
             ))}
               </div>
               <div className="col">
-              <div className="form-group">
+              <FormGroup>
               <FormLabel className="form-label me-3">Opens On </FormLabel>
               <FormCheck 
                 type="switch"
@@ -195,45 +223,68 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
                 onChange={handleClickswitch}
                 label="Open Now"
               />
+              </FormGroup>
+              <FormGroup>
               <FloatingLabel controlId="floatingInputGrid" label="Opening Date">
                 <FormControl
-                  required=""
                   type="date"
                   placeholder="Opening time"
                   value={openingDate}
                   onChange={(e) => setOpeningDate(e.target.value)}
+                  required
                 />
+                <Form.Control.Feedback type="invalid">
+                Opening date is a required field.
+              </Form.Control.Feedback>
               </FloatingLabel>
+              </FormGroup>
+              <FormGroup>
               <FloatingLabel controlId="floatingInputGrid" label="Opening Time">
                 <FormControl
                   type="time"
                   defaultValue={openingTime}
                   onChange={(e) => setOpeningTime(e.target.value)}
+                  required
                 />
+                <Form.Control.Feedback type="invalid">
+                Opening time is a required field.
+              </Form.Control.Feedback>
               </FloatingLabel>
-            </div>
+              </FormGroup>
+              
             <div className="mb-3">
+              <FormGroup>
               <FormLabel className="form-label me-3">Closes On </FormLabel>
               <FloatingLabel controlId="floatingInputGrid" label="Closing Date">
                 <FormControl
-                  required=""
                   type="date"
                   defaultValue={closingDate}
                   placeholder="Closing Date"
                   onChange={(e) => setClosingDate(e.target.value)}
+                  required
                 />
+                <Form.Control.Feedback type="invalid">
+                Closing date is a required field.
+              </Form.Control.Feedback>
               </FloatingLabel>
+              </FormGroup>
+              <FormGroup>
               <FloatingLabel controlId="floatingInputGrid" label="ClosingTime">
                 <FormControl
                   type="time"
                   defaultValue={closingTime}
                   onChange={(e) => setClosingTime(e.target.value)}
+                  required
                 />
+                <Form.Control.Feedback type="invalid">
+                Closing time is a required field.
+              </Form.Control.Feedback>
               </FloatingLabel>
+              </FormGroup>
+              
             </div>
             </div>
            </div>
-          </div>
         </Modal.Body>
         <Modal.Footer>
         <div className="d-grid col-3 mb-1" 
@@ -242,13 +293,22 @@ function CreatePoll({ closeCreatePoll,mTitle,mPollOptionList,mOpeningDate,mOpeni
               type="submit"
               variant="success"
               className="btn-lg"
-              onClick={handleSubmit}
-            >
+            > {
+              submit &&
+              <img
+              alt="loading"
+              src={loadingIcon}
+              id="loadingIcon"
+              className="d-inline-block"
+            />
+            }
               Create
             </Button>
             
           </div>
         </Modal.Footer>
+
+        </Form>
       </Modal>
     </>
   );

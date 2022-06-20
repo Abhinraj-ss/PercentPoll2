@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,33 +8,25 @@ import LogIn from "../LogIn/LogIn";
 import Register from "../Register/Register";
 import './Navbar.css'
 
-class NavBar extends Component {
-  state = {
-    logInModal: false,
-    registerModal: false,
-    isLoggedIn:localStorage.getItem('isLoggedIn')
-  };
+function NavBar() {
+  const [showLogIn,setShowLogIn]= useState(false)
+  const[showRegister,setShowRegister]= useState(false)
+  const[isLoggedIn,setIsLoggedIn]=useState(localStorage.getItem('isLoggedIn'))
 
-  handleLoginModalOpen = () => {
-    this.setState((prevState) => {
-      return {
-        logInModal: !prevState.logInModal,
-        isLoggedIn:localStorage.getItem('isLoggedIn')
-      };
-    });
-  };
 
-  handleRegisterModalOpen = () => {
-    this.setState((prevState) => {
-      return {
-        registerModal: !prevState.registerModal,
-      };
-    });
-  };
-  
-  render() {
-    return (
-      <div id="navbar">
+  const handleLoginModalOpen =()=>{
+    setShowLogIn(!showLogIn)
+    setIsLoggedIn(localStorage.getItem('isLoggedIn'))
+  }
+
+  const  handleRegisterModalOpen =() =>{
+    setShowRegister(!showRegister)
+  }
+  setTimeout(()=>setIsLoggedIn(localStorage.getItem('isLoggedIn')),2000)
+  return (
+    <div id="navbar">
+      {showLogIn&&<LogIn show={showLogIn} handleModalOpen={handleLoginModalOpen} handleRegisterModalOpen ={handleRegisterModalOpen}/>}
+      {showRegister&&<Register show={showRegister} handleModalOpen={handleRegisterModalOpen} handleLoginModalOpen ={handleLoginModalOpen}/>}
         <Navbar
           collapseOnSelect
           expand="lg"
@@ -56,18 +48,18 @@ class NavBar extends Component {
             <Navbar.Collapse id="responsive-navbar-nav">
             
               <Nav className="ms-auto">
-              {!this.state.isLoggedIn && 
+              {!isLoggedIn && 
               <>
-                <Nav.Link onClick={this.handleLoginModalOpen} name="login">
+                <Nav.Link onClick={handleLoginModalOpen} name="login">
                   LogIn
                 </Nav.Link>
-                <Nav.Link onClick={this.handleRegisterModalOpen} name="register">
+                <Nav.Link onClick={handleRegisterModalOpen} name="register">
                   Register
                 </Nav.Link>
               </>
              
               }
-              {this.state.isLoggedIn==='true' &&
+              {isLoggedIn==='true' &&
                 <Nav.Link eventKey={2} onClick={()=>{
                   localStorage.removeItem('isLoggedIn')
                   localStorage.removeItem('user_id')
@@ -79,19 +71,9 @@ class NavBar extends Component {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <LogIn
-          modalOpen={this.state.logInModal}
-          handleModalOpen={this.handleLoginModalOpen}
-          handleRegisterModalOpen ={this.handleRegisterModalOpen}
-        />
-        <Register
-          modalOpen={this.state.registerModal}
-          handleModalOpen={this.handleRegisterModalOpen}
-          handleLoginModalOpen ={this.handleLoginModalOpen}
-        />
+        
       </div>
-    );
-  }
+  )
 }
 
 export default NavBar;

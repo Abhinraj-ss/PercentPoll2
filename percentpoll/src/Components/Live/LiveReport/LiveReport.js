@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {  Modal ,Button} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import DoughnutChart from '../../DoughnutChart';
 import liveIcon from '../../images/radio_aqua.png'
@@ -38,7 +37,7 @@ function LiveReport(props) {
         </Modal.Header>
         <Modal.Body>
         <div className="container">
-          {props.livePoll.poll_count==0?
+          {props.livePoll.poll_count===0?
           <>
             <div className="row" id="empty">
               <img
@@ -60,7 +59,7 @@ function LiveReport(props) {
             </div>
           </>:
           <>
-          <div className="chart">
+          <div className="chart" style={{width:'100%',height:'70vh'}}>
             <DoughnutChart poll={props.livePoll}/>
           </div>
           <h3>Total votes : {props.livePoll.poll_count}</h3>

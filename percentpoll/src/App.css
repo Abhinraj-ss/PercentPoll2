@@ -3,11 +3,11 @@
   text-align: center;
   width: 100%;
   margin: 0;
-  background-image: url('./Components/images/bgApp.png'); 
+  /*background-image: url('./Components/images/bgApp.png'); 
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-position: center ;
-  background-size: cover;
+  background-size: cover;*/
   display: flex;
   flex-direction: column;
 
@@ -41,6 +41,9 @@
 .nav-tabs{
   padding-bottom: 0.3%;
   box-shadow: 0 0 20px #06085a;
+  top: 2vh;
+  position: sticky;
+  z-index: 1;
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
@@ -102,4 +105,7 @@
 #tabIcon{
   height: 1.5em;
   width: 1.5em;
+}
+.tab-content{
+  z-index: 0;
 }

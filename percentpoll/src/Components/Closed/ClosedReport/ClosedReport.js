@@ -1,6 +1,5 @@
 import React from 'react'
 import {  Modal } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import DoughnutChart from '../../DoughnutChart';
 import './ClosedReport.css'
@@ -30,7 +29,7 @@ function ClosedReport(props) {
         </Modal.Header>
         <Modal.Body>
           <div className="container">
-          {props.closedPoll.poll_count==0?
+          {props.closedPoll.poll_count===0?
           <>
           <div className="row" id="empty">
           <img
@@ -48,7 +47,7 @@ function ClosedReport(props) {
           :
           <>
             <div className="chart">
-              <DoughnutChart id="chart"  poll={props.closedPoll}/>
+              <DoughnutChart poll={props.closedPoll}/>
             </div>
             <h3>Total votes : {props.closedPoll.poll_count}</h3>
             </>

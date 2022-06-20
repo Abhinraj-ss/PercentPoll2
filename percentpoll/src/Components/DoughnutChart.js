@@ -14,8 +14,10 @@ function Donutchart(props) {
   
 
   const options = {
+    maintainAspectRatio:false,
+    responsive:true,
     layout:{
-      padding:0
+      autoPadding:true
     },
     elements: {
         arc: {
@@ -27,16 +29,11 @@ function Donutchart(props) {
       plugins: {
         legend: {
           display:true,
-          position: 'left',
-          align: 'center',
-          maxWidth:400,
-          maxHeight:70,
+          position:'top',
+          align: 'start',
           labels:{
-            boxWidth:180,
-            boxHeight:25,
-            padding:40,
             font: {
-              size: 22  
+              size: 15   
           }
           }
         }
@@ -55,9 +52,7 @@ function Donutchart(props) {
   }
   console.log(data)
   return (
-      <div>
         <Doughnut  data={data} options={options} />
-      </div>
     
   )
 }

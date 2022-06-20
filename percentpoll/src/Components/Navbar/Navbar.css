@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 #navbar{
   background-color: #06085a;
+  min-height: 8vh;
 }
 
 
@@ -13,4 +14,8 @@
 .navbar-brand{
   font-family: 'Comfortaa', cursive;
   font-size: 1.5rem;
+}
+
+.navbar-dark .navbar-toggler{
+  border: aquamarine solid 1px;
 }
