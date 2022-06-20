@@ -13,8 +13,6 @@ function Live(props) {
   const [showReport,setShowReport] = useState(false)
   const [showShare,setShowShare] = useState(false)
   const [livePoll, setLivePoll] = useState([])
-  const [pollId,setPollId] = useState()
-  const [title,setTitle] =useState()
 
   
   
@@ -78,7 +76,7 @@ function Live(props) {
               {livePoll.maxPercent===0?<h5>
                 Poll does not have any votes yet.
               </h5>:
-              <div className="col-4">
+              <div className="col-4  my-auto">
                 {livePoll.maxPollOptions.map(
                   (option,index)=>(
                       <h4 key={index} className="card-text">{option}</h4>
@@ -87,7 +85,7 @@ function Live(props) {
 
               {livePoll.maxPollOptions.length>1 && livePoll.maxPercent>0 &&
                 <>
-                <div className="col text-center">
+                <div className="col my-auto text-center">
                 <h6>are leading with &nbsp; </h6>
                 </div>
                   <div className="col">
@@ -99,7 +97,7 @@ function Live(props) {
               }
               {livePoll.maxPollOptions.length===1 &&
                 <>
-                  <div className="col text-center">
+                  <div className="col my-auto text-center">
                 <h6>is leading with &nbsp; </h6>
                 </div>
                   <div className="col">

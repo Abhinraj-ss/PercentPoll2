@@ -62,7 +62,7 @@ function App() {
     });
   }
 
-  setTimeout(()=> setGetApi(!getApi),10000)
+  setTimeout(()=> setGetApi(!getApi),5000)
 
   useEffect(() => {
     console.log(userId)

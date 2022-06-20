@@ -1,4 +1,3 @@
-from multiprocessing import connection
 from flask import Flask, jsonify, request
 import mysql.connector
 import datetime
@@ -78,7 +77,8 @@ def createPoll():
     dataPollsInfo = (pollData['user_id'],pollData['Title'],pollData['openingDate'],pollData['openingTime'],pollData['closingDate'],pollData['closingTime'])
     openingDateTime =  datetime.datetime.fromisoformat(pollData['openingDate']+" "+pollData['openingTime'])
     closingDateTime = datetime.datetime.fromisoformat(pollData['closingDate']+ " "+pollData['closingTime'])
-    print(dataPollsInfo)
+    print(openingDateTime,dateTimeNow)
+
     if(openingDateTime>dateTimeNow):
         insertQueryUpcomingPollsInfo = '''INSERT INTO upcoming_polls_info(user_id,title ,open_date,open_time,close_date, close_time) VALUES(%s,%s,%s,%s,%s,%s);'''
         cur.execute(insertQueryUpcomingPollsInfo,dataPollsInfo)
@@ -274,11 +274,15 @@ def livePolls(user_id,dateTimeNow,connection):
                         count=pollOption['option_count']
                         if count >= maxCount:
                             maxCount =pollOption['option_count']
+                    for pollOption in json.loads(pollOptions):
+                        if pollOption['option_count'] == maxCount:
                             maxPollOptions.append(pollOption['poll_option'])
                     
                     maxPercent =math.ceil(maxCount*100/obj['poll_count']) if (obj['poll_count']!=0) else 0
                     liveList[index]['maxPercent'] = maxPercent
                     liveList[index]['maxPollOptions'] = maxPollOptions
+
+
                 index+=1
             #print(liveList) 
         return liveList
@@ -308,7 +312,9 @@ def closedPolls(user_id,connection):
                 for pollOption in json.loads(pollOptions):
                     count=pollOption['option_count']
                     if count >= maxCount:
-                        maxCount =count
+                        maxCount =pollOption['option_count']
+                for pollOption in json.loads(pollOptions):
+                    if pollOption['option_count'] == maxCount:
                         maxPollOptions.append(pollOption['poll_option'])
                 maxPercent =math.ceil(maxCount*100/obj['poll_count']) if (obj['poll_count']!=0) else 0
                 closedList[index]['maxPercent'] = maxPercent

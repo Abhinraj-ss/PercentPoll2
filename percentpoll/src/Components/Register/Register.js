@@ -86,7 +86,7 @@ function Register(props) {
         keyboard={false}
       >
         <Modal.Header>
-          <Modal.Title h4>REGISTER</Modal.Title>
+          <Modal.Title>REGISTER</Modal.Title>
           <CloseButton
             name="closeRegister"
             className="btn-close-white"

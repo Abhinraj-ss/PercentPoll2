@@ -1,7 +1,6 @@
 import React,{ useState} from 'react';
 import { Button, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import moment from "moment";
 
 
 import './Closed.css'
@@ -12,7 +11,7 @@ import reportIcon from "../images/finalReport.png"
 function Closed(props) {
     const [show,setShow] = useState(false)
     const [closedPoll, setClosedPoll] = useState()
-
+    const now =new Date()
     const handleClickReport = (closedPoll) =>{
         setClosedPoll(closedPoll)
         setShow(!show)
@@ -21,7 +20,7 @@ function Closed(props) {
 
     const setTimeGap = (closedPoll) =>{
         const date1 = new Date(closedPoll.close_date);
-        const date2 = new Date(moment().format("YYYY-MM-DD"));
+        const date2 = new Date(now);
         const diffTime = Math.abs(date2 - date1);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         return diffDays
