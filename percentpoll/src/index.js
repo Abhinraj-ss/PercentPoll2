@@ -8,6 +8,7 @@ import {
 import './index.css';
 import App from './App';
 import Vote from './Components/Vote/Vote';
+import PageNotFound from './Components/PageNotFound/PageNotFound';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,6 +18,7 @@ root.render(
       <Routes>
         <Route exact path="/" element={<App />} />
         <Route path="/vote/:pollId" element={<Vote/>} />
+        <Route path="*" element={<PageNotFound/>} />
       </Routes>
     </BrowserRouter>
     <div className='footer'>

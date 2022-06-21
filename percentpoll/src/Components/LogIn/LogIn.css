@@ -1,12 +1,8 @@
 .alert{
     width: 100%;
     font-size: medium;
-    padding-top: 2%;
     max-height: 3rem;
     border-width: 0.1rem;
-}
-.alert-dismissible .btn-close{
-    padding-block: 3%;
 }
 #btnRegister{
     padding-left: 0%;

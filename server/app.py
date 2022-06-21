@@ -171,6 +171,9 @@ def vote(pollId):
     print('pollId',pollId)
     if (request.method == 'GET'):
         voteData = {}
+        getUserIdQuery='''SELECT user_id FROM live_polls_info WHERE poll_id = %s'''
+        cur.execute(getUserIdQuery,(pollId,))
+        userId = cur.fetchone()[0]
         getTitleQuery='''SELECT title FROM live_polls_info WHERE poll_id = %s'''
         cur.execute(getTitleQuery,(pollId,))
         title = cur.fetchone()[0]
@@ -178,6 +181,7 @@ def vote(pollId):
         cur.execute(getPollOptionsQuery,(pollId,))
         pollOptions = cur.fetchone()[0]
         print(pollOptions)
+        voteData['user_id'] =userId
         voteData['title'] = title
         voteData['pollOptions'] = json.loads(pollOptions)
         #print('voteData',voteData)

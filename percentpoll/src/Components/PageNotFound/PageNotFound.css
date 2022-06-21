@@ -1,0 +1,28 @@
+#pageNotFound{
+    min-height: 92vh;
+
+}
+#pageNotFound > div>span{
+    font-family: 'Comfortaa', cursive;
+    color: white;
+    font-size: 2.5em;
+    display: block;
+    position: absolute;
+    top: 70%;
+    text-shadow: 0 0 20px #000;
+    width: 100%;
+}
+#pageNotFound > div>img{
+    padding-block-end: 10%;
+}
+#pageNotFound > div>button{
+    font-family: 'Comfortaa', cursive;
+    color: white;
+    display: block;
+    top: 80%;
+    position: absolute;
+    text-shadow: 0 0 20px #000; 
+    min-width: 40%;
+    
+    margin-inline: 30vw;
+}
