@@ -28,3 +28,8 @@
         transform:rotate(360deg); 
     } 
 }
+.btnCopy{
+    padding: 1.5%;
+    width: fit-content;
+    height: fit-content;
+}

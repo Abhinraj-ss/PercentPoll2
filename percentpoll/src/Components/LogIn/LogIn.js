@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import {
   Button,
   Modal,
@@ -12,6 +12,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./LogIn.css";
 import loadingIcon from "../images/loading.png";
+import {FaRegClipboard, FaCheck} from 'react-icons/fa'
 
 function LogIn(props) {
   const [email, setEmail] = useState("");
@@ -19,19 +20,20 @@ function LogIn(props) {
   const [show, setShow] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [validated, setValidated] = useState(false);
+  const urlRef = useRef(null);
+  const [copyUser,setCopyUser] = useState(true)
+  const [copyPass,setCopyPass] = useState(true)
   const [url, setUrl] = useState(() => {
     if (process.env.NODE_ENV === "production") {
       return "https://percentpoll2.herokuapp.com";
     } else if (process.env.NODE_ENV === "development")
       return "http://localhost:5000";
   });
-
+  const demoUser = "abc@g"
+  const demoPass = "abc"
   console.log(email, password);
 
   const handleSubmit = async () => {
-
-    
-
     setSubmit(true);
     var userData = {
       email: email,
@@ -78,8 +80,12 @@ function LogIn(props) {
     props.handleRegisterModalOpen();
     props.handleModalOpen();
   };
+  function copyToClipboard(copyText) {
+    navigator.clipboard.writeText(copyText)
+  };
   return (
     <>
+      
       <Modal
         show={props.show}
         onHide={props.handleModalOpen}
@@ -104,6 +110,47 @@ function LogIn(props) {
           >
             <h6>User does not exists!</h6>
           </Alert>
+          <p> For demo purpose, Use the following credentials.</p>
+          <div className="row">
+        
+      {
+        navigator.clipboard &&
+        <>
+        <div className="d-flex mx-1">
+        <Form   className='col-11'>
+        <FormControl
+          ref={urlRef}
+          value={"Email Adress: "+demoUser}
+          style={{color:"black"}}
+          readOnly
+        />
+
+      </Form>
+      <Button onClick={()=>{copyToClipboard(demoUser)
+                            setCopyUser(false)}} variant='success' className=' col-3 btnCopy'>
+      {copyUser ? <FaRegClipboard/>: <FaCheck/>}
+      </Button>  
+        </div>
+        <div className="d-flex mx-1">
+        <Form   className='col-11'>
+        <FormControl
+          ref={urlRef}
+          value={"Password: "+demoPass}
+          style={{color:"black"}}
+          readOnly
+        />
+
+      </Form>
+      <Button onClick={()=>{copyToClipboard(demoPass)
+                            setCopyPass(false)}} variant='success' className=' col-3 btnCopy'>
+      {copyPass ? <FaRegClipboard/>: <FaCheck/>}
+      </Button>  
+        </div>
+        </>
+        
+      }
+      
+    </div>
           <Form noValidate validated={validated} onSubmit={handleValidate}>
             <FormGroup >
               <FormLabel>Email address</FormLabel>

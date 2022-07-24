@@ -20,7 +20,6 @@ import upcomingIcon from './Components/images/upcoming.png'
 import liveIcon from './Components/images/poll.png'
 import closedIcon from './Components/images/closed.png'
 
-
 function App() {
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
@@ -116,13 +115,14 @@ function App() {
             <Closed noPolls={noPolls} isOpenLogin={isOpenLogin} closedPolls={closedPolls}/>
 
           </Tab>
-        </Tabs>
-
+        </Tabs> 
         {isOpenLogin && (
-          <LogIn
-            closeLogin={() => {
-              setIsOpenLogin(false)}}
-          />
+          
+            <LogIn
+              closeLogin={() => {
+                setIsOpenLogin(false)}}
+            />
+          
         )}
         {isOpenRegister && (
           <Register

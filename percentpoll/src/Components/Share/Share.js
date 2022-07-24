@@ -2,7 +2,6 @@ import React, { useState,useRef } from "react";
 import { Modal,Button, Form, FormControl } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-    EmailShareButton,
     FacebookShareButton,
     LinkedinShareButton,
     TelegramShareButton,
@@ -21,7 +20,6 @@ import {
 import "./Share.css"
 import shareIcon from '../images/share_aqua.png'
 import linkIcon from '../images/link.png'
-import gmailIcon from '../images/gmail.png'
 import tickIcon from '../images/tick.png'
 
 function Share(props) {
